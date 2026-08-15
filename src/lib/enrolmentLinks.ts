@@ -9,29 +9,27 @@
  *                 IBAN, DNI and medical information, which is exactly why it
  *                 must NOT be the link handed out publicly.
  *
- * DO NOT switch this to the shorter `tyneside-crm-five.vercel.app`.
+ * `tyneside-crm.vercel.app` was claimed on 2026-08-15 and verified the same day:
+ * 200 to plain curl, to a full Chrome User-Agent, and - the part that matters
+ * for links shared by WhatsApp - to WhatsApp's link-preview crawler. It serves
+ * a byte-identical build to the project domain.
  *
- * That domain is assigned to the project and loads fine in a browser, but it
- * sits behind Vercel's "Security Checkpoint" bot challenge and answers 403 to
- * anything that does not execute JavaScript. Measured 2026-08-15: 403 to plain
- * curl, 403 with a full Chrome User-Agent, and - the part that matters here -
- * 403 to WhatsApp's link-preview crawler, while this domain returned 200 to all
- * three. A link with no preview card that opens on a security interstitial reads
- * as a scam to a parent.
+ * DO NOT use `tyneside-crm-five.vercel.app`. It is still attached to the project
+ * but sits behind Vercel's "Security Checkpoint" bot challenge and answers 403
+ * to anything that does not execute JavaScript - including link crawlers. A URL
+ * with no preview card that opens on a security interstitial reads as a scam to
+ * a parent, which is the opposite of what an enrolment link must do.
  *
- * This is also the real explanation for the "ssoProtection is flapping" note in
- * earlier handoffs. It was never SSO: the Vercel API reports every form of
- * deployment protection disabled for this project. It is the bot challenge, and
- * it applies to that one domain rather than to the project.
+ * That challenge is also the real explanation for the "ssoProtection is
+ * flapping" note in earlier handoffs. It was never SSO: the Vercel API reports
+ * every form of deployment protection disabled for this project.
  *
- * ⚠️ Replace with the real domain when tynesideacademy.com is live -
- * `crm.tynesideacademy.com/preinscripcion` is what should actually be shared
- * with families, and a custom domain sidesteps the challenge entirely.
- * Set VITE_CRM_BASE_URL and everything here follows.
+ * When tynesideacademy.com is live, `crm.tynesideacademy.com` is shorter still
+ * and worth moving to. Set VITE_CRM_BASE_URL and everything here follows.
  */
 const CRM_BASE =
   (import.meta.env.VITE_CRM_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
-  'https://tyneside-crm-btloban93-5646s-projects.vercel.app';
+  'https://tyneside-crm.vercel.app';
 
 /** Public "reserve a place" form. This is the link to share. */
 export const PRE_ENROLMENT_URL = `${CRM_BASE}/preinscripcion`;

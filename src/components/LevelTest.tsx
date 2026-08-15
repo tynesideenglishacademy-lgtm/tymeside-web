@@ -301,24 +301,34 @@ export default function LevelTest() {
     const results = { cefr: finalCEFR, desc: finalDesc, score: finalScore };
     setFinalResults(results);
 
-    try {
-      // 1. Send to CRM (Supabase)
-      if (isSupabaseConfigured) {
-        await supabase.from('leads').insert([{
+    // The CRM save and the notification email are independent. They used to sit
+    // in one try block with the Supabase insert first, so when RLS rejected that
+    // insert the throw skipped the FormSubmit call entirely - every completed
+    // test was lost twice over while the visitor was shown a success message.
+    let savedToCrm = false;
+
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase.from('leads').insert([{
           name: student.name,
           email: student.email,
           phone: student.phone,
           status: 'Active Lead',
           notes: `CEFR Level: ${finalCEFR} (Score: ${finalScore}). Correct: ${finalTotalCorrect}/50. Address: ${student.address}, ${student.postal}`
         }]);
+        if (error) throw error;
+        savedToCrm = true;
+      } catch (err) {
+        console.error('Could not save lead to CRM:', err);
       }
+    }
 
-      // 2. FormSubmit Email
+    try {
       const formSubmitEndpoint = `https://formsubmit.co/ajax/${ACADEMY_CONFIG.admissionsEmail}`;
       const payload = {
         _subject: `Placement Test Result: ${student.name} [Level: ${finalCEFR}]`,
         _replyto: student.email,
-        _captcha: "false", 
+        _captcha: "false",
         _template: "table",
         "Student Name": student.name,
         "Email Address": student.email,
@@ -327,20 +337,19 @@ export default function LevelTest() {
         "Assessed CEFR Level": finalCEFR,
         "Cambridge Scale Score": finalScore,
         "Test Date": student.date,
-        "Correct Answers": `${finalTotalCorrect} out of 50`
+        "Correct Answers": `${finalTotalCorrect} out of 50`,
+        "Saved to CRM": savedToCrm ? "yes" : "NO - add this lead manually"
       };
-
       await fetch(formSubmitEndpoint, {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
-      }).catch(() => {});
-      
-      setEmailStatus(t('levelTest.email_saved'));
+      });
     } catch (err) {
-      console.error(err);
-      setEmailStatus(t('levelTest.email_completed'));
+      console.error('Could not send the placement-test notification email:', err);
     }
+
+    setEmailStatus(savedToCrm ? t('levelTest.email_saved') : t('levelTest.email_completed'));
 
     setTimeout(() => {
       setIsLoading(false);

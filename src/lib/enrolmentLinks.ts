@@ -43,6 +43,20 @@ export const FULL_ENROLMENT_URL = `${CRM_BASE}/enroll`;
 export const PARENT_PORTAL_URL = `${CRM_BASE}/parent-portal`;
 
 /**
+ * The multi-level placement test. It lives on this website rather than in the
+ * CRM, so it has its own base URL.
+ *
+ * `tyneside-web.vercel.app` is clean and short and - unlike the CRM's
+ * `-five` domain - returns 200 to plain curl, to a Chrome User-Agent and to
+ * WhatsApp's link-preview crawler, all verified 2026-08-15. Safe to share.
+ */
+const WEB_BASE =
+  (import.meta.env.VITE_WEB_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
+  'https://tyneside-web.vercel.app';
+
+export const LEVEL_TEST_URL = `${WEB_BASE}/level-test`;
+
+/**
  * A wa.me link that opens WhatsApp with the pre-enrolment link pre-typed, so
  * reception can forward it in one tap rather than copying a URL by hand.
  */
@@ -50,3 +64,19 @@ export const whatsappPreEnrolment = (phone = '34605661212') =>
   `https://wa.me/${phone}?text=${encodeURIComponent(
     `Hola, puede reservar su plaza para el curso 2026/27 aquí: ${PRE_ENROLMENT_URL}`
   )}`;
+
+/**
+ * The three links reception actually sends out, with the message already
+ * written. `wa.me/?text=` with no number opens WhatsApp's contact picker, so one
+ * tap sends it to whoever you choose - which is how these are used in practice,
+ * rather than to a fixed number.
+ */
+export const WHATSAPP_MESSAGES = {
+  levelTest: `¡Hola! Puedes descubrir tu nivel de inglés con nuestro test gratuito (10 minutos) y recibirás tu certificado con la puntuación de la escala de Cambridge: ${LEVEL_TEST_URL}`,
+  preEnrolment: `¡Hola! Puedes reservar tu plaza para el curso 2026/27 rellenando la prematrícula aquí: ${PRE_ENROLMENT_URL}`,
+  fullEnrolment: `¡Hola! Aquí tienes la hoja de matrícula para completar tu inscripción: ${FULL_ENROLMENT_URL}`,
+} as const;
+
+/** Opens WhatsApp's contact picker with the chosen message ready to send. */
+export const whatsappShare = (which: keyof typeof WHATSAPP_MESSAGES) =>
+  `https://wa.me/?text=${encodeURIComponent(WHATSAPP_MESSAGES[which])}`;

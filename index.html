@@ -1,10 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tyneside-web</title>
+
+    <!--
+      The title was literally "tyneside-web" - the Vercel project name - and
+      there were no Open Graph tags at all. These links are shared by WhatsApp,
+      where the preview card is built from exactly these tags: a card reading
+      "tyneside-web" with no description and no image is what a scam link looks
+      like, which is the opposite of what a placement-test or enrolment link
+      needs to do.
+
+      This is a single-page app, so every route serves this one file and shares
+      these tags. The copy is therefore written to be true of the site as a
+      whole rather than of any one page. Per-route cards would need prerendering
+      or SSR, which is a much larger change than it is worth right now.
+    -->
+    <title>Tyneside English Academy — Academia de inglés en Murcia</title>
+    <meta name="description" content="Academia de inglés en Murcia. Preparación Cambridge y Aptis, clases para niños, adolescentes y adultos. Descubre tu nivel con nuestro test gratuito." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tyneside English Academy" />
+    <meta property="og:title" content="Tyneside English Academy — Test de nivel gratuito" />
+    <meta property="og:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge. Preparación Cambridge y Aptis en Murcia." />
+    <meta property="og:image" content="https://tyneside-web.vercel.app/banner1.png" />
+    <meta property="og:url" content="https://tyneside-web.vercel.app/" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tyneside English Academy — Test de nivel gratuito" />
+    <meta name="twitter:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge." />
+    <meta name="twitter:image" content="https://tyneside-web.vercel.app/banner1.png" />
+
+    <meta name="theme-color" content="#0D1B2A" />
   </head>
   <body>
     <div id="root"></div>

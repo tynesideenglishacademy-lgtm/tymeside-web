@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
@@ -580,11 +581,29 @@ export default function LevelTest() {
               </div>
 
               <div style={{ maxWidth: '400px', margin: '1.5rem auto 0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {/* The test used to end here, with a certificate download and
+                    nothing else. Someone who has just been told their level and
+                    which course suits them is as warm as a lead gets, and the
+                    page gave them nowhere to go. */}
+                <a
+                  href={PRE_ENROLMENT_URL}
+                  className="lt-btn"
+                  style={{
+                    marginTop: 0,
+                    textDecoration: 'none',
+                    background: 'linear-gradient(90deg, #D4AF37, #F3E5AB)',
+                    color: 'var(--color-deep-navy)'
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                  {t('levelTest.reserve_place', { defaultValue: 'Reservar mi plaza' })}
+                </a>
+
                 <button onClick={downloadCertificate} className="lt-btn" style={{ marginTop: 0 }}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                   {t('levelTest.download_cert')}
                 </button>
-                
+
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-river-teal)' }}>
                    {emailStatus}
                 </div>

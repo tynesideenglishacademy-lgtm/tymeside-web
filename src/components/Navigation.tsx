@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 
 const Navigation = () => {
   const { t, i18n } = useTranslation();
@@ -34,6 +35,11 @@ const Navigation = () => {
             🌐 {currentLangDisplay}
           </button>
 
+          {/* Pre-enrolment, not the full form: the full one asks for IBAN, DNI
+              and medical data and must not be the public link. */}
+          <a href={PRE_ENROLMENT_URL} className="navbar-link" style={{ fontWeight: 700 }}>
+            {t('nav.preenrol', { defaultValue: 'Matrícula' })}
+          </a>
           <Link to="/level-test" className="btn-gold" style={{ padding: '0.55rem 1.4rem', fontSize: '0.9rem' }}>
             {t('nav.enroll')}
           </Link>
@@ -73,6 +79,9 @@ const Navigation = () => {
           <a href="/#exam-prep" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.contact')}</a>
+          <a href={PRE_ENROLMENT_URL} onClick={() => setMobileMenuOpen(false)} className="navbar-link" style={{ fontWeight: 700 }}>
+            {t('nav.preenrol', { defaultValue: 'Matrícula' })}
+          </a>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
             <button onClick={toggleLanguage} className="navbar-lang-btn">
               🌐 {currentLangDisplay}

@@ -468,24 +468,24 @@ export default function LevelTest() {
               <form onSubmit={handleRegistration}>
                 <div className="lt-grid-2">
                   <div>
-                    <label className="lt-label">{t('levelTest.form_name')}</label>
-                    <input type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
+                    <label htmlFor="lt-name" className="lt-label">{t('levelTest.form_name')}</label>
+                    <input type="text" id="lt-name" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_email')}</label>
-                    <input type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
+                    <label htmlFor="lt-email" className="lt-label">{t('levelTest.form_email')}</label>
+                    <input type="email" id="lt-email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_postal')}</label>
-                    <input type="text" name="postal" required placeholder="30006" className="lt-input" />
+                    <label htmlFor="lt-postal" className="lt-label">{t('levelTest.form_postal')}</label>
+                    <input type="text" id="lt-postal" name="postal" required placeholder="30006" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_phone')}</label>
-                    <input type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
+                    <label htmlFor="lt-phone" className="lt-label">{t('levelTest.form_phone')}</label>
+                    <input type="tel" id="lt-phone" name="phone" placeholder="+34 600 000 000" className="lt-input" />
                   </div>
                   <div className="lt-col-span-2">
-                    <label className="lt-label">{t('levelTest.form_address')}</label>
-                    <input type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
+                    <label htmlFor="lt-address" className="lt-label">{t('levelTest.form_address')}</label>
+                    <input type="text" id="lt-address" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
                   </div>
                 </div>
                 <button type="submit" className="lt-btn">

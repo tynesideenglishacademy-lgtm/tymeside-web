@@ -1,0 +1,3 @@
+## 2025-02-27 - Missing Linked Labels on Forms
+**Learning:** The forms across the app frequently use `<label>` elements visually positioned near inputs, but omit the `htmlFor` on the label and `id` on the input required to logically link them. This makes focusing inputs by clicking labels impossible, impacting usability on mobile and for certain assistive technologies.
+**Action:** When building or auditing forms, proactively ensure that all input fields (including selects and textareas) have unique IDs correctly mapped to their corresponding labels via `htmlFor`.

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
@@ -9,7 +10,9 @@ import TripsCamps from './components/TripsCamps'
 import BlogPreview from './components/BlogPreview'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import LevelTest from './components/LevelTest'
+
+// ⚡ Bolt Optimization: Lazy load LevelTest to reduce initial bundle size by splitting out large dependencies like jspdf.
+const LevelTest = lazy(() => import('./components/LevelTest'))
 
 function Home() {
   return (
@@ -32,7 +35,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/level-test" element={<LevelTest />} />
+      <Route path="/level-test" element={
+        <Suspense fallback={<div>Loading...</div>}>
+          <LevelTest />
+        </Suspense>
+      } />
     </Routes>
   )
 }

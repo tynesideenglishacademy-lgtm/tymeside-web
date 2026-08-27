@@ -1,0 +1,3 @@
+## 2024-05-18 - Heavy Dependency Code Splitting
+**Learning:** The `LevelTest` component imports `jspdf`, which is a very large dependency. In Vite/React apps that bundle by default, heavy dependencies like this that are only used on a single route (like `/level-test`) will bloat the main bundle (index.js), penalizing initial load time for all users.
+**Action:** When identifying large frontend bundles (e.g., via `vite build` warnings), always check for route-level components with heavy dependencies and use `React.lazy` with `Suspense` to code-split them, ensuring fast initial loads for the main application routes.

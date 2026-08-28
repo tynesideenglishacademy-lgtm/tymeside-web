@@ -140,8 +140,9 @@ const Contact = () => {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
+                  <label htmlFor="contact_name" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
                   <input
+                    id="contact_name"
                     type="text"
                     name="name"
                     value={formData.name}
@@ -153,8 +154,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
+                  <label htmlFor="contact_phone" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
                   <input
+                    id="contact_phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
@@ -166,8 +168,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
+                  <label htmlFor="contact_email" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
                   <input
+                    id="contact_email"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -179,8 +182,8 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
-                  <select name="course" value={formData.course} onChange={handleChange} className="premium-input">
+                  <label htmlFor="contact_course" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
+                  <select id="contact_course" name="course" value={formData.course} onChange={handleChange} className="premium-input">
                     <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
                     <option value="Cambridge Adolescentes (ESO/Bachillerato)">{t('contact.courses.teens')}</option>

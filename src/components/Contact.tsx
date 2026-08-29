@@ -140,8 +140,9 @@ const Contact = () => {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
+                  <label htmlFor="name" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
                   <input
+                    id="name"
                     type="text"
                     name="name"
                     value={formData.name}
@@ -153,8 +154,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
+                  <label htmlFor="phone" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
                   <input
+                    id="phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
@@ -166,8 +168,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
+                  <label htmlFor="email" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
                   <input
+                    id="email"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -179,8 +182,8 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
-                  <select name="course" value={formData.course} onChange={handleChange} className="premium-input">
+                  <label htmlFor="course" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
+                  <select id="course" name="course" value={formData.course} onChange={handleChange} className="premium-input">
                     <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
                     <option value="Cambridge Adolescentes (ESO/Bachillerato)">{t('contact.courses.teens')}</option>
@@ -193,8 +196,8 @@ const Contact = () => {
 
                 <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', marginTop: '0.5rem' }}>
                   <input
-                    type="checkbox"
                     id="gdpr"
+                    type="checkbox"
                     name="gdpr"
                     checked={formData.gdpr}
                     onChange={handleChange}

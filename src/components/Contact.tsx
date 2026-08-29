@@ -25,22 +25,28 @@ const Contact = () => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.email || !formData.gdpr) return;
 
+    // Security: Validate input length to prevent overly large data insertion (DoS protection)
+    const sanitizedName = formData.name.substring(0, 100);
+    const sanitizedPhone = formData.phone.substring(0, 30);
+    const sanitizedEmail = formData.email.substring(0, 100);
+
     setIsSubmitting(true);
 
     try {
       if (isSupabaseConfigured) {
         await supabase.from('leads').insert([
           {
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email,
+            name: sanitizedName,
+            phone: sanitizedPhone,
+            email: sanitizedEmail,
             course: formData.course,
             created_at: new Date().toISOString()
           }
         ]);
       }
-    } catch (err) {
-      console.warn('Supabase lead capture notice:', err);
+    } catch {
+      // Security: Do not expose raw error details or stack traces to the client console
+      console.warn('Notice: Could not complete lead capture integration.');
     } finally {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -147,6 +153,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    maxLength={100}
                     placeholder={t('contact.form_name')}
                     className="premium-input"
                   />
@@ -160,6 +167,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
+                    maxLength={30}
                     placeholder="+34 600 000 000"
                     className="premium-input"
                   />
@@ -173,6 +181,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    maxLength={100}
                     placeholder="hola@ejemplo.com"
                     className="premium-input"
                   />

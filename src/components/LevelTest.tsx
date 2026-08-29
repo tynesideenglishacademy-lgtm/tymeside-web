@@ -185,12 +185,20 @@ export default function LevelTest() {
   const handleRegistration = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
+
+    // Security: Validate input length to prevent overly large data insertion (DoS protection)
+    const rawName = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
+    const rawEmail = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const rawPostal = (form.elements.namedItem('postal') as HTMLInputElement).value.trim();
+    const rawPhone = (form.elements.namedItem('phone') as HTMLInputElement).value.trim();
+    const rawAddress = (form.elements.namedItem('address') as HTMLInputElement).value.trim();
+
     setStudent({
-      name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
-      email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
-      postal: (form.elements.namedItem('postal') as HTMLInputElement).value.trim(),
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim(),
-      address: (form.elements.namedItem('address') as HTMLInputElement).value.trim(),
+      name: rawName.substring(0, 100),
+      email: rawEmail.substring(0, 100),
+      postal: rawPostal.substring(0, 20),
+      phone: rawPhone.substring(0, 30),
+      address: rawAddress.substring(0, 200),
       date: new Date().toLocaleDateString()
     });
     setView('test');
@@ -319,8 +327,9 @@ export default function LevelTest() {
         }]);
         if (error) throw error;
         savedToCrm = true;
-      } catch (err) {
-        console.error('Could not save lead to CRM:', err);
+      } catch {
+        // Security: Do not expose raw error details to the client console
+        console.error('Notice: Could not complete lead capture integration.');
       }
     }
 
@@ -469,23 +478,23 @@ export default function LevelTest() {
                 <div className="lt-grid-2">
                   <div>
                     <label className="lt-label">{t('levelTest.form_name')}</label>
-                    <input type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
+                    <input type="text" name="name" required maxLength={100} placeholder="Ej. Sara Martínez" className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label">{t('levelTest.form_email')}</label>
-                    <input type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
+                    <input type="email" name="email" required maxLength={100} placeholder="sara@ejemplo.com" className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label">{t('levelTest.form_postal')}</label>
-                    <input type="text" name="postal" required placeholder="30006" className="lt-input" />
+                    <input type="text" name="postal" required maxLength={20} placeholder="30006" className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label">{t('levelTest.form_phone')}</label>
-                    <input type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
+                    <input type="tel" name="phone" maxLength={30} placeholder="+34 600 000 000" className="lt-input" />
                   </div>
                   <div className="lt-col-span-2">
                     <label className="lt-label">{t('levelTest.form_address')}</label>
-                    <input type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
+                    <input type="text" name="address" maxLength={200} placeholder="Puente Tocinos, Murcia" className="lt-input" />
                   </div>
                 </div>
                 <button type="submit" className="lt-btn">

@@ -1,0 +1,4 @@
+## 2024-05-18 - [Form Input Truncation and Log Scrubbing]
+**Vulnerability:** Forms passed un-truncated, unvalidated length inputs to Supabase and uncaught exception variables exposed internal failure notices directly via `console.warn` and `console.error`.
+**Learning:** Even though the query itself is parameterized, unchecked user input length can result in DoS or extremely large payload saving, and explicit `try/catch(err)` bindings outputting `err` logs out potentially sensitive Supabase API internal responses to the client end.
+**Prevention:** 1) Truncate form input explicitly before saving them to DB (e.g. `rawName.substring(0, 100)`). 2) Always bind HTML `maxLength` input validation for frontend defense. 3) Use an optional catch binding (e.g. `catch { ... }`) to discard raw errors from third party client libraries and write custom, obscure log statements on the client side.

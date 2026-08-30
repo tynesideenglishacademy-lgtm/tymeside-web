@@ -12,7 +12,9 @@ const resources = {
         blog: "Blog",
         contact: "Contacto",
         enroll: "MATRICÚLATE",
-        virtualClassroom: "Aulario Virtual"
+        virtualClassroom: "Aulario Virtual",
+        call: "Llamar",
+        whatsapp: "WhatsApp"
       },
       hero: {
         connect: "CONNECT.",
@@ -63,7 +65,19 @@ const resources = {
         title: "Acredita tu Nivel: Preparación de Exámenes Oficiales",
         p1: "Tu esfuerzo merece reconocimiento oficial. En Tyneside English Academy somos especialistas en preparar a nuestros alumnos para superar con éxito las certificaciones internacionales más demandadas.",
         p2: "Te entrenamos con simulacros reales, estrategias de examen y refuerzo específico para exámenes de Cambridge. No solo te enseñamos inglés; te enseñamos a aprobar.",
-        cta: "Conoce nuestros ratios de aprobados"
+        cta: "Haz tu prueba de nivel gratuita",
+        details: "Más detalles",
+        stat_pass: "Aprobados · últimos 2 años",
+        stat_years: "Años enseñando inglés",
+        stat_students: "Alumnos certificados"
+      },
+      testimonials: {
+        badge: "Lo que dicen las familias",
+        title: "Reseñas reales de nuestras familias",
+        desc: "Opiniones publicadas por familias y alumnos en nuestro perfil de Google. Sin editar.",
+        rating_count_one: "{{count}} reseña en Google",
+        rating_count_other: "{{count}} reseñas en Google",
+        cta: "Ver todas las reseñas en Google"
       },
       services: {
         title: "Servicios para Empresas y Colegios",
@@ -111,6 +125,9 @@ const resources = {
         success_title: "¡Mensaje Enviado con Éxito!",
         success_desc: "Gracias por contactar con Tyneside English Academy. Nuestro equipo académico se pondrá en contacto contigo muy pronto.",
         send_another: "Enviar otro mensaje",
+        error_title: "No hemos podido enviar tu mensaje",
+        error_desc: "Ha fallado la conexión. Vuelve a intentarlo o llámanos directamente al 605 661 212.",
+        retry: "Reintentar",
         label_address: "Dirección",
         label_phone: "Teléfono / WhatsApp",
         label_email: "Email",
@@ -143,7 +160,7 @@ const resources = {
         results_subtitle: "Tus respuestas han sido evaluadas según el marco común europeo de referencia (CEFR).",
         cefr_evaluated: "Nivel CEFR Evaluado",
         scale_score: "Cambridge Scale Score",
-        recommended_course: "🎓 Curso Recomendado para Ti:",
+        recommended_course: "Curso Recomendado para Ti:",
         download_cert: "Descargar Certificado Oficial (PDF)",
         email_saved: "✓ Evaluación guardada y enviada a la secretaría académica.",
         email_completed: "✓ Evaluación completada con éxito.",
@@ -184,7 +201,9 @@ const resources = {
         blog: "Blog",
         contact: "Contact",
         enroll: "ENROLL NOW",
-        virtualClassroom: "Virtual Classroom"
+        virtualClassroom: "Virtual Classroom",
+        call: "Call",
+        whatsapp: "WhatsApp"
       },
       hero: {
         connect: "CONNECT.",
@@ -235,7 +254,19 @@ const resources = {
         title: "Certify Your Level: Official Exam Preparation",
         p1: "Your effort deserves official recognition. At Tyneside English Academy, we are specialists in preparing our students to successfully pass the most demanded international certifications.",
         p2: "We train you with real mock exams, exam strategies, and specific reinforcement for Cambridge exams. We don't just teach you English; we teach you how to pass.",
-        cta: "See our pass rates"
+        cta: "Take your free level test",
+        details: "More details",
+        stat_pass: "Pass rate · last 2 years",
+        stat_years: "Years teaching English",
+        stat_students: "Certified students"
+      },
+      testimonials: {
+        badge: "What families say",
+        title: "Real reviews from our families",
+        desc: "Reviews published by families and students on our Google profile. Unedited.",
+        rating_count_one: "{{count}} Google review",
+        rating_count_other: "{{count}} Google reviews",
+        cta: "Read every review on Google"
       },
       services: {
         title: "Services for Businesses & Schools",
@@ -283,6 +314,9 @@ const resources = {
         success_title: "Message Sent Successfully!",
         success_desc: "Thank you for contacting Tyneside English Academy. Our academic team will get in touch with you shortly.",
         send_another: "Send another message",
+        error_title: "We couldn't send your message",
+        error_desc: "The connection failed. Please try again, or call us directly on 605 661 212.",
+        retry: "Try again",
         label_address: "Address",
         label_phone: "Phone / WhatsApp",
         label_email: "Email",
@@ -315,7 +349,7 @@ const resources = {
         results_subtitle: "Your answers have been evaluated according to the Common European Framework of Reference for Languages (CEFR).",
         cefr_evaluated: "Assessed CEFR Level",
         scale_score: "Cambridge Scale Score",
-        recommended_course: "🎓 Recommended Course for You:",
+        recommended_course: "Recommended Course for You:",
         download_cert: "Download Official Certificate (PDF)",
         email_saved: "✓ Assessment saved and sent to academic administration.",
         email_completed: "✓ Assessment completed successfully.",

@@ -28,25 +28,25 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--color-warm-gold)', marginBottom: '1.5rem', fontWeight: 800 }}>{t('nav.contact')}</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#CBD5E1', fontSize: '0.95rem', lineHeight: 2.2 }}>
-              <li>📍 Plaza Tomás y Valiente 6, Puente Tocinos</li>
-              <li>📞 605 661 212</li>
-              <li>✉️ info@tynesideacademy.com</li>
+            <h4 style={{ fontSize: '1rem', color: 'var(--color-amber)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('nav.contact')}</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
+              <li>Plaza Tomás y Valiente 6, Puente Tocinos</li>
+              <li>605 661 212</li>
+              <li>info@tynesideacademy.com</li>
             </ul>
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--color-warm-gold)', marginBottom: '1.5rem', fontWeight: 800 }}>{t('resources.title')}</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#CBD5E1', fontSize: '0.95rem', lineHeight: 2.2 }}>
-              <li><Link to="/level-test" className="footer-link">📄 {t('resources.test')}</Link></li>
-              <li><a href="#courses" className="footer-link">📚 {t('resources.material')}</a></li>
-              <li><a href="#contact" className="footer-link">📅 {t('resources.calendar')}</a></li>
+            <h4 style={{ fontSize: '1rem', color: 'var(--color-amber)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('resources.title')}</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
+              <li><Link to="/level-test" className="footer-link">{t('resources.test')}</Link></li>
+              <li><a href="#courses" className="footer-link">{t('resources.material')}</a></li>
+              <li><a href="#contact" className="footer-link">{t('resources.calendar')}</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--color-warm-gold)', marginBottom: '1.5rem', fontWeight: 800 }}>Aulario Virtual</h4>
+            <h4 style={{ fontSize: '1rem', color: 'var(--color-amber)', marginBottom: '1.25rem', fontWeight: 700 }}>Aulario Virtual</h4>
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.9rem', marginBottom: '1.2rem', lineHeight: 1.6 }}>
               Accede a tus clases, material didáctico y evaluaciones online.
             </p>

@@ -1,28 +1,60 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import SectionHeader from './SectionHeader';
 
+/**
+ * Counts up to `end`, but only once the card is actually on screen.
+ *
+ * It used to animate on mount, so on a long page the numbers had finished
+ * before anyone scrolled down to them. It also ignored prefers-reduced-motion,
+ * which is the one case where a ticking number is genuinely a problem.
+ */
 const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string, label: string }) => {
   const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
+    const node = ref.current;
+    if (!node) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || typeof IntersectionObserver === 'undefined') {
+      setCount(end);
+      return;
+    }
+
+    let frame = 0;
+    let startedAt = 0;
+
+    const run = (now: number) => {
+      if (!startedAt) startedAt = now;
+      const progress = Math.min((now - startedAt) / 1800, 1);
+      // Ease-out, so the number decelerates into its final value instead of
+      // stopping dead.
+      setCount(Math.round(end * (1 - Math.pow(1 - progress, 3))));
+      if (progress < 1) frame = requestAnimationFrame(run);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        frame = requestAnimationFrame(run);
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, [end]);
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div ref={ref} style={{ textAlign: 'center' }}>
       <div className="text-gradient-gold" style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
         {count}{suffix}
       </div>
@@ -44,17 +76,6 @@ const ExamPrep = () => {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Decorative Radial Lighting Background */}
-      <div style={{
-        position: 'absolute',
-        top: '-30%',
-        right: '-10%',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(9,19,30,0) 70%)',
-        pointerEvents: 'none'
-      }}></div>
-
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div style={{
           display: 'grid',
@@ -64,56 +85,33 @@ const ExamPrep = () => {
         }}>
           
           <div>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.4rem 1.2rem',
-              backgroundColor: 'rgba(212, 175, 55, 0.15)',
-              color: 'var(--color-warm-gold)',
-              border: '1px solid var(--color-border-gold)',
-              borderRadius: '999px',
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              marginBottom: '1.5rem'
-            }}>
-              🏆 Centro Preparador Oficial
-            </div>
-            
-            <h2 className="animate-slide-up" style={{
-              fontSize: 'clamp(2.4rem, 4vw, 3.5rem)',
-              fontWeight: 900,
-              marginBottom: '1.2rem',
-              lineHeight: 1.15
-            }}>
-              {t('examprep.title')}
-            </h2>
-            
-            <div style={{ width: '80px', height: '4px', backgroundColor: 'var(--color-river-teal)', marginBottom: '2.5rem', borderRadius: '2px' }}></div>
-            
-            <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#E2E8F0' }}>
+            <SectionHeader
+              section="examprep"
+              label="Centro preparador oficial"
+              title={t('examprep.title')}
+              onDark
+            />
+
+            <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#D4DEE8' }}>
               {t('examprep.p1')}
             </p>
-            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '2.8rem', color: 'var(--color-gold-light)', fontWeight: 700 }}>
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '2.8rem', color: 'var(--color-amber)', fontWeight: 700 }}>
               {t('examprep.p2')}
             </p>
             
             <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
               <Link to="/level-test" className="btn-gold">
                 <span>{t('examprep.cta')}</span>
-                <span>→</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </Link>
               <a href="#contact" className="btn-secondary">
-                Más detalles
+                {t('examprep.details')}
               </a>
             </div>
           </div>
 
           <div className="glass-card-premium" style={{
-            background: 'linear-gradient(135deg, rgba(16, 42, 67, 0.7) 0%, rgba(9, 19, 30, 0.85) 100%)',
-            border: '1px solid var(--color-border-gold)',
+            border: '1px solid var(--color-amber-border)',
             padding: '3rem 2.5rem'
           }}>
             <div style={{
@@ -121,11 +119,23 @@ const ExamPrep = () => {
               flexDirection: 'column',
               gap: '3rem'
             }}>
-              <StatCounter end={98} suffix="%" label="Cambridge Pass Rate" />
+              {/* Was 98%. The old five-year sample spanned Hello Academy
+                  (Ben was there 2022–2024) and Tyneside, so it can't back a
+                  Tyneside claim. One failed candidate since founding Tyneside,
+                  and Ben confirms it was in 2024 — so the last two years are
+                  clean and that is what publishes. */}
+              <StatCounter end={100} suffix="%" label={t('examprep.stat_pass')} />
               <div style={{ height: '1px', backgroundColor: 'var(--color-border-glass)', width: '100%' }}></div>
-              <StatCounter end={15} suffix="+" label="Years of Excellence" />
-              <div style={{ height: '1px', backgroundColor: 'var(--color-border-glass)', width: '100%' }}></div>
-              <StatCounter end={3000} suffix="+" label="Certified Students" />
+              {/* Was "15+" as academy history (false — Tyneside is ~2 years
+                  old). Now Ben's own teaching record: teaching English since
+                  2015, confirmed 2026-08-30. "10+" stays true for years; the
+                  label (examprep.stat_years) says "enseñando inglés" so it
+                  reads as his experience, not the academy's age. */}
+              <StatCounter end={10} suffix="+" label={t('examprep.stat_years')} />
+              {/* The "3.000+ Alumnos certificados" counter (examprep.stat_students)
+                  stays removed — ~60 exam candidates can't produce 3.000
+                  certifications, that one was invented. The i18n key is left
+                  in i18n.ts as a one-line restore once Ben has a real count. */}
             </div>
           </div>
 

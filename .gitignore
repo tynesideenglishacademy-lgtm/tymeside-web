@@ -18,3 +18,8 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+.claude/
+
+# Local scratch & one-off working files
+scratch/
+preview_proposal_2026_2027.html

@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--
+      The hero background is the largest thing painted on first load, but it is
+      a CSS background: the browser cannot find it until the stylesheet has been
+      fetched and parsed, which pushes LCP out by a full round trip. This starts
+      the request in the head instead.
+    -->
+    <link rel="preload" as="image" href="/img/hero-bg-new-960.webp" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!--
       The title was literally "tyneside-web" - the Vercel project name - and
       there were no Open Graph tags at all. These links are shared by WhatsApp,
       where the preview card is built from exactly these tags: a card reading
@@ -25,16 +34,16 @@
     <meta property="og:site_name" content="Tyneside English Academy" />
     <meta property="og:title" content="Tyneside English Academy — Test de nivel gratuito" />
     <meta property="og:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge. Preparación Cambridge y Aptis en Murcia." />
-    <meta property="og:image" content="https://tyneside-web.vercel.app/banner1.png" />
+    <meta property="og:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
     <meta property="og:url" content="https://tyneside-web.vercel.app/" />
     <meta property="og:locale" content="es_ES" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Tyneside English Academy — Test de nivel gratuito" />
     <meta name="twitter:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge." />
-    <meta name="twitter:image" content="https://tyneside-web.vercel.app/banner1.png" />
+    <meta name="twitter:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
 
-    <meta name="theme-color" content="#0D1B2A" />
+    <meta name="theme-color" content="#09131E" />
   </head>
   <body>
     <div id="root"></div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import SectionHeader from './SectionHeader';
 
 interface Article {
   id: string;
@@ -8,7 +9,6 @@ interface Article {
   excerpt: string;
   date: string;
   category: string;
-  icon: string;
   readTime: string;
   author: string;
   content: string[];
@@ -25,7 +25,6 @@ const BlogPreview = () => {
       excerpt: "Descubre las claves para dominar la expresión oral y perder el miedo escénico en tu examen oficial Cambridge.",
       date: "15 Oct 2026",
       category: "Cambridge Tips",
-      icon: "🎯",
       readTime: "4 min lectura",
       author: "Equipo Pedagógico Tyneside",
       content: [
@@ -42,7 +41,6 @@ const BlogPreview = () => {
       excerpt: "¿Por qué empezar a los 3 años? Analizamos los beneficios cognitivos y el desarrollo del lenguaje nativo.",
       date: "02 Nov 2026",
       category: "Educación",
-      icon: "🧠",
       readTime: "5 min lectura",
       author: "Dirección de Estudios Young Learners",
       content: [
@@ -58,7 +56,6 @@ const BlogPreview = () => {
       excerpt: "Resumen de nuestro último Summer Camp en colaboración con International House Newcastle.",
       date: "20 Nov 2026",
       category: "Comunidad",
-      icon: "🇬🇧",
       readTime: "6 min lectura",
       author: "Coordinación de Inmersión Internacional",
       content: [
@@ -71,48 +68,27 @@ const BlogPreview = () => {
   ];
 
   return (
-    <section id="blog" style={{
-      padding: '7rem 0',
+    <section id="blog" className="section-light" style={{
+      padding: 'var(--section-y) 0',
       backgroundColor: '#F8FAFC',
       color: 'var(--color-deep-navy)'
     }}>
       <div className="container">
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem', flexWrap: 'wrap', gap: '1.5rem' }}>
-          <div>
-            <span style={{
-              display: 'inline-block',
-              padding: '0.4rem 1.2rem',
-              backgroundColor: 'rgba(212, 175, 55, 0.15)',
-              color: 'var(--color-deep-navy)',
-              borderRadius: '999px',
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              marginBottom: '1rem'
-            }}>
-              {t('blog.badge')}
-            </span>
+          <SectionHeader
+            section="blog"
+            label={t('blog.badge')}
+            title={t('blog.title')}
+            flush
+          />
 
-            <h2 className="animate-slide-up" style={{
-              fontSize: 'clamp(2.4rem, 4vw, 3.2rem)',
-              fontWeight: 900,
-              color: '#09131E',
-              marginBottom: '0.8rem'
-            }}>
-              {t('blog.title')}
-            </h2>
-
-            <div style={{ width: '80px', height: '4px', backgroundColor: 'var(--color-warm-gold)', borderRadius: '2px' }}></div>
-          </div>
-
-          <button 
+          <button
             onClick={() => setSelectedArticle(articles[0])}
-            className="btn-secondary" 
-            style={{ color: '#09131E', borderColor: 'rgba(9, 19, 30, 0.2)', backgroundColor: '#FFFFFF' }}
+            className="btn-secondary"
+            style={{ color: 'var(--color-ink)', borderColor: 'rgba(9, 19, 30, 0.2)', backgroundColor: '#FFFFFF' }}
           >
-            {t('blog.cta')} →
+            {t('blog.cta')}
           </button>
         </div>
 
@@ -125,37 +101,26 @@ const BlogPreview = () => {
             <div 
               key={article.id} 
               onClick={() => setSelectedArticle(article)}
-              className="light-card interactive" 
+              className="light-card interactive"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
                 cursor: 'pointer'
               }}
             >
-              {/* Header Gradient Thumbnail */}
+              {/* Category band */}
               <div style={{
-                height: '180px',
-                background: 'linear-gradient(135deg, #102A43 0%, #1D5C8A 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '3.5rem',
-                position: 'relative'
+                padding: '1.4rem 2rem',
+                backgroundColor: 'var(--color-tyneside-blue)',
+                borderBottom: '3px solid var(--color-amber)'
               }}>
-                <span>{article.icon}</span>
                 <span style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  backgroundColor: 'rgba(9, 19, 30, 0.85)',
-                  color: 'var(--color-gold-light)',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: '999px',
+                  color: 'var(--color-soft-cream)',
+                  fontFamily: 'var(--font-heading)',
                   fontSize: '0.78rem',
-                  fontWeight: 700
+                  fontWeight: 700,
+                  letterSpacing: '0.09em',
+                  textTransform: 'uppercase'
                 }}>
                   {article.category}
                 </span>
@@ -164,14 +129,15 @@ const BlogPreview = () => {
               {/* Body */}
               <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#64748B', marginBottom: '0.8rem', display: 'flex', gap: '0.8rem' }}>
-                    <span>📅 {article.date}</span>
-                    <span>• {article.readTime}</span>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-ink-muted)', marginBottom: '0.8rem', display: 'flex', gap: '0.6rem' }}>
+                    <span>{article.date}</span>
+                    <span>·</span>
+                    <span>{article.readTime}</span>
                   </div>
                   <h3 style={{
                     fontSize: '1.35rem',
-                    fontWeight: 800,
-                    color: '#09131E',
+                    fontWeight: 700,
+                    color: 'var(--color-ink)',
                     marginBottom: '1rem',
                     lineHeight: 1.35
                   }}>
@@ -179,7 +145,7 @@ const BlogPreview = () => {
                   </h3>
                   <p style={{
                     fontSize: '1rem',
-                    color: '#475569',
+                    color: 'var(--color-ink-muted)',
                     lineHeight: 1.65,
                     marginBottom: '1.5rem'
                   }}>
@@ -193,10 +159,10 @@ const BlogPreview = () => {
                   color: 'var(--color-river-teal)',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.4rem'
+                  gap: '0.45rem'
                 }}>
                   <span>{t('blog.read_more')}</span>
-                  <span>→</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </div>
               </div>
             </div>
@@ -213,24 +179,23 @@ const BlogPreview = () => {
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            backgroundColor: 'rgba(9, 19, 30, 0.75)',
-            backdropFilter: 'blur(8px)',
+            backgroundColor: 'rgba(9, 19, 30, 0.82)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '1.5rem'
           }}
         >
-          <div 
+          <div
             onClick={(e) => e.stopPropagation()}
             style={{
               backgroundColor: '#FFFFFF',
               width: '100%',
               maxWidth: '750px',
               maxHeight: '88vh',
-              borderRadius: '24px',
+              borderRadius: 'var(--radius-lg)',
               overflowY: 'auto',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.28)',
               position: 'relative',
               display: 'flex',
               flexDirection: 'column'
@@ -238,12 +203,12 @@ const BlogPreview = () => {
           >
             {/* Modal Hero Header */}
             <div style={{
-              background: 'linear-gradient(135deg, #09131E 0%, #102A43 100%)',
+              backgroundColor: 'var(--color-deep-navy)',
               color: '#FFFFFF',
               padding: '3rem 2.5rem 2.5rem',
               position: 'relative',
-              borderTopLeftRadius: '24px',
-              borderTopRightRadius: '24px'
+              borderTopLeftRadius: 'var(--radius-lg)',
+              borderTopRightRadius: 'var(--radius-lg)'
             }}>
               <button 
                 onClick={() => setSelectedArticle(null)}
@@ -268,28 +233,20 @@ const BlogPreview = () => {
                 ✕
               </button>
 
-              <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '2rem' }}>{selectedArticle.icon}</span>
-                <span style={{
-                  backgroundColor: 'rgba(212, 175, 55, 0.2)',
-                  color: 'var(--color-warm-gold)',
-                  padding: '0.3rem 0.9rem',
-                  borderRadius: '999px',
-                  fontSize: '0.8rem',
-                  fontWeight: 800
-                }}>
+              <div style={{ marginBottom: '1rem' }}>
+                <span className="eyebrow">
                   {selectedArticle.category}
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 800, lineHeight: 1.3, marginBottom: '1rem', color: '#F8FAFC' }}>
+              <h2 style={{ fontSize: '1.8rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '1rem', color: 'var(--color-soft-cream)' }}>
                 {selectedArticle.title}
               </h2>
 
-              <div style={{ fontSize: '0.85rem', color: '#94A3B8', display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
-                <span>✍️ {selectedArticle.author}</span>
-                <span>📅 {selectedArticle.date}</span>
-                <span>⏱️ {selectedArticle.readTime}</span>
+              <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
+                <span>{selectedArticle.author}</span>
+                <span>{selectedArticle.date}</span>
+                <span>{selectedArticle.readTime}</span>
               </div>
             </div>
 
@@ -302,15 +259,15 @@ const BlogPreview = () => {
               <div style={{
                 marginTop: '2rem',
                 padding: '2rem',
-                backgroundColor: 'rgba(212, 175, 55, 0.08)',
-                border: '1px solid rgba(212, 175, 55, 0.25)',
-                borderRadius: '16px',
+                backgroundColor: 'var(--color-amber-soft)',
+                border: '1px solid var(--color-amber-border)',
+                borderRadius: 'var(--radius-md)',
                 textAlign: 'center'
               }}>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-deep-navy)', marginBottom: '0.6rem' }}>
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '0.6rem' }}>
                   {t('blog.modal_cta_title')}
                 </h4>
-                <p style={{ fontSize: '0.95rem', color: '#475569', marginBottom: '1.2rem' }}>
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-ink-muted)', marginBottom: '1.2rem' }}>
                   {t('blog.modal_cta_desc')}
                 </p>
                 <Link 

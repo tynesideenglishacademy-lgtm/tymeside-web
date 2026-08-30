@@ -441,7 +441,7 @@ export default function LevelTest() {
           <Link to="/">
             <img src="/logo-light.png" alt="Tyneside English Academy" style={{ height: '50px' }} />
           </Link>
-          <span style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem 1rem', borderRadius: '999px', fontSize: '0.8rem', fontWeight: 600, border: '1px solid rgba(255,255,255,0.2)' }}>
+          <span style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem 1rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem', fontWeight: 600, border: '1px solid rgba(255,255,255,0.2)' }}>
             {t('levelTest.badge')}
           </span>
         </div>
@@ -462,7 +462,7 @@ export default function LevelTest() {
           {view === 'registration' && (
             <div className="animate-fade-in">
               <div className="lt-text-center">
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>{t('levelTest.header_title')}</h2>
+                <h2 style={{ fontSize: '2rem', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>{t('levelTest.header_title')}</h2>
                 <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t('levelTest.header_subtitle')}</p>
               </div>
               <form onSubmit={handleRegistration}>
@@ -500,11 +500,11 @@ export default function LevelTest() {
               <div className="lt-test-header">
                 <div>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', opacity: 0.7 }}>{t('levelTest.progress')}</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 900 }}>{t('levelTest.question_of', { current: questionNum })}</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 800 }}>{t('levelTest.question_of', { current: questionNum })}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', opacity: 0.7 }}>{t('levelTest.time')}</span>
-                  <div style={{ fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 900, padding: '0.4rem 0.8rem', borderRadius: '4px', border: '1px solid', backgroundColor: timeLeft > 10 ? 'var(--color-soft-cream)' : '#dc2626', color: timeLeft > 10 ? 'inherit' : 'white', borderColor: timeLeft > 10 ? 'transparent' : '#dc2626' }}>
+                  <div style={{ fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 700, padding: '0.4rem 0.8rem', borderRadius: 'var(--radius-sm)', border: '1px solid', backgroundColor: timeLeft > 10 ? 'var(--color-soft-cream)' : '#dc2626', color: timeLeft > 10 ? 'inherit' : 'white', borderColor: timeLeft > 10 ? 'transparent' : '#dc2626' }}>
                     {timeLeft}s
                   </div>
                 </div>
@@ -538,24 +538,24 @@ export default function LevelTest() {
 
           {view === 'results' && finalResults && (
             <div className="animate-fade-in lt-text-center">
-              <div style={{ width: '6rem', height: '6rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--color-warm-gold)', border: '2px solid rgba(212, 175, 55, 0.2)' }}>
+              <div style={{ width: '6rem', height: '6rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', border: '1px solid var(--color-amber-border)' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '3rem', height: '3rem' }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               </div>
 
               <div style={{ marginTop: '2rem' }}>
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '0.5rem' }}>{t('levelTest.results_title')}</h2>
+                <h2 style={{ fontSize: '2rem', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '0.5rem' }}>{t('levelTest.results_title')}</h2>
                 <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '400px', margin: '0 auto' }}>{t('levelTest.results_subtitle')}</p>
               </div>
 
               <div className="lt-result-card">
                 <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-warm-gold)' }}>{t('levelTest.cefr_evaluated')}</div>
-                <div style={{ fontSize: '5rem', fontWeight: 900, color: 'white', lineHeight: 1.1, margin: '0.5rem 0' }}>{finalResults.cefr}</div>
+                <div style={{ fontSize: '5rem', fontWeight: 800, color: 'white', lineHeight: 1.1, margin: '0.5rem 0' }}>{finalResults.cefr}</div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.8)' }}>{finalResults.desc}</div>
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: '1.5rem 0' }}></div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.6)' }}>
-                  {t('levelTest.scale_score')}: <span style={{ fontWeight: 900, fontSize: '1rem', marginLeft: '0.25rem', color: 'var(--color-warm-gold)' }}>{finalResults.score}</span>
+                  {t('levelTest.scale_score')}: <span style={{ fontWeight: 800, fontSize: '1rem', marginLeft: '0.25rem', color: 'var(--color-amber)' }}>{finalResults.score}</span>
                 </div>
               </div>
 
@@ -563,9 +563,9 @@ export default function LevelTest() {
               <div style={{
                 margin: '2rem auto 1.5rem',
                 padding: '1.5rem',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '16px',
-                border: '1px solid rgba(0,0,0,0.1)',
+                backgroundColor: 'var(--color-soft-cream)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--color-border-light)',
                 textAlign: 'left',
                 boxShadow: '0 10px 25px rgba(0,0,0,0.05)'
               }}>
@@ -575,7 +575,7 @@ export default function LevelTest() {
                 <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-deep-navy)', marginBottom: '0.3rem' }}>
                   {getRecommendedCourse(finalResults.cefr).name}
                 </div>
-                <div style={{ fontSize: '0.9rem', color: '#475569' }}>
+                <div style={{ fontSize: '0.9rem', color: 'var(--color-ink-muted)' }}>
                   {getRecommendedCourse(finalResults.cefr).desc}
                 </div>
               </div>
@@ -591,8 +591,8 @@ export default function LevelTest() {
                   style={{
                     marginTop: 0,
                     textDecoration: 'none',
-                    background: 'linear-gradient(90deg, #D4AF37, #F3E5AB)',
-                    color: 'var(--color-deep-navy)'
+                    background: 'var(--color-amber)',
+                    color: '#1a1200'
                   }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>

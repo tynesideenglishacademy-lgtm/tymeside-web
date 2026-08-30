@@ -1,38 +1,74 @@
-import { Routes, Route } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Courses from './components/Courses'
 import About from './components/About'
 import ExamPrep from './components/ExamPrep'
+import Testimonials from './components/Testimonials'
 import Services from './components/Services'
 import TripsCamps from './components/TripsCamps'
 import BlogPreview from './components/BlogPreview'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import LevelTest from './components/LevelTest'
+import MobileCta from './components/MobileCta'
+import { initReveal } from './lib/reveal'
+
+// jsPDF + html2canvas are ~380 kB and only the level test ever uses them.
+// Split out so a visitor landing on the marketing page never downloads them.
+const LevelTest = lazy(() => import('./components/LevelTest'))
+
+// A campaign landing: nobody arrives here from the home page, so it has no
+// business sitting in the main bundle everyone else downloads.
+const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
 
 function Home() {
   return (
     <>
+      <a href="#main" className="skip-link">Ir al contenido principal</a>
       <Navigation />
-      <Hero />
-      <Courses />
-      <About />
-      <ExamPrep />
-      <Services />
-      <TripsCamps />
-      <BlogPreview />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <Courses />
+        <About />
+        <ExamPrep />
+        <Testimonials />
+        <Services />
+        <TripsCamps />
+        <BlogPreview />
+        <Contact />
+      </main>
       <Footer />
+      <MobileCta />
     </>
   )
 }
 
 function App() {
+  const location = useLocation()
+
+  // Re-run per route: the level-test page mounts a different tree.
+  useEffect(() => initReveal(), [location.pathname])
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/level-test" element={<LevelTest />} />
+      <Route
+        path="/aptis-oposiciones"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+            <AptisOposiciones />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/level-test"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+            <LevelTest />
+          </Suspense>
+        }
+      />
     </Routes>
   )
 }

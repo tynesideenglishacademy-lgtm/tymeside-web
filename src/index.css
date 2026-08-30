@@ -730,53 +730,6 @@ a {
 .delay-200 { animation-delay: 0.12s; }
 .delay-300 { animation-delay: 0.18s; }
 
-/* --- Hero bridge line-art (mobile only) ---
-   The desktop hero already has a photographic bridge; two of the same
-   landmark in one frame compete, so the line-art is hidden above 768px and
-   the photo stands alone there. On a phone the navy gradient flattens the
-   photo, so the line-art carries the brand. It draws itself in once via
-   stroke-dashoffset — pathLength="1" on every segment normalises the run to
-   0->1 so a single keyframe covers deck, arch, towers, hangers and river,
-   staggered by inline animation-delay (see HeroBridge.tsx). */
-.hero-bridge {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .hero-bridge {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    /* anchor low: arch crown mid-hero, piers off the bottom edge */
-    align-items: flex-end;
-    justify-content: center;
-    overflow: hidden;
-    pointer-events: none;
-  }
-}
-
-.hero-bridge svg {
-  opacity: 0.22;
-  max-width: none;
-  transform: translateY(14%);
-}
-
-.hero-bridge-river {
-  opacity: 0.55;
-}
-
-@keyframes bridgeDraw {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
-}
-
-.hero-bridge-draw {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: bridgeDraw 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-}
-
 /* --- Scroll reveal ---
    Transitions, not keyframes: `animation-fill-mode: forwards` would pin a
    transform on the element and kill the :hover lift on cards. The .rv class is
@@ -810,11 +763,6 @@ a {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .hero-bridge-draw {
-    stroke-dashoffset: 0;
-    animation: none;
   }
 }
 

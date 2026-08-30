@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import GoogleRatingBadge from './GoogleRatingBadge';
-// Decorative bridge line-art, mobile only. Pure CSS now (~1 kB of static SVG,
-// no motion dependency), so it rides the main bundle instead of a lazy chunk.
-import HeroBridge from './HeroBridge';
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -39,8 +36,6 @@ const Hero = () => {
         backgroundPosition: 'center center',
         zIndex: 0
       }}></div>
-
-      <HeroBridge />
 
       <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         <div style={{

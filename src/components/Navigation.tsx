@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
+
+// @novu/react pulls in its own runtime and socket client. The bell is a
+// nice-to-have on a marketing page, so it loads after the page does rather
+// than sitting in the critical bundle.
+const NotificationInbox = lazy(() => import('./NotificationInbox'));
 
 const Navigation = () => {
   const { t, i18n } = useTranslation();
@@ -32,8 +37,11 @@ const Navigation = () => {
           <a href="/#contact" className="navbar-link">{t('nav.contact')}</a>
           
           <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label="Toggle language">
-            🌐 {currentLangDisplay}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+            {currentLangDisplay}
           </button>
+
+          <Suspense fallback={null}><NotificationInbox /></Suspense>
 
           {/* Pre-enrolment, not the full form: the full one asks for IBAN, DNI
               and medical data and must not be the public link. */}
@@ -72,20 +80,23 @@ const Navigation = () => {
           flexDirection: 'column',
           gap: '1.2rem',
           backgroundColor: 'rgba(9, 19, 30, 0.95)',
-          borderRadius: '0 0 20px 20px'
+          borderRadius: '0 0 var(--radius-md) var(--radius-md)'
         }}>
           <a href="/#courses" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.courses')}</a>
           <a href="/#methodology" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.services')}</a>
+          <a href="/#blog" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.blog')}</a>
           <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.contact')}</a>
           <a href={PRE_ENROLMENT_URL} onClick={() => setMobileMenuOpen(false)} className="navbar-link" style={{ fontWeight: 700 }}>
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}
           </a>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
-            <button onClick={toggleLanguage} className="navbar-lang-btn">
-              🌐 {currentLangDisplay}
+            <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label="Toggle language">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+              {currentLangDisplay}
             </button>
+            <Suspense fallback={null}><NotificationInbox /></Suspense>
             <Link to="/level-test" onClick={() => setMobileMenuOpen(false)} className="btn-gold" style={{ width: '100%', textAlign: 'center' }}>
               {t('nav.enroll')}
             </Link>

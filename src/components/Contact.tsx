@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import SectionHeader from './SectionHeader';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -26,67 +28,54 @@ const Contact = () => {
     if (!formData.name || !formData.phone || !formData.email || !formData.gdpr) return;
 
     setIsSubmitting(true);
+    setFailed(false);
 
     try {
-      if (isSupabaseConfigured) {
-        await supabase.from('leads').insert([
-          {
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email,
-            course: formData.course,
-            created_at: new Date().toISOString()
-          }
-        ]);
+      // Supabase returns errors in the payload rather than throwing, and a
+      // missing config means the lead goes nowhere at all. Both used to end up
+      // in `finally`, which showed the success screen for a lead we never
+      // stored — a parent thought they had enquired and nobody ever called.
+      if (!isSupabaseConfigured) {
+        throw new Error('Supabase is not configured; the lead would be dropped.');
       }
+
+      const { error } = await supabase.from('leads').insert([
+        {
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          course: formData.course,
+          created_at: new Date().toISOString()
+        }
+      ]);
+
+      if (error) throw error;
+
+      setSubmitted(true);
     } catch (err) {
-      console.warn('Supabase lead capture notice:', err);
+      console.error('Lead capture failed:', err);
+      setFailed(true);
     } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
     }
   };
 
   return (
-    <section id="contact" style={{
-      padding: '7.5rem 0',
+    <section id="contact" className="section-light" style={{
+      padding: 'var(--section-y) 0',
       backgroundColor: '#F8FAFC',
       color: 'var(--color-deep-navy)',
       position: 'relative'
     }}>
       <div className="container">
         
-        <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
-          <span style={{
-            display: 'inline-block',
-            padding: '0.4rem 1.2rem',
-            backgroundColor: 'rgba(212, 175, 55, 0.15)',
-            color: 'var(--color-deep-navy)',
-            borderRadius: '999px',
-            fontSize: '0.85rem',
-            fontWeight: 800,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: '1rem'
-          }}>
-            {t('contact.badge')}
-          </span>
-
-          <h2 className="animate-slide-up" style={{
-            fontSize: 'clamp(2.4rem, 4vw, 3.5rem)',
-            fontWeight: 900,
-            marginBottom: '1rem',
-            color: 'var(--color-deep-navy)'
-          }}>
-            {t('contact.title')}
-          </h2>
-
-          <div style={{ width: '80px', height: '4px', backgroundColor: 'var(--color-warm-gold)', margin: '0 auto 1.5rem', borderRadius: '2px' }}></div>
-          
-          <p style={{ fontSize: '1.15rem', lineHeight: 1.6, color: '#475569', maxWidth: '600px', margin: '0 auto' }}>
-            {t('contact.desc')}
-          </p>
-        </div>
+        <SectionHeader
+          section="contact"
+          label={t('contact.badge')}
+          title={t('contact.title')}
+          lead={t('contact.desc')}
+          align="center"
+        />
 
         <div style={{
           display: 'grid',
@@ -99,9 +88,9 @@ const Contact = () => {
           <div style={{
             backgroundColor: '#FFFFFF',
             padding: '3rem',
-            borderRadius: '24px',
-            boxShadow: '0 20px 50px rgba(9, 19, 30, 0.08)',
-            border: '1px solid rgba(0, 0, 0, 0.05)'
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: '0 12px 32px rgba(9, 19, 30, 0.07)',
+            border: '1px solid var(--color-border-light)'
           }}>
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
@@ -119,10 +108,10 @@ const Contact = () => {
                 }}>
                   ✓
                 </div>
-                <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-deep-navy)', marginBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '1rem' }}>
                   {t('contact.success_title')}
                 </h3>
-                <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '2rem' }}>
+                <p style={{ fontSize: '1rem', color: 'var(--color-ink-muted)', lineHeight: 1.6, marginBottom: '2rem' }}>
                   {t('contact.success_desc')}
                 </p>
                 <button
@@ -138,9 +127,26 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+                {failed && (
+                  <div role="alert" style={{
+                    padding: '1.1rem 1.25rem',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: 'rgba(190, 40, 40, 0.07)',
+                    border: '1px solid rgba(190, 40, 40, 0.25)'
+                  }}>
+                    <p style={{ fontWeight: 700, color: '#9B1C1C', marginBottom: '0.35rem' }}>
+                      {t('contact.error_title')}
+                    </p>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--color-ink-muted)', lineHeight: 1.55 }}>
+                      {t('contact.error_desc')}
+                    </p>
+                  </div>
+                )}
+
                 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
                   <input
                     type="text"
                     name="name"
@@ -153,7 +159,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
                   <input
                     type="tel"
                     name="phone"
@@ -166,7 +172,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
                   <input
                     type="email"
                     name="email"
@@ -179,7 +185,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
                   <select name="course" value={formData.course} onChange={handleChange} className="premium-input">
                     <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
@@ -199,9 +205,9 @@ const Contact = () => {
                     checked={formData.gdpr}
                     onChange={handleChange}
                     required
-                    style={{ marginTop: '0.25rem', width: '18px', height: '18px', accentColor: 'var(--color-warm-gold)' }}
+                    style={{ marginTop: '0.25rem', width: '18px', height: '18px', accentColor: 'var(--color-amber)' }}
                   />
-                  <label htmlFor="gdpr" style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.5 }}>
+                  <label htmlFor="gdpr" style={{ fontSize: '0.85rem', color: 'var(--color-ink-muted)', lineHeight: 1.5 }}>
                     {t('contact.form_gdpr')}
                   </label>
                 </div>
@@ -212,7 +218,7 @@ const Contact = () => {
                   className="btn-gold"
                   style={{ width: '100%', padding: '1.1rem', marginTop: '0.5rem', opacity: isSubmitting ? 0.7 : 1 }}
                 >
-                  {isSubmitting ? t('contact.sending') : t('contact.submit')}
+                  {isSubmitting ? t('contact.sending') : failed ? t('contact.retry') : t('contact.submit')}
                 </button>
 
               </form>
@@ -227,10 +233,10 @@ const Contact = () => {
               width: '100%',
               height: '320px',
               backgroundColor: '#E2E8F0',
-              borderRadius: '24px',
+              borderRadius: 'var(--radius-lg)',
               overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(9, 19, 30, 0.1)',
-              border: '1px solid rgba(0,0,0,0.08)'
+              boxShadow: '0 12px 32px rgba(9, 19, 30, 0.08)',
+              border: '1px solid var(--color-border-light)'
             }}>
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0xd63821caee2d65d%3A0x8b39868f76bfd419!2sPlaza%20Tom%C3%A1s%20y%20Valiente%2C%2030006%20Puente%20Tocinos%2C%20Murcia%2C%20Spain!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus" 
@@ -247,32 +253,32 @@ const Contact = () => {
             {/* Contact Details */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', backgroundColor: 'rgba(212, 175, 55, 0.15)', color: 'var(--color-warm-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '0.2rem' }}>{t('contact.label_address')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-deep-navy)' }}>{t('contact.address')}</p>
+                  <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_address')}</h4>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{t('contact.address')}</p>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', backgroundColor: 'rgba(212, 175, 55, 0.15)', color: 'var(--color-warm-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '0.2rem' }}>{t('contact.label_phone')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-deep-navy)' }}>{t('contact.phone')}</p>
+                  <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_phone')}</h4>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{t('contact.phone')}</p>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', backgroundColor: 'rgba(212, 175, 55, 0.15)', color: 'var(--color-warm-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', marginBottom: '0.2rem' }}>{t('contact.label_email')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-deep-navy)' }}>{t('contact.email')}</p>
+                  <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_email')}</h4>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{t('contact.email')}</p>
                 </div>
               </div>
             </div>

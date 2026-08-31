@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "images": "node scripts/optimize-images.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@novu/react": "^3.19.0",
+    "@sentry/react": "^10.70.0",
     "@supabase/supabase-js": "^2.110.7",
     "i18next": "^26.3.6",
     "jspdf": "^4.2.1",
@@ -24,6 +27,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
+    "sharp": "^0.35.4",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
   }

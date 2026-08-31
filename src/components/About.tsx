@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import SectionHeader from './SectionHeader';
 
 const About = () => {
   const { t } = useTranslation();
@@ -36,58 +37,74 @@ const About = () => {
             alignItems: 'center'
           }}>
             <div>
-              <span style={{
-                display: 'inline-block',
-                padding: '0.4rem 1.2rem',
-                backgroundColor: 'rgba(212, 175, 55, 0.15)',
-                color: 'var(--color-warm-gold)',
-                borderRadius: '999px',
-                fontSize: '0.85rem',
-                fontWeight: 800,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                marginBottom: '1.2rem'
-              }}>
-                Nuestra Esencia
-              </span>
+              <SectionHeader
+                section="about"
+                label="Nuestra esencia"
+                title={t('about.title')}
+                onDark
+              />
 
-              <h2 className="animate-slide-up" style={{
-                fontSize: 'clamp(2.4rem, 4vw, 3.5rem)',
-                color: 'var(--color-warm-gold)',
-                marginBottom: '1.5rem',
-                fontWeight: 900
-              }}>
-                {t('about.title')}
-              </h2>
-
-              <div style={{ width: '80px', height: '4px', backgroundColor: 'var(--color-river-teal)', marginBottom: '2.5rem', borderRadius: '2px' }}></div>
-              
-              <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#E2E8F0' }}>
+              <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#D4DEE8' }}>
                 {t('about.p1')}
               </p>
-              <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#E2E8F0' }}>
+              <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#D4DEE8' }}>
                 {t('about.p2')}
               </p>
-              <p style={{ fontSize: '1.25rem', lineHeight: 1.8, fontWeight: 700, color: 'var(--color-gold-light)' }}>
+              <p style={{ fontSize: '1.2rem', lineHeight: 1.8, fontWeight: 700, color: 'var(--color-amber)' }}>
                 {t('about.p3')}
               </p>
             </div>
-            
-            <div className="glass-card-premium" style={{
-              height: '420px',
+
+            {/* Was a fixed 420px box with the logo as a background-image and the
+                caption shoved down with margin-top: 9rem — it broke the moment
+                the text wrapped. Now it is a normal flow column, so it sizes
+                itself and stays centred at any width. */}
+            <div className="glass-card-premium card-accent-top" style={{
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundImage: 'linear-gradient(135deg, rgba(16,42,67,0.85) 0%, rgba(9,19,30,0.92) 100%), url("/logo-light.png")',
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              border: '1px solid var(--color-border-gold)'
+              gap: '2rem',
+              padding: '3.5rem 2rem',
+              textAlign: 'center',
+              border: '1px solid var(--color-border-glass)'
             }}>
-              <div style={{ textAlign: 'center', padding: '2rem' }}>
-                <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>🇬🇧</div>
-                <h3 style={{ fontSize: '1.8rem', color: 'var(--color-warm-gold)', fontWeight: 800 }}>Tyneside English Academy</h3>
+              <img
+                src="/logo-light.png"
+                alt=""
+                width={220}
+                height={220}
+                loading="lazy"
+                decoding="async"
+                style={{ width: 'min(220px, 60%)', height: 'auto' }}
+              />
+
+              <div>
+                <h3 style={{ fontSize: 'var(--text-xl)', color: 'var(--color-soft-cream)', fontWeight: 700 }}>Tyneside English Academy</h3>
                 <p style={{ color: 'var(--color-slate-muted)', marginTop: '0.5rem', fontSize: '1.05rem' }}>Puente Tocinos · Murcia</p>
+              </div>
+
+              <div style={{
+                display: 'flex',
+                gap: '2.5rem',
+                paddingTop: '1.75rem',
+                borderTop: '1px solid var(--color-border-glass)',
+                width: '100%',
+                justifyContent: 'center'
+              }}>
+                {/* "15+ Años" as academy age was false (Tyneside founded
+                    mid-2023/24). Replaced with Ben's teaching start year,
+                    2015, confirmed 2026-08-30 — labelled "Enseñando" so it is
+                    clearly his experience, not the academy's age. */}
+                <div>
+                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-amber)' }}>2015</div>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Enseñando</div>
+                </div>
+                <div style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }} />
+                <div>
+                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-soft-cream)' }}>100%</div>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Nativos</div>
+                </div>
               </div>
             </div>
           </div>
@@ -95,43 +112,18 @@ const About = () => {
       </section>
 
       {/* Methodology Section - Balanced 4 Grid */}
-      <section id="methodology" style={{
+      <section id="methodology" className="section-light" style={{
         backgroundColor: '#F8FAFC',
-        padding: '7rem 0',
+        padding: 'var(--section-y) 0',
         color: 'var(--color-deep-navy)'
       }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
-            <span style={{
-              display: 'inline-block',
-              padding: '0.4rem 1.2rem',
-              backgroundColor: 'rgba(212, 175, 55, 0.15)',
-              color: 'var(--color-deep-navy)',
-              borderRadius: '999px',
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              marginBottom: '1rem'
-            }}>
-              Claves del Éxito
-            </span>
-
-            <h2 className="animate-slide-up" style={{
-              fontSize: 'clamp(2.4rem, 4vw, 3.5rem)',
-              color: 'var(--color-deep-navy)',
-              marginBottom: '1.2rem',
-              fontWeight: 900
-            }}>
-              {t('methodology.title')}
-            </h2>
-
-            <div style={{ width: '80px', height: '4px', backgroundColor: 'var(--color-warm-gold)', margin: '0 auto 2rem', borderRadius: '2px' }}></div>
-
-            <p style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1.15rem', color: '#475569', lineHeight: 1.75 }}>
-              {t('methodology.desc')}
-            </p>
-          </div>
+          <SectionHeader
+            section="method"
+            label="Claves del éxito"
+            title={t('methodology.title')}
+            lead={t('methodology.desc')}
+          />
 
           <div className="grid-balanced-4">
             {methods.map((method, i) => (
@@ -147,7 +139,7 @@ const About = () => {
                   marginBottom: '1.5rem',
                   backgroundColor: 'rgba(29, 92, 138, 0.1)',
                   padding: '1rem',
-                  borderRadius: '16px'
+                  borderRadius: 'var(--radius-md)'
                 }}>
                   {method.icon}
                 </div>

@@ -15,9 +15,28 @@ const MobileCta = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.85);
-    onScroll();
+    let ticking = false;
+
+    // Performance optimization: Throttle scroll event handling
+    // using requestAnimationFrame to prevent layout thrashing
+    // and reduce main thread blocking during continuous scrolling.
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setVisible(window.scrollY > window.innerHeight * 0.85);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial check without animation frame since it runs on mount
+    // Not using setState to avoid React hook warning
+
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Trigger an initial check
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 

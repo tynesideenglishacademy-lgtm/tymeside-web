@@ -1,0 +1,4 @@
+## 2023-09-03 - Throttling React Scroll Listeners
+
+**Learning:** When attaching a `scroll` event listener in React components (like `MobileCta.tsx`), the event fires continuously during a scroll. Even if React bails out of re-renders if state hasn't changed, computing the state threshold (e.g., `window.scrollY > window.innerHeight * 0.85`) on every scroll frame causes unnecessary main-thread work. Additionally, calling `setState` directly inside the effect's body without a listener is flagged by React linters.
+**Action:** Use `requestAnimationFrame` with a simple boolean `ticking` flag to throttle the scroll event listener callback. This prevents layout thrashing and avoids main thread blocking on rapid scrolls. Make sure initial state matches and trigger initial check via the wrapped function to avoid calling `setState` directly in the effect body on mount.

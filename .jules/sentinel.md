@@ -1,0 +1,4 @@
+## 2024-10-24 - Missing HTTP Security Headers in Vercel SPA
+**Vulnerability:** The Vercel deployment configuration (`vercel.json`) did not include standard HTTP security headers (like HSTS, X-Content-Type-Options, X-Frame-Options), leaving the Single-Page Application (SPA) exposed to various client-side attacks such as clickjacking and MIME-type sniffing.
+**Learning:** Vercel SPAs without a dedicated backend server rely entirely on the static configuration (`vercel.json`) for HTTP headers. It's an architectural gap in this project because developers might assume headers are handled automatically or by the application framework itself, which isn't the case for static deployments.
+**Prevention:** Always explicitly configure standard HTTP security headers via the `headers` array in `vercel.json` for Vercel SPA deployments.

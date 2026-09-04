@@ -44,13 +44,15 @@ export const PARENT_PORTAL_URL = `${CRM_BASE}/parent-portal`;
  * The multi-level placement test. It lives on this website rather than in the
  * CRM, so it has its own base URL.
  *
- * `tyneside-web.vercel.app` is clean and short and - unlike the CRM's
- * `-five` domain - returns 200 to plain curl, to a Chrome User-Agent and to
- * WhatsApp's link-preview crawler, all verified 2026-08-15. Safe to share.
+ * `www.tynesideacademy.com` is the academy's own domain. It must be connected
+ * to this Vercel project before this ships, otherwise every shared level-test
+ * link 404s. Until DNS is live, set VITE_WEB_BASE_URL=https://tyneside-web.vercel.app
+ * on the deployment. `tyneside-web.vercel.app` was verified 2026-08-15 to
+ * return 200 to plain curl, a Chrome User-Agent and WhatsApp's link crawler.
  */
 const WEB_BASE =
   (import.meta.env.VITE_WEB_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
-  'https://tyneside-web.vercel.app';
+  'https://www.tynesideacademy.com';
 
 export const LEVEL_TEST_URL = `${WEB_BASE}/level-test`;
 

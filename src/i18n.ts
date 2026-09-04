@@ -419,8 +419,19 @@ i18n
     lng: "es", // Spanish as default
     fallbackLng: "en",
     interpolation: {
-      escapeValue: false 
+      escapeValue: false
     }
   });
+
+// Keep <html lang> in step with the active language. index.html ships lang="es";
+// without this it never changes when a visitor switches to English, which is
+// wrong for screen readers and for search engines.
+const syncHtmlLang = (lng: string) => {
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = lng?.startsWith('en') ? 'en' : 'es';
+  }
+};
+syncHtmlLang(i18n.language || 'es');
+i18n.on('languageChanged', syncHtmlLang);
 
 export default i18n;

@@ -3,7 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Canonical origin. This is a single-page app served from one file, so the
+      canonical is the site root; per-route canonicals would need prerendering.
+      The domain must be connected to Vercel before this ships or it 404s.
+    -->
+    <link rel="canonical" href="https://www.tynesideacademy.com/" />
 
     <!--
       The hero background is the largest thing painted on first load, but it is
@@ -34,16 +44,50 @@
     <meta property="og:site_name" content="Tyneside English Academy" />
     <meta property="og:title" content="Tyneside English Academy — Test de nivel gratuito" />
     <meta property="og:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge. Preparación Cambridge y Aptis en Murcia." />
-    <meta property="og:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
-    <meta property="og:url" content="https://tyneside-web.vercel.app/" />
+    <meta property="og:image" content="https://www.tynesideacademy.com/img/og-banner.jpg" />
+    <meta property="og:url" content="https://www.tynesideacademy.com/" />
     <meta property="og:locale" content="es_ES" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Tyneside English Academy — Test de nivel gratuito" />
     <meta name="twitter:description" content="Descubre tu nivel de inglés en 10 minutos y recibe tu certificado con tu puntuación en la escala de Cambridge." />
-    <meta name="twitter:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
+    <meta name="twitter:image" content="https://www.tynesideacademy.com/img/og-banner.jpg" />
 
     <meta name="theme-color" content="#09131E" />
+
+    <!--
+      Structured data for the academy. Every value here is either verifiable
+      (the 4.9 / 70 is read off the public Google listing) or the academy's own
+      confirmed detail. Keep it in step with the Google Business Profile.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["EducationalOrganization", "LocalBusiness"],
+      "name": "Tyneside English Academy",
+      "url": "https://www.tynesideacademy.com/",
+      "logo": "https://www.tynesideacademy.com/logo-dark.png",
+      "image": "https://www.tynesideacademy.com/img/og-banner.jpg",
+      "description": "Academia de inglés en Puente Tocinos, Murcia. Centro preparador de exámenes Cambridge, con clases para niños, adolescentes y adultos.",
+      "foundingDate": "2015",
+      "email": "info@tynesideacademy.com",
+      "telephone": "+34605661212",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Plaza Tomás y Valiente 6",
+        "addressLocality": "Puente Tocinos",
+        "addressRegion": "Murcia",
+        "postalCode": "30006",
+        "addressCountry": "ES"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "70",
+        "bestRating": "5"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

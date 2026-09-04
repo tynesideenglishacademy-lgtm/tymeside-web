@@ -14,58 +14,61 @@ interface Article {
   content: string[];
 }
 
+// ⚡ Bolt: Moved static `articles` array outside the component to prevent it from
+// being recreated on every re-render, saving memory and processing time.
+// Expected Impact: Reduces unnecessary object allocations and GC pressure during renders.
+const articles: Article[] = [
+  {
+    id: 'speaking-b2-tips',
+    title: "Consejos para afrontar el Speaking del B2 First de Cambridge",
+    excerpt: "Descubre las claves para dominar la expresión oral y perder el miedo escénico en tu examen oficial Cambridge.",
+    date: "15 Oct 2026",
+    category: "Cambridge Tips",
+    readTime: "4 min lectura",
+    author: "Equipo Pedagógico Tyneside",
+    content: [
+      "El examen B2 First de Cambridge evalúa tu capacidad para comunicarte de manera fluida y espontánea en inglés en situaciones reales.",
+      "1. **Conoce la estructura de las 4 partes**: La prueba consta de entrevista personal, fotos individuales (collaborative long turn), tarea colaborativa en pareja y discusión temática posterior.",
+      "2. **Utiliza conectores variados**: Evita repetir 'and' o 'because'. Incorpora conectores avanzados como 'Furthermore', 'On the other hand', 'In terms of', y 'I reckon that...'.",
+      "3. **Demuestra interacción natural**: En las partes 3 y 4, escucha activamente a tu compañero. Utiliza frases como 'That's a valid point, however...' o 'Would you agree that...?'",
+      "4. **Gestiona los silencios**: Si necesitas pensar una idea, usa conectores de relleno nativos como 'Well, that's an interesting question...' en lugar de quedarte en silencio."
+    ]
+  },
+  {
+    id: 'early-bilingualism',
+    title: "La importancia del bilingüismo temprano en la infancia",
+    excerpt: "¿Por qué empezar a los 3 años? Analizamos los beneficios cognitivos y el desarrollo del lenguaje nativo.",
+    date: "02 Nov 2026",
+    category: "Educación",
+    readTime: "5 min lectura",
+    author: "Dirección de Estudios Young Learners",
+    content: [
+      "Durante los primeros años de vida (de 0 a 6 años), el cerebro infantil posee una plasticidad neuronal óptima para la adquisición del lenguaje.",
+      "En Tyneside English Academy implementamos el programa Tyneside Explorers (3 a 5 años), diseñado para interiorizar la fonética y gramática inglesa de forma natural a través de canciones, juegos sensoriales y narración interactiva.",
+      "Estudios recientes confirman que la exposición temprana al inglés mejora la memoria de trabajo, la flexibilidad cognitiva y la resolución de problemas abstractos.",
+      "No enseñamos gramática memorística a esta edad; creamos un espacio de inmersión total donde el inglés se convierte en una herramienta cotidiana de juego y comunicación."
+    ]
+  },
+  {
+    id: 'newcastle-trip-summary',
+    title: "Nuestro viaje a Newcastle: Una experiencia de inmersión inolvidable",
+    excerpt: "Resumen de nuestro último Summer Camp en colaboración con International House Newcastle.",
+    date: "20 Nov 2026",
+    category: "Comunidad",
+    readTime: "6 min lectura",
+    author: "Coordinación de Inmersión Internacional",
+    content: [
+      "El aprendizaje de un idioma alcanza su verdadero potencial cuando trasciende el aula de clases y se vive en el entorno cultural nativo.",
+      "Nuestra reciente expedición de verano a Newcastle Upon Tyne brindó a nuestros estudiantes una combinación inolvidable de clases aceleradas en International House Newcastle, excursiones culturales a Castillos de Northumberland y convivencia con familias locales.",
+      "Los alumnos destacaron el incremento significativo en su confianza al hablar inglés en comercios, restaurantes y actividades deportivas.",
+      "¡Próximamente abriremos el plazo de inscripción para la edición Summer 2027! Solicita información previa en nuestra secretaría."
+    ]
+  }
+];
+
 const BlogPreview = () => {
   const { t } = useTranslation();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-
-  const articles: Article[] = [
-    {
-      id: 'speaking-b2-tips',
-      title: "Consejos para afrontar el Speaking del B2 First de Cambridge",
-      excerpt: "Descubre las claves para dominar la expresión oral y perder el miedo escénico en tu examen oficial Cambridge.",
-      date: "15 Oct 2026",
-      category: "Cambridge Tips",
-      readTime: "4 min lectura",
-      author: "Equipo Pedagógico Tyneside",
-      content: [
-        "El examen B2 First de Cambridge evalúa tu capacidad para comunicarte de manera fluida y espontánea en inglés en situaciones reales.",
-        "1. **Conoce la estructura de las 4 partes**: La prueba consta de entrevista personal, fotos individuales (collaborative long turn), tarea colaborativa en pareja y discusión temática posterior.",
-        "2. **Utiliza conectores variados**: Evita repetir 'and' o 'because'. Incorpora conectores avanzados como 'Furthermore', 'On the other hand', 'In terms of', y 'I reckon that...'.",
-        "3. **Demuestra interacción natural**: En las partes 3 y 4, escucha activamente a tu compañero. Utiliza frases como 'That's a valid point, however...' o 'Would you agree that...?'",
-        "4. **Gestiona los silencios**: Si necesitas pensar una idea, usa conectores de relleno nativos como 'Well, that's an interesting question...' en lugar de quedarte en silencio."
-      ]
-    },
-    {
-      id: 'early-bilingualism',
-      title: "La importancia del bilingüismo temprano en la infancia",
-      excerpt: "¿Por qué empezar a los 3 años? Analizamos los beneficios cognitivos y el desarrollo del lenguaje nativo.",
-      date: "02 Nov 2026",
-      category: "Educación",
-      readTime: "5 min lectura",
-      author: "Dirección de Estudios Young Learners",
-      content: [
-        "Durante los primeros años de vida (de 0 a 6 años), el cerebro infantil posee una plasticidad neuronal óptima para la adquisición del lenguaje.",
-        "En Tyneside English Academy implementamos el programa Tyneside Explorers (3 a 5 años), diseñado para interiorizar la fonética y gramática inglesa de forma natural a través de canciones, juegos sensoriales y narración interactiva.",
-        "Estudios recientes confirman que la exposición temprana al inglés mejora la memoria de trabajo, la flexibilidad cognitiva y la resolución de problemas abstractos.",
-        "No enseñamos gramática memorística a esta edad; creamos un espacio de inmersión total donde el inglés se convierte en una herramienta cotidiana de juego y comunicación."
-      ]
-    },
-    {
-      id: 'newcastle-trip-summary',
-      title: "Nuestro viaje a Newcastle: Una experiencia de inmersión inolvidable",
-      excerpt: "Resumen de nuestro último Summer Camp en colaboración con International House Newcastle.",
-      date: "20 Nov 2026",
-      category: "Comunidad",
-      readTime: "6 min lectura",
-      author: "Coordinación de Inmersión Internacional",
-      content: [
-        "El aprendizaje de un idioma alcanza su verdadero potencial cuando trasciende el aula de clases y se vive en el entorno cultural nativo.",
-        "Nuestra reciente expedición de verano a Newcastle Upon Tyne brindó a nuestros estudiantes una combinación inolvidable de clases aceleradas en International House Newcastle, excursiones culturales a Castillos de Northumberland y convivencia con familias locales.",
-        "Los alumnos destacaron el incremento significativo en su confianza al hablar inglés en comercios, restaurantes y actividades deportivas.",
-        "¡Próximamente abriremos el plazo de inscripción para la edición Summer 2027! Solicita información previa en nuestra secretaría."
-      ]
-    }
-  ];
 
   return (
     <section id="blog" className="section-light" style={{

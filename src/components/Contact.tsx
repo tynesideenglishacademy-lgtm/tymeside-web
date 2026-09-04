@@ -224,7 +224,7 @@ const Contact = () => {
                   <label htmlFor="gdpr" style={{ fontSize: '0.85rem', color: 'var(--color-ink-muted)', lineHeight: 1.5 }}>
                     <Trans i18nKey="contact.form_gdpr">
                       He leído y acepto la
-                      <Link to="/privacidad" style={{ color: 'var(--color-amber-ink)', textDecoration: 'underline' }}>
+                      <Link to="/privacidad" style={{ color: 'var(--color-gold-ink)', textDecoration: 'underline' }}>
                         Política de Privacidad
                       </Link>
                       y consiento el tratamiento de mis datos.

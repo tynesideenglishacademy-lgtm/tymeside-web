@@ -119,7 +119,7 @@ const resources = {
         form_phone: "Teléfono",
         form_email: "Correo Electrónico",
         form_course: "¿En qué curso estás interesado?",
-        form_gdpr: "He leído y acepto la Política de Privacidad y consiento el tratamiento de mis datos.",
+        form_gdpr: "He leído y acepto la <1>Política de Privacidad</1> y consiento el tratamiento de mis datos.",
         submit: "ENVIAR MENSAJE",
         sending: "Enviando...",
         success_title: "¡Mensaje Enviado con Éxito!",
@@ -188,6 +188,22 @@ const resources = {
       },
       footer: {
         rights: "Tyneside English Academy. Todos los derechos reservados."
+      },
+      legal: {
+        section_title: "Información legal",
+        aviso_title: "Aviso Legal",
+        privacidad_title: "Política de Privacidad",
+        cookies_title: "Política de Cookies",
+        last_updated: "Última actualización",
+        draft_banner: "Borrador pendiente de revisión por asesoría jurídica. Este texto es orientativo, describe cómo funciona el sitio hoy y no sustituye el asesoramiento de un profesional. Los datos marcados como [PENDIENTE] deben confirmarse antes de publicar.",
+        other_pages: "Otras páginas legales"
+      },
+      cookie: {
+        aria: "Aviso de cookies",
+        message: "Usamos almacenamiento local para recordar tu elección. Con tu permiso, también cargamos tipografías de Google y monitorización de errores. Nada de esto se activa hasta que aceptas.",
+        more: "Más información",
+        accept: "Aceptar todo",
+        essential: "Solo lo imprescindible"
       }
     }
   },
@@ -308,7 +324,7 @@ const resources = {
         form_phone: "Phone",
         form_email: "Email Address",
         form_course: "Which course are you interested in?",
-        form_gdpr: "I have read and accept the Privacy Policy and consent to the processing of my data.",
+        form_gdpr: "I have read and accept the <1>Privacy Policy</1> and consent to the processing of my data.",
         submit: "SEND MESSAGE",
         sending: "Sending...",
         success_title: "Message Sent Successfully!",
@@ -367,6 +383,32 @@ const resources = {
         rec_C2_desc: "Highest academic level and native bilingual competence.",
         rec_default_name: "Tyneside Tailored Course",
         rec_default_desc: "Personalized advice at our academy."
+      },
+      resources: {
+        title: "Resources & Documentation",
+        test: "Free Online Level Test",
+        material: "Exam Material",
+        calendar: "School Calendar 2026/27",
+        gdpr: "Authorisation & Privacy Forms (GDPR/LOPDGDD)"
+      },
+      footer: {
+        rights: "Tyneside English Academy. All rights reserved."
+      },
+      legal: {
+        section_title: "Legal information",
+        aviso_title: "Legal Notice",
+        privacidad_title: "Privacy Policy",
+        cookies_title: "Cookie Policy",
+        last_updated: "Last updated",
+        draft_banner: "Draft pending review by legal counsel. This text is indicative, describes how the site works today and is not a substitute for professional advice. Fields marked [PENDIENTE] must be confirmed before publication.",
+        other_pages: "Other legal pages"
+      },
+      cookie: {
+        aria: "Cookie notice",
+        message: "We use local storage to remember your choice. With your permission we also load Google Fonts and error monitoring. None of this runs until you accept.",
+        more: "Learn more",
+        accept: "Accept all",
+        essential: "Essential only"
       }
     }
   }

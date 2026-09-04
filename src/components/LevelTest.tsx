@@ -156,6 +156,10 @@ const QUESTION_BANK: Record<number, any[]> = {
 const TOTAL_QUESTIONS = 50;
 const QUESTIONS_PER_STAGE = 5;
 
+const PAGE_TITLE = 'Test de nivel de inglés gratuito | Tyneside English Academy';
+const PAGE_DESC =
+  'Descubre tu nivel de inglés en la escala de Cambridge (A1–C2) con nuestro test adaptativo gratuito de 10 minutos. Recibirás tu certificado por correo.';
+
 export default function LevelTest() {
   const { t } = useTranslation();
   const [view, setView] = useState<'registration' | 'test' | 'results'>('registration');
@@ -179,6 +183,22 @@ export default function LevelTest() {
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  // index.html carries the home page's title/description. This route is shared
+  // publicly on its own (WhatsApp, the CRM admin header), so it needs its own.
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = PAGE_TITLE;
+
+    const meta = document.querySelector('meta[name="description"]');
+    const previousDesc = meta?.getAttribute('content') ?? null;
+    meta?.setAttribute('content', PAGE_DESC);
+
+    return () => {
+      document.title = previousTitle;
+      if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
     };
   }, []);
 
@@ -468,24 +488,24 @@ export default function LevelTest() {
               <form onSubmit={handleRegistration}>
                 <div className="lt-grid-2">
                   <div>
-                    <label className="lt-label">{t('levelTest.form_name')}</label>
-                    <input type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
+                    <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}</label>
+                    <input id="lt-name" type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_email')}</label>
-                    <input type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
+                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}</label>
+                    <input id="lt-email" type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_postal')}</label>
-                    <input type="text" name="postal" required placeholder="30006" className="lt-input" />
+                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}</label>
+                    <input id="lt-postal" type="text" name="postal" required placeholder="30006" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label">{t('levelTest.form_phone')}</label>
-                    <input type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
+                    <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}</label>
+                    <input id="lt-phone" type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
                   </div>
                   <div className="lt-col-span-2">
-                    <label className="lt-label">{t('levelTest.form_address')}</label>
-                    <input type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
+                    <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}</label>
+                    <input id="lt-address" type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
                   </div>
                 </div>
                 <button type="submit" className="lt-btn">
@@ -504,15 +524,19 @@ export default function LevelTest() {
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', opacity: 0.7 }}>{t('levelTest.time')}</span>
-                  <div style={{ fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 700, padding: '0.4rem 0.8rem', borderRadius: 'var(--radius-sm)', border: '1px solid', backgroundColor: timeLeft > 10 ? 'var(--color-soft-cream)' : '#dc2626', color: timeLeft > 10 ? 'inherit' : 'white', borderColor: timeLeft > 10 ? 'transparent' : '#dc2626' }}>
+                  <div role="timer" aria-label={t('levelTest.time')} style={{ fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 700, padding: '0.4rem 0.8rem', borderRadius: 'var(--radius-sm)', border: '1px solid', backgroundColor: timeLeft > 10 ? 'var(--color-soft-cream)' : '#dc2626', color: timeLeft > 10 ? 'inherit' : 'white', borderColor: timeLeft > 10 ? 'transparent' : '#dc2626' }}>
                     {timeLeft}s
                   </div>
                 </div>
               </div>
 
-              <h2 className="lt-question">{currentQuestion.q}</h2>
+              <p className="sr-only" aria-live="polite">
+                {t('levelTest.question_of', { current: questionNum })}. {currentQuestion.q}
+              </p>
 
-              <div className="lt-grid-2">
+              <h2 className="lt-question" id="lt-question">{currentQuestion.q}</h2>
+
+              <div className="lt-grid-2" role="group" aria-labelledby="lt-question">
                 {currentQuestion.options.map((opt: string, idx: number) => (
                   <button 
                     key={idx}
@@ -530,7 +554,14 @@ export default function LevelTest() {
                 ))}
               </div>
 
-              <div className="lt-progress-bg">
+              <div
+                className="lt-progress-bg"
+                role="progressbar"
+                aria-label={t('levelTest.progress')}
+                aria-valuenow={questionNum - 1}
+                aria-valuemin={0}
+                aria-valuemax={TOTAL_QUESTIONS}
+              >
                 <div className="lt-progress-fill" style={{ width: `${((questionNum - 1) / TOTAL_QUESTIONS) * 100}%` }}></div>
               </div>
             </div>

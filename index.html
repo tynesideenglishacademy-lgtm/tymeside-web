@@ -44,6 +44,42 @@
     <meta name="twitter:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
 
     <meta name="theme-color" content="#09131E" />
+
+    <!--
+      EducationalOrganization + AggregateRating, so the real 4.9/70 Google
+      score (verified in src/data/testimonials.ts) can show up as a rich
+      snippet in search results instead of only living inside the page.
+      ratingValue/reviewCount are copied by hand from GOOGLE_RATING there —
+      keep the two in sync, and never show a rating here higher than the
+      live Google listing.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Tyneside English Academy",
+      "url": "https://tyneside-web.vercel.app/",
+      "logo": "https://tyneside-web.vercel.app/logo-light.png",
+      "image": "https://tyneside-web.vercel.app/img/og-banner.jpg",
+      "telephone": "+34605661212",
+      "email": "info@tynesideacademy.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Plaza Tomás y Valiente 6, Puente Tocinos",
+        "addressLocality": "Murcia",
+        "postalCode": "30006",
+        "addressCountry": "ES"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "70"
+      },
+      "sameAs": [
+        "https://search.google.com/local/reviews?placeid=ChIJfWmOu2eDYw0RuxITTrqDaLs"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

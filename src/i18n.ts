@@ -379,8 +379,16 @@ i18n
     lng: "es", // Spanish as default
     fallbackLng: "en",
     interpolation: {
-      escapeValue: false 
+      escapeValue: false
     }
   });
+
+// index.html hardcodes <html lang="es">, which never changed when a visitor
+// toggled to English via the nav button — screen readers kept applying
+// Spanish pronunciation rules to English text.
+document.documentElement.lang = i18n.language.startsWith('en') ? 'en' : 'es';
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng.startsWith('en') ? 'en' : 'es';
+});
 
 export default i18n;

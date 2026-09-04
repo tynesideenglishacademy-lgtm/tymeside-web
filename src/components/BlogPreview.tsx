@@ -98,9 +98,18 @@ const BlogPreview = () => {
           gap: '2.5rem'
         }}>
           {articles.map((article) => (
-            <div 
-              key={article.id} 
+            <div
+              key={article.id}
               onClick={() => setSelectedArticle(article)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setSelectedArticle(article);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`${t('blog.read_more')}: ${article.title}`}
               className="light-card interactive"
               style={{
                 display: 'flex',

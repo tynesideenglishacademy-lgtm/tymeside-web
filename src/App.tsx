@@ -8,7 +8,6 @@ import ExamPrep from './components/ExamPrep'
 import Testimonials from './components/Testimonials'
 import Services from './components/Services'
 import TripsCamps from './components/TripsCamps'
-import BlogPreview from './components/BlogPreview'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileCta from './components/MobileCta'
@@ -37,7 +36,6 @@ function Home() {
         <Testimonials />
         <Services />
         <TripsCamps />
-        <BlogPreview />
         <Contact />
       </main>
       <Footer />

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 import SectionHeader from './SectionHeader';
 
@@ -146,8 +147,9 @@ const Contact = () => {
 
                 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
+                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
@@ -159,8 +161,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
+                  <label htmlFor="contact-phone" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
@@ -172,8 +175,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
+                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -185,8 +189,8 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
-                  <select name="course" value={formData.course} onChange={handleChange} className="premium-input">
+                  <label htmlFor="contact-course" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
+                  <select id="contact-course" name="course" value={formData.course} onChange={handleChange} className="premium-input">
                     <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
                     <option value="Cambridge Adolescentes (ESO/Bachillerato)">{t('contact.courses.teens')}</option>
@@ -208,7 +212,13 @@ const Contact = () => {
                     style={{ marginTop: '0.25rem', width: '18px', height: '18px', accentColor: 'var(--color-amber)' }}
                   />
                   <label htmlFor="gdpr" style={{ fontSize: '0.85rem', color: 'var(--color-ink-muted)', lineHeight: 1.5 }}>
-                    {t('contact.form_gdpr')}
+                    <Trans i18nKey="contact.form_gdpr">
+                      He leído y acepto la
+                      <Link to="/privacidad" style={{ color: 'var(--color-amber-ink)', textDecoration: 'underline' }}>
+                        Política de Privacidad
+                      </Link>
+                      y consiento el tratamiento de mis datos.
+                    </Trans>
                   </label>
                 </div>
 

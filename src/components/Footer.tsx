@@ -58,13 +58,23 @@ const Footer = () => {
         </div>
 
         <div style={{
-          textAlign: 'center',
           paddingTop: '2rem',
           borderTop: '1px solid var(--color-border-glass)',
           color: 'var(--color-slate-muted)',
-          fontSize: '0.85rem'
+          fontSize: '0.85rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1rem'
         }}>
-          © {new Date().getFullYear()} Tyneside English Academy. {t('footer.rights')}
+          <nav style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem 1.25rem' }} aria-label={t('legal.section_title')}>
+            <Link to="/aviso-legal" className="footer-link">{t('legal.aviso_title')}</Link>
+            <Link to="/privacidad" className="footer-link">{t('legal.privacidad_title')}</Link>
+            <Link to="/cookies" className="footer-link">{t('legal.cookies_title')}</Link>
+          </nav>
+          <div style={{ textAlign: 'center' }}>
+            © {new Date().getFullYear()} Tyneside English Academy. {t('footer.rights')}
+          </div>
         </div>
 
       </div>

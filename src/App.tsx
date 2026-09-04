@@ -12,6 +12,8 @@ import BlogPreview from './components/BlogPreview'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileCta from './components/MobileCta'
+import CookieBanner from './components/CookieBanner'
+import LegalPage from './components/LegalPage'
 import { initReveal } from './lib/reveal'
 
 // jsPDF + html2canvas are ~380 kB and only the level test ever uses them.
@@ -51,25 +53,31 @@ function App() {
   useEffect(() => initReveal(), [location.pathname])
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/aptis-oposiciones"
-        element={
-          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
-            <AptisOposiciones />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/level-test"
-        element={
-          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
-            <LevelTest />
-          </Suspense>
-        }
-      />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/aviso-legal" element={<LegalPage slug="aviso-legal" />} />
+        <Route path="/privacidad" element={<LegalPage slug="privacidad" />} />
+        <Route path="/cookies" element={<LegalPage slug="cookies" />} />
+        <Route
+          path="/aptis-oposiciones"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+              <AptisOposiciones />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/level-test"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+              <LevelTest />
+            </Suspense>
+          }
+        />
+      </Routes>
+      <CookieBanner />
+    </>
   )
 }
 

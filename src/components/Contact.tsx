@@ -31,6 +31,13 @@ const Contact = () => {
     setIsSubmitting(true);
     setFailed(false);
 
+    // Bound every field before it reaches the database. The inputs already cap
+    // length in the browser, but a crafted request could still POST arbitrary
+    // sizes straight at Supabase.
+    const name = formData.name.trim().slice(0, 120);
+    const phone = formData.phone.trim().slice(0, 40);
+    const email = formData.email.trim().slice(0, 160);
+
     try {
       // Supabase returns errors in the payload rather than throwing, and a
       // missing config means the lead goes nowhere at all. Both used to end up
@@ -42,9 +49,9 @@ const Contact = () => {
 
       const { error } = await supabase.from('leads').insert([
         {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
+          name,
+          phone,
+          email,
           course: formData.course,
           created_at: new Date().toISOString()
         }
@@ -155,6 +162,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    maxLength={120}
                     placeholder={t('contact.form_name')}
                     className="premium-input"
                   />
@@ -169,6 +177,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
+                    maxLength={40}
                     placeholder="+34 600 000 000"
                     className="premium-input"
                   />
@@ -183,6 +192,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    maxLength={160}
                     placeholder="hola@ejemplo.com"
                     className="premium-input"
                   />

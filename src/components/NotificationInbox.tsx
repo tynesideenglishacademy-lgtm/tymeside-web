@@ -44,14 +44,14 @@ function NotificationInbox() {
       socketUrl={import.meta.env.VITE_NOVU_SOCKET_URL || 'https://eu.ws.novu.co'}
       appearance={{
         variables: {
-          colorPrimary: '#E8991C',
+          colorPrimary: '#C9A227',
           colorPrimaryForeground: '#1a1200',
           colorSecondary: '#1B3A5B',
           colorSecondaryForeground: '#F6F8FA',
-          colorCounter: '#E8991C',
+          colorCounter: '#C9A227',
           colorCounterForeground: '#1a1200',
           colorBackground: '#12263A',
-          colorRing: '#E8991C',
+          colorRing: '#C9A227',
           colorForeground: '#F6F8FA',
           colorNeutral: '#9DB0C2',
           colorShadow: 'rgba(0, 0, 0, 0.28)',

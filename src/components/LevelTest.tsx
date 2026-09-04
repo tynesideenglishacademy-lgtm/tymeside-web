@@ -456,7 +456,7 @@ export default function LevelTest() {
   return (
     <div className="lt-main" style={{ backgroundColor: 'var(--color-bg-base)', fontFamily: 'var(--font-body)', minHeight: '100vh', flexDirection: 'column', padding: 0 }}>
       {/* Header */}
-      <header style={{ backgroundColor: 'var(--color-deep-navy)', borderBottom: '4px solid var(--color-warm-gold)', padding: '1.25rem 2rem', width: '100%' }}>
+      <header style={{ backgroundColor: 'var(--color-deep-navy)', borderBottom: '4px solid var(--color-gold)', padding: '1.25rem 2rem', width: '100%' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link to="/">
             <img src="/logo-light.png" alt="Tyneside English Academy" style={{ height: '50px' }} />
@@ -473,7 +473,7 @@ export default function LevelTest() {
           
           {isLoading && (
             <div className="lt-overlay">
-              <div style={{ width: '3rem', height: '3rem', border: '4px solid var(--color-soft-cream)', borderTopColor: 'var(--color-warm-gold)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '1rem' }}></div>
+              <div style={{ width: '3rem', height: '3rem', border: '4px solid var(--color-soft-cream)', borderTopColor: 'var(--color-gold)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '1rem' }}></div>
               <p style={{ fontSize: '1.25rem', fontWeight: 700 }}>{t('levelTest.processing_title')}</p>
               <p style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: '0.5rem' }}>{t('levelTest.processing_desc')}</p>
             </div>
@@ -544,8 +544,8 @@ export default function LevelTest() {
                     onClick={() => handleAnswer(idx)}
                     className="lt-option-btn"
                     style={{ 
-                      borderColor: selectedOptionIndex === idx ? 'var(--color-warm-gold)' : 'var(--color-soft-cream)',
-                      backgroundColor: selectedOptionIndex === idx ? 'var(--color-warm-gold)' : 'white',
+                      borderColor: selectedOptionIndex === idx ? 'var(--color-gold)' : 'var(--color-soft-cream)',
+                      backgroundColor: selectedOptionIndex === idx ? 'var(--color-gold)' : 'white',
                       color: selectedOptionIndex === idx ? 'var(--color-deep-navy)' : 'inherit'
                     }}
                   >
@@ -569,7 +569,7 @@ export default function LevelTest() {
 
           {view === 'results' && finalResults && (
             <div className="animate-fade-in lt-text-center">
-              <div style={{ width: '6rem', height: '6rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', border: '1px solid var(--color-amber-border)' }}>
+              <div style={{ width: '6rem', height: '6rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', backgroundColor: 'var(--color-gold-soft)', color: 'var(--color-gold-strong)', border: '1px solid var(--color-gold-border)' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '3rem', height: '3rem' }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -581,12 +581,12 @@ export default function LevelTest() {
               </div>
 
               <div className="lt-result-card">
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-warm-gold)' }}>{t('levelTest.cefr_evaluated')}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-gold)' }}>{t('levelTest.cefr_evaluated')}</div>
                 <div style={{ fontSize: '5rem', fontWeight: 800, color: 'white', lineHeight: 1.1, margin: '0.5rem 0' }}>{finalResults.cefr}</div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.8)' }}>{finalResults.desc}</div>
                 <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: '1.5rem 0' }}></div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.6)' }}>
-                  {t('levelTest.scale_score')}: <span style={{ fontWeight: 800, fontSize: '1rem', marginLeft: '0.25rem', color: 'var(--color-amber)' }}>{finalResults.score}</span>
+                  {t('levelTest.scale_score')}: <span style={{ fontWeight: 800, fontSize: '1rem', marginLeft: '0.25rem', color: 'var(--color-gold)' }}>{finalResults.score}</span>
                 </div>
               </div>
 
@@ -622,7 +622,7 @@ export default function LevelTest() {
                   style={{
                     marginTop: 0,
                     textDecoration: 'none',
-                    background: 'var(--color-amber)',
+                    background: 'var(--color-gold)',
                     color: '#1a1200'
                   }}
                 >

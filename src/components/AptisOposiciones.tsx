@@ -210,9 +210,9 @@ const AptisOposiciones = () => {
           <h1 style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'var(--text-hero)',
-            fontWeight: 900,
+            fontWeight: 800,
             lineHeight: 1.08,
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.02em',
             marginBottom: '1.5rem',
             maxWidth: '17ch'
           }}>
@@ -308,7 +308,7 @@ const AptisOposiciones = () => {
                   lineHeight: 1.7,
                   color: 'var(--color-slate-muted)'
                 }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-warm-gold)" strokeWidth="2.5" aria-hidden="true" style={{ flexShrink: 0, marginTop: '0.35rem' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="2.5" aria-hidden="true" style={{ flexShrink: 0, marginTop: '0.35rem' }}>
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   <span>{line}</span>
@@ -344,7 +344,7 @@ const AptisOposiciones = () => {
                 <span style={{
                   fontFamily: 'var(--font-heading)',
                   fontSize: '2.8rem',
-                  fontWeight: 900,
+                  fontWeight: 800,
                   lineHeight: 1,
                   color: 'var(--color-deep-navy)'
                 }}>
@@ -435,8 +435,8 @@ const AptisOposiciones = () => {
               <div role="status" style={{
                 padding: '2rem',
                 borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--color-amber-soft)',
-                border: '1px solid var(--color-amber-border)'
+                backgroundColor: 'var(--color-gold-soft)',
+                border: '1px solid var(--color-gold-border)'
               }}>
                 <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>
                   {copy.formOkTitle}
@@ -528,7 +528,7 @@ const AptisOposiciones = () => {
       }}>
         <div className="container">
           Tyneside English Academy · Plaza Tomás y Valiente 6, Bajo 3, Puente Tocinos (Murcia) ·{' '}
-          <a href="tel:+34605661212" style={{ color: 'var(--color-warm-gold)' }}>605 661 212</a>
+          <a href="tel:+34605661212" style={{ color: 'var(--color-gold)' }}>605 661 212</a>
         </div>
       </footer>
     </>

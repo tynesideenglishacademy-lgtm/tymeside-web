@@ -13,10 +13,13 @@
   --color-tyneside-blue: #1B3A5B;
   --color-river-teal: #2A6DA3;
 
-  --color-amber: #E8991C;
-  --color-amber-strong: #D4870F;
-  --color-amber-soft: rgba(232, 153, 28, 0.12);
-  --color-amber-border: rgba(232, 153, 28, 0.32);
+  /* One gold, one job list: CTAs, section numerals, eyebrows, focus rings, and
+     a few single-word accents. Deliberately NOT used for body-copy emphasis —
+     that work now goes to weight + cream/ink. */
+  --color-gold: #C9A227;
+  --color-gold-strong: #AD8A1F;
+  --color-gold-soft: rgba(201, 162, 39, 0.12);
+  --color-gold-border: rgba(201, 162, 39, 0.32);
 
   --color-soft-cream: #F6F8FA;
   --color-ink: #0E2033;
@@ -26,16 +29,10 @@
   --color-border-glass: rgba(255, 255, 255, 0.10);
   --color-border-light: rgba(11, 27, 43, 0.08);
 
-  /* Amber is only 2.33:1 on white — this darkened version is the one to use for
-     amber *text* on any light surface (5.2:1, passes AA). */
-  --color-amber-ink: #8A5A00;
+  /* #C9A227 is ~2.6:1 on white — this darkened version is the one to use for
+     gold *text* on any light surface (~5.9:1, passes AA). */
+  --color-gold-ink: #7A5E10;
 
-  /* Aliases kept so existing components need no edit */
-  --color-warm-gold: var(--color-amber);
-  --color-gold-light: var(--color-amber);
-  --color-gold-glow: rgba(232, 153, 28, 0.22);
-  --color-border-gold: var(--color-amber-border);
-  --color-accent-cyan: var(--color-soft-cream);
   --color-bg-base: var(--color-deep-navy);
 
   /* Typography */
@@ -125,14 +122,14 @@ p {
 }
 
 ::selection {
-  background-color: var(--color-amber);
+  background-color: var(--color-gold);
   color: #1a1200;
 }
 
 /* --- Focus visibility ---
    Keyboard users had no focus indicator at all before this. */
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-gold);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -141,7 +138,7 @@ p {
 .light-card :focus-visible,
 .section-light :focus-visible,
 .lt-card :focus-visible {
-  outline-color: var(--color-amber-ink);
+  outline-color: var(--color-gold-ink);
 }
 
 .skip-link {
@@ -151,7 +148,7 @@ p {
   transform: translate(-50%, -120%);
   z-index: 2000;
   padding: 0.7rem 1.4rem;
-  background-color: var(--color-amber);
+  background-color: var(--color-gold);
   color: #1a1200;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -251,7 +248,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-amber);
+  color: var(--color-gold);
 }
 
 .section-head-center .section-head-label {
@@ -260,7 +257,7 @@ a {
 
 .section-light .section-head-label,
 .light-card .section-head-label {
-  color: var(--color-amber-ink);
+  color: var(--color-gold-ink);
 }
 
 /* The numeral is the fixed part; the rule after it stretches, which is what
@@ -369,8 +366,8 @@ a {
     width: 46px;
     height: 46px;
     border-radius: var(--radius-sm);
-    border: 1px solid var(--color-amber-border);
-    color: var(--color-amber);
+    border: 1px solid var(--color-gold-border);
+    color: var(--color-gold);
   }
 
   /* The bar would otherwise cover the last of the footer. */
@@ -379,21 +376,17 @@ a {
   }
 }
 
-/* --- Accent text (kept as class names; now flat brand colour, no gradient) --- */
-.text-gradient-gold {
-  color: var(--color-amber);
-}
-
-.text-gradient-cyan {
-  color: var(--color-soft-cream);
+/* --- Accent text (single-word gold highlight, e.g. the hero's "Connect.") --- */
+.text-gold {
+  color: var(--color-gold);
 }
 
 /* --- Eyebrow label --- */
 .eyebrow {
   display: inline-block;
   padding: 0.35rem 0.9rem;
-  background-color: var(--color-amber-soft);
-  color: var(--color-amber);
+  background-color: var(--color-gold-soft);
+  color: var(--color-gold);
   border-radius: var(--radius-sm);
   font-family: var(--font-heading);
   font-size: 0.78rem;
@@ -405,8 +398,8 @@ a {
 /* Same label on a light background: plain amber only reaches 2.3:1 there. */
 .section-light .eyebrow,
 .light-card .eyebrow {
-  color: var(--color-amber-ink);
-  background-color: rgba(232, 153, 28, 0.14);
+  color: var(--color-gold-ink);
+  background-color: rgba(201, 162, 39, 0.16);
 }
 
 /* --- Buttons --- */
@@ -416,7 +409,7 @@ a {
   justify-content: center;
   gap: 0.55rem;
   padding: 0.85rem 1.8rem;
-  background-color: var(--color-amber);
+  background-color: var(--color-gold);
   color: #1a1200;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -430,9 +423,9 @@ a {
 }
 
 .btn-gold:hover {
-  background-color: var(--color-amber-strong);
+  background-color: var(--color-gold-strong);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(232, 153, 28, 0.24);
+  box-shadow: 0 6px 16px rgba(201, 162, 39, 0.24);
 }
 
 /* Press feedback: the lift collapses rather than staying up. */
@@ -447,7 +440,7 @@ a {
   justify-content: center;
   gap: 0.55rem;
   padding: 0.85rem 1.7rem;
-  background-color: var(--color-amber);
+  background-color: var(--color-gold);
   color: #1a1200;
   border: none;
   border-radius: var(--radius-sm);
@@ -459,7 +452,7 @@ a {
 }
 
 .btn-primary:hover {
-  background-color: var(--color-amber-strong);
+  background-color: var(--color-gold-strong);
   transform: translateY(-1px);
 }
 
@@ -487,7 +480,7 @@ a {
 
 .btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.06);
-  border-color: var(--color-amber);
+  border-color: var(--color-gold);
   color: var(--color-soft-cream);
 }
 
@@ -511,7 +504,7 @@ a {
 
 .glass-card-premium:hover {
   transform: translateY(-2px);
-  border-color: var(--color-amber-border);
+  border-color: var(--color-gold-border);
   box-shadow: var(--elev-dark-3);
 }
 
@@ -536,8 +529,8 @@ a {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--color-amber) 22%,
-    var(--color-amber) 78%,
+    var(--color-gold) 22%,
+    var(--color-gold) 78%,
     transparent
   );
 }
@@ -550,13 +543,33 @@ a {
   transform: translateX(-50%);
   width: calc(100% - 2.5rem);
   max-width: var(--spacing-container-max);
-  background: rgba(11, 27, 43, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* Over the hero photo the bar is real glass — the Tyne Bridge arch reads
+     softly through it. Once the page scrolls past the hero it turns solid
+     navy (.is-solid) so it never sits translucent over a light section. */
+  background: rgba(9, 19, 30, 0.4);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-glass);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   z-index: 1000;
   box-shadow: var(--elev-dark-3);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.floating-navbar.is-solid {
+  background: rgba(11, 27, 43, 0.96);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border-color: var(--color-border-glass);
+}
+
+/* backdrop-filter unsupported (older Firefox): fall back to opaque navy so
+   text never lands on a semi-transparent bar. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .floating-navbar {
+    background: rgba(11, 27, 43, 0.97);
+  }
 }
 
 .navbar-container {
@@ -590,10 +603,10 @@ a {
 }
 
 .navbar-link:hover {
-  color: var(--color-amber);
+  color: var(--color-gold);
   /* The 2px transparent border above exists for exactly this — the link never
      shifts, the rule just becomes visible. */
-  border-bottom-color: var(--color-amber);
+  border-bottom-color: var(--color-gold);
 }
 
 .navbar-lang-btn {
@@ -613,8 +626,8 @@ a {
 }
 
 .navbar-lang-btn:hover {
-  border-color: var(--color-amber);
-  color: var(--color-amber);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 
 /* --- Light cards --- */
@@ -640,7 +653,7 @@ a {
 .light-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--elev-light-3);
-  border-color: var(--color-amber-border);
+  border-color: var(--color-gold-border);
 }
 
 /* --- Light section wrapper (cream band on the navy page) --- */
@@ -693,8 +706,8 @@ a {
 }
 
 .premium-input:focus {
-  border-color: var(--color-amber);
-  box-shadow: 0 0 0 3px var(--color-amber-soft);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px var(--color-gold-soft);
 }
 
 /* --- Footer --- */
@@ -704,7 +717,7 @@ a {
   text-decoration: none;
 }
 .footer-link:hover {
-  color: var(--color-amber);
+  color: var(--color-gold);
 }
 
 /* --- Animations (restrained) --- */
@@ -725,9 +738,6 @@ a {
 .animate-fade-in {
   animation: fadeIn 0.4s ease forwards;
 }
-
-/* pulse-glow retired: kept as a no-op so stray class refs do nothing */
-.animate-pulse-glow {}
 
 .delay-100 { animation-delay: 0.06s; }
 .delay-200 { animation-delay: 0.12s; }
@@ -856,7 +866,7 @@ a {
 }
 
 .cookie-banner-link {
-  color: var(--color-amber);
+  color: var(--color-gold);
   text-decoration: underline;
 }
 
@@ -916,13 +926,13 @@ a {
 }
 
 .legal-draft-banner {
-  background-color: var(--color-amber-soft);
-  border: 1px solid var(--color-amber-border);
+  background-color: var(--color-gold-soft);
+  border: 1px solid var(--color-gold-border);
   border-radius: var(--radius-md);
   padding: 1rem 1.2rem;
   font-size: 0.85rem;
   line-height: 1.55;
-  color: var(--color-amber-ink);
+  color: var(--color-gold-ink);
   margin-bottom: 2rem !important;
 }
 

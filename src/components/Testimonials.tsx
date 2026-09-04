@@ -75,7 +75,7 @@ const Testimonials = () => {
               style={{
                 fontFamily: 'var(--font-heading)',
                 fontSize: '2.4rem',
-                fontWeight: 900,
+                fontWeight: 800,
                 lineHeight: 1,
                 color: 'var(--color-ink)',
               }}

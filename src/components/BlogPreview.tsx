@@ -112,7 +112,7 @@ const BlogPreview = () => {
               <div style={{
                 padding: '1.4rem 2rem',
                 backgroundColor: 'var(--color-tyneside-blue)',
-                borderBottom: '3px solid var(--color-amber)'
+                borderBottom: '3px solid var(--color-gold)'
               }}>
                 <span style={{
                   color: 'var(--color-soft-cream)',
@@ -259,8 +259,8 @@ const BlogPreview = () => {
               <div style={{
                 marginTop: '2rem',
                 padding: '2rem',
-                backgroundColor: 'var(--color-amber-soft)',
-                border: '1px solid var(--color-amber-border)',
+                backgroundColor: 'var(--color-gold-soft)',
+                border: '1px solid var(--color-gold-border)',
                 borderRadius: 'var(--radius-md)',
                 textAlign: 'center'
               }}>

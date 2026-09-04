@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
@@ -12,6 +12,15 @@ const Navigation = () => {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Glass while the bar overlaps the hero photo; solid navy once past it.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const toggleLanguage = () => {
     const currentLang = i18n.language || 'es';
     const newLang = currentLang.startsWith('es') ? 'en' : 'es';
@@ -21,7 +30,7 @@ const Navigation = () => {
   const currentLangDisplay = (i18n.language || 'es').startsWith('en') ? 'EN' : 'ES';
 
   return (
-    <nav className="floating-navbar animate-fade-in delay-100">
+    <nav className={`floating-navbar animate-fade-in delay-100${scrolled || mobileMenuOpen ? ' is-solid' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
           <img src="/logo-light.png" alt="Tyneside English Academy" />

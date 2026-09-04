@@ -1,17 +1,24 @@
 /**
  * Cookie / third-party consent.
  *
- * Two things on this site reach out to a third party in a way that Spanish
+ * Three things on this site reach out to a third party in a way that Spanish
  * cookie law (LSSI-CE, art. 22.2) treats as needing prior consent:
  *
  *   - Google Fonts. The browser fetches the stylesheet and font files from
  *     fonts.googleapis.com / fonts.gstatic.com, which logs the visitor's IP.
  *   - Sentry Session Replay. It records a video-like reconstruction of the
  *     visit, which is personal data.
+ *   - The Google Maps embed on the contact section. Loading it fetches from
+ *     google.com and may set Google cookies, so Contact.tsx keeps the iframe
+ *     unmounted and shows a click-to-load placeholder until this same choice
+ *     is granted (see readConsent()/CONSENT_CHANGED_EVENT there) — it is not
+ *     started from this file since it is a per-component embed, not a
+ *     site-wide script.
  *
- * Both stay OFF until the visitor accepts. Essential state (which is only this
- * choice itself, stored in localStorage) needs no consent. On a return visit
- * the stored "granted" choice is re-applied on boot without showing the banner.
+ * All three stay OFF until the visitor accepts. Essential state (which is only
+ * this choice itself, stored in localStorage) needs no consent. On a return
+ * visit the stored "granted" choice is re-applied on boot without showing the
+ * banner.
  *
  * Fonts fall back to the system stack in --font-heading / --font-body until
  * consent is given, so the page is fully usable with nothing accepted.

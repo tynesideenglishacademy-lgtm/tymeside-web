@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { CONSENT_CHANGED_EVENT, readConsent, setConsent } from '../lib/consent';
 import SectionHeader from './SectionHeader';
 
 const Contact = () => {
@@ -17,6 +18,18 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  // Embedding the map loads content from google.com, which — like Fonts and
+  // Sentry — needs prior consent under Spanish cookie law. It shares the
+  // same accept/deny choice as those (src/lib/consent.ts) rather than having
+  // its own toggle.
+  const [mapConsent, setMapConsent] = useState(() => readConsent() === 'granted');
+
+  useEffect(() => {
+    const onConsentChange = () => setMapConsent(readConsent() === 'granted');
+    window.addEventListener(CONSENT_CHANGED_EVENT, onConsentChange);
+    return () => window.removeEventListener(CONSENT_CHANGED_EVENT, onConsentChange);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -258,16 +271,42 @@ const Contact = () => {
               boxShadow: '0 12px 32px rgba(9, 19, 30, 0.08)',
               border: '1px solid var(--color-border-light)'
             }}>
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0xd63821caee2d65d%3A0x8b39868f76bfd419!2sPlaza%20Tom%C3%A1s%20y%20Valiente%2C%2030006%20Puente%20Tocinos%2C%20Murcia%2C%20Spain!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={false} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Tyneside Academy Location"
-              ></iframe>
+              {mapConsent ? (
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0xd63821caee2d65d%3A0x8b39868f76bfd419!2sPlaza%20Tom%C3%A1s%20y%20Valiente%2C%2030006%20Puente%20Tocinos%2C%20Murcia%2C%20Spain!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Tyneside Academy Location"
+                ></iframe>
+              ) : (
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '1rem',
+                  padding: '1.5rem',
+                  textAlign: 'center'
+                }}>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--color-ink-muted)', lineHeight: 1.5, maxWidth: '30ch' }}>
+                    {t('contact.map_consent_notice')}
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    style={{ padding: '0.65rem 1.4rem', fontSize: '0.88rem' }}
+                    onClick={() => setConsent('granted')}
+                  >
+                    {t('contact.map_consent_button')}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Contact Details */}

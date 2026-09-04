@@ -488,15 +488,15 @@ export default function LevelTest() {
               <form onSubmit={handleRegistration}>
                 <div className="lt-grid-2">
                   <div>
-                    <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}</label>
+                    <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')} <span style={{ color: '#9B1C1C' }}>*</span></label>
                     <input id="lt-name" type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}</label>
+                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')} <span style={{ color: '#9B1C1C' }}>*</span></label>
                     <input id="lt-email" type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}</label>
+                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')} <span style={{ color: '#9B1C1C' }}>*</span></label>
                     <input id="lt-postal" type="text" name="postal" required placeholder="30006" className="lt-input" />
                   </div>
                   <div>

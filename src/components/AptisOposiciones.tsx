@@ -350,7 +350,7 @@ const AptisOposiciones = () => {
                 }}>
                   {GOOGLE_RATING.score.toLocaleString('es-ES', { minimumFractionDigits: 1 })}
                 </span>
-                <Stars rating={Math.round(GOOGLE_RATING.score)} size={20} />
+                <Stars rating={Math.round(GOOGLE_RATING.score)} size={20} onDark={false} />
               </div>
 
               <p style={{ color: 'var(--color-ink-muted)', marginBottom: '2.5rem' }}>
@@ -361,7 +361,7 @@ const AptisOposiciones = () => {
                 <div className="grid-cards" style={{ textAlign: 'left', marginBottom: '2.5rem' }}>
                   {testimonials.slice(0, 3).map(r => (
                     <figure key={r.id} className="light-card" style={{ padding: '2rem', margin: 0 }}>
-                      <Stars rating={r.rating} />
+                      <Stars rating={r.rating} onDark={false} />
                       <blockquote style={{ margin: '1rem 0 0' }}>
                         <p className="light-card-body">{r.quote}</p>
                       </blockquote>

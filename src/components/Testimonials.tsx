@@ -16,7 +16,7 @@ const ReviewCard = ({ review }: { review: Testimonial }) => (
       margin: 0,
     }}
   >
-    <Stars rating={review.rating} />
+    <Stars rating={review.rating} onDark={false} />
 
     <blockquote style={{ margin: 0 }}>
       <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--color-ink)' }}>
@@ -82,7 +82,7 @@ const Testimonials = () => {
             >
               {GOOGLE_RATING.score.toLocaleString('es-ES', { minimumFractionDigits: 1 })}
             </span>
-            <Stars rating={Math.round(GOOGLE_RATING.score)} />
+            <Stars rating={Math.round(GOOGLE_RATING.score)} onDark={false} />
             <span style={{ color: 'var(--color-ink-muted)' }}>
               {t('testimonials.rating_count', { count: GOOGLE_RATING.count })}
             </span>

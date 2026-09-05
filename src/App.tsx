@@ -11,6 +11,7 @@ import TripsCamps from './components/TripsCamps'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileCta from './components/MobileCta'
+import WhatsAppFab from './components/WhatsAppFab'
 import CookieBanner from './components/CookieBanner'
 import LegalPage from './components/LegalPage'
 import { initReveal } from './lib/reveal'
@@ -22,6 +23,10 @@ const LevelTest = lazy(() => import('./components/LevelTest'))
 // A campaign landing: nobody arrives here from the home page, so it has no
 // business sitting in the main bundle everyone else downloads.
 const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
+
+// Same reasoning: a B2B / FUNDAE landing linked from the Services block, not
+// somewhere a general visitor lands, so it stays out of the main bundle.
+const Empresas = lazy(() => import('./components/Empresas'))
 
 function Home() {
   return (
@@ -66,6 +71,14 @@ function App() {
           }
         />
         <Route
+          path="/empresas"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+              <Empresas />
+            </Suspense>
+          }
+        />
+        <Route
           path="/level-test"
           element={
             <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
@@ -74,6 +87,7 @@ function App() {
           }
         />
       </Routes>
+      <WhatsAppFab />
       <CookieBanner />
     </>
   )

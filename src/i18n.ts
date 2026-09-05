@@ -13,7 +13,8 @@ const resources = {
         enroll: "MATRICÚLATE",
         virtualClassroom: "Aulario Virtual",
         call: "Llamar",
-        whatsapp: "WhatsApp"
+        whatsapp: "WhatsApp",
+        whatsappAria: "Escríbenos por WhatsApp"
       },
       hero: {
         connect: "CONNECT.",
@@ -84,6 +85,7 @@ const resources = {
         f_desc1: "Impulsa tu competitividad a coste cero.",
         f_desc2: "Diseñamos e impartimos formación en inglés técnico y comercial para empresas de Murcia. Ideal para los sectores de exportación, logística y tecnología.",
         f_desc3: "Cursos hasta 100% bonificables a través de FUNDAE.",
+        f_cta: "Más información sobre FUNDAE",
         s_title: "Servicios Escolares y Extraescolares",
         s_desc: "Colaboramos con colegios y AMPAS locales para llevar la calidad Tyneside a las aulas de educación pública y concertada, enriqueciendo la jornada escolar de los alumnos.",
         o_title: "One2One (Clases Particulares)",
@@ -217,7 +219,8 @@ const resources = {
         enroll: "ENROLL NOW",
         virtualClassroom: "Virtual Classroom",
         call: "Call",
-        whatsapp: "WhatsApp"
+        whatsapp: "WhatsApp",
+        whatsappAria: "Message us on WhatsApp"
       },
       hero: {
         connect: "CONNECT.",
@@ -288,6 +291,7 @@ const resources = {
         f_desc1: "Boost your competitiveness at zero cost.",
         f_desc2: "We design and deliver technical and commercial English training for companies in Murcia. Ideal for the export, logistics, and technology sectors.",
         f_desc3: "Courses up to 100% subsidized through FUNDAE.",
+        f_cta: "More about FUNDAE training",
         s_title: "School and Extracurricular Services",
         s_desc: "We collaborate with local schools and PTAs to bring Tyneside quality to public and charter school classrooms, enriching the students' school day.",
         o_title: "One2One (Private Classes)",

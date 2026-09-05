@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
 
 const Services = () => {
@@ -10,6 +11,10 @@ const Services = () => {
       desc1Key: 'services.f_desc1',
       desc2Key: 'services.f_desc2',
       desc3Key: 'services.f_desc3',
+      // The one service with a page of its own: a decision-maker who clicks
+      // here is ready to read more than a card can hold.
+      to: '/empresas',
+      ctaKey: 'services.f_cta',
       icon: (
         <svg className="icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="2"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
       )
@@ -110,6 +115,26 @@ const Services = () => {
                   color: 'var(--color-soft-cream)'
                 }}>
                   {t(svc.desc3Key)}
+                  {svc.to && (
+                    <Link
+                      to={svc.to}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        marginTop: '0.9rem',
+                        color: 'var(--color-gold)',
+                        fontWeight: 700,
+                        textDecoration: 'none'
+                      }}
+                    >
+                      {t(svc.ctaKey)}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

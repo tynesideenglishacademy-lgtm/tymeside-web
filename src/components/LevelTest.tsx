@@ -607,6 +607,12 @@ export default function LevelTest() {
                 <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.6)' }}>
                   {t('levelTest.scale_score')}: <span style={{ fontWeight: 800, fontSize: '1rem', marginLeft: '0.25rem', color: 'var(--color-amber)' }}>{finalResults.score}</span>
                 </div>
+                {/* This score comes from Tyneside's own formula (see finishTest),
+                    not an official Cambridge scale mapping - it must not read
+                    as one. */}
+                <div style={{ fontSize: '0.7rem', fontWeight: 500, textTransform: 'none', letterSpacing: 'normal', color: 'rgba(255,255,255,0.45)', marginTop: '0.6rem' }}>
+                  {t('levelTest.scale_score_disclaimer')}
+                </div>
               </div>
 
               {/* Recommended Course Box */}

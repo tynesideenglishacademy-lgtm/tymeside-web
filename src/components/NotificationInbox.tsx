@@ -3,7 +3,7 @@ import { Inbox } from '@novu/react';
 import { supabase } from '../lib/supabaseClient';
 
 function NotificationInbox() {
-  const [subscriberId, setSubscriberId] = useState<string>('6a862cd6d65a21c4a9697574');
+  const [subscriberId, setSubscriberId] = useState<string | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -16,7 +16,7 @@ function NotificationInbox() {
       if (session?.user?.id) {
         setSubscriberId(session.user.id);
       } else {
-        setSubscriberId('6a862cd6d65a21c4a9697574');
+        setSubscriberId(null);
       }
     });
 
@@ -36,7 +36,7 @@ function NotificationInbox() {
     return null;
   }
 
-  return (
+  return subscriberId ? (
     <Inbox
       applicationIdentifier={applicationIdentifier}
       subscriberId={subscriberId}
@@ -64,7 +64,7 @@ function NotificationInbox() {
         },
       }}
     />
-  );
+  ) : null;
 }
 
 export default NotificationInbox;

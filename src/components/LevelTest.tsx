@@ -156,8 +156,30 @@ const QUESTION_BANK: Record<number, any[]> = {
 const TOTAL_QUESTIONS = 50;
 const QUESTIONS_PER_STAGE = 5;
 
+const PAGE_TITLE = 'Prueba de Nivel de Inglés Gratuita | Tyneside English Academy';
+const PAGE_DESC =
+  'Descubre tu nivel de inglés en la escala CEFR (A1-C2) con nuestra prueba adaptativa de 50 preguntas. Gratuita y en 10 minutos.';
+
 export default function LevelTest() {
   const { t } = useTranslation();
+
+  // index.html carries the home page's title and description. Without this a
+  // visitor who lands here directly, or shares the link, sees the general
+  // academy description instead of what this page actually is.
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = PAGE_TITLE;
+
+    const meta = document.querySelector('meta[name="description"]');
+    const previousDesc = meta?.getAttribute('content') ?? null;
+    meta?.setAttribute('content', PAGE_DESC);
+
+    return () => {
+      document.title = previousTitle;
+      if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
+    };
+  }, []);
+
   const [view, setView] = useState<'registration' | 'test' | 'results'>('registration');
   const [isLoading, setIsLoading] = useState(false);
   const [student, setStudent] = useState<any>({});
@@ -488,6 +510,23 @@ export default function LevelTest() {
                     <input type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
                   </div>
                 </div>
+
+                {/* This form collects more personal data than the homepage
+                    contact form (address included) but was the only one of
+                    the two with no consent checkbox. */}
+                <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', margin: '1.25rem 0' }}>
+                  <input
+                    type="checkbox"
+                    id="lt-gdpr"
+                    name="gdpr"
+                    required
+                    style={{ marginTop: '0.25rem', width: '18px', height: '18px', flexShrink: 0, accentColor: 'var(--color-amber)' }}
+                  />
+                  <label htmlFor="lt-gdpr" style={{ fontSize: '0.85rem', lineHeight: 1.5 }}>
+                    {t('levelTest.form_gdpr')}
+                  </label>
+                </div>
+
                 <button type="submit" className="lt-btn">
                   {t('levelTest.start_btn')}
                 </button>
@@ -498,7 +537,10 @@ export default function LevelTest() {
           {view === 'test' && currentQuestion && (
             <div className="animate-fade-in">
               <div className="lt-test-header">
-                <div>
+                {/* aria-live only wraps the question counter, not the header as a
+                    whole - the timer sits in the same row and ticks every
+                    second, which would otherwise get read out once a second. */}
+                <div aria-live="polite" aria-atomic="true">
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', opacity: 0.7 }}>{t('levelTest.progress')}</span>
                   <div style={{ fontSize: '1rem', fontWeight: 800 }}>{t('levelTest.question_of', { current: questionNum })}</div>
                 </div>
@@ -510,16 +552,17 @@ export default function LevelTest() {
                 </div>
               </div>
 
-              <h2 className="lt-question">{currentQuestion.q}</h2>
+              <h2 className="lt-question" aria-live="polite">{currentQuestion.q}</h2>
 
-              <div className="lt-grid-2">
+              <div className="lt-grid-2" role="group" aria-label={currentQuestion.q}>
                 {currentQuestion.options.map((opt: string, idx: number) => (
-                  <button 
+                  <button
                     key={idx}
                     disabled={selectedOptionIndex !== null}
                     onClick={() => handleAnswer(idx)}
                     className="lt-option-btn"
-                    style={{ 
+                    aria-pressed={selectedOptionIndex === idx}
+                    style={{
                       borderColor: selectedOptionIndex === idx ? 'var(--color-warm-gold)' : 'var(--color-soft-cream)',
                       backgroundColor: selectedOptionIndex === idx ? 'var(--color-warm-gold)' : 'white',
                       color: selectedOptionIndex === idx ? 'var(--color-deep-navy)' : 'inherit'
@@ -530,7 +573,14 @@ export default function LevelTest() {
                 ))}
               </div>
 
-              <div className="lt-progress-bg">
+              <div
+                className="lt-progress-bg"
+                role="progressbar"
+                aria-valuenow={questionNum - 1}
+                aria-valuemin={0}
+                aria-valuemax={TOTAL_QUESTIONS}
+                aria-label={t('levelTest.progress')}
+              >
                 <div className="lt-progress-fill" style={{ width: `${((questionNum - 1) / TOTAL_QUESTIONS) * 100}%` }}></div>
               </div>
             </div>

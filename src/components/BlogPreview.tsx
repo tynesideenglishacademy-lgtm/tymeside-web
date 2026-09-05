@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
@@ -17,6 +17,17 @@ interface Article {
 const BlogPreview = () => {
   const { t } = useTranslation();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+
+  // The modal previously only closed via the backdrop or the X button - a
+  // keyboard user who tabbed into it had no way out without a mouse.
+  useEffect(() => {
+    if (!selectedArticle) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedArticle(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [selectedArticle]);
 
   const articles: Article[] = [
     {
@@ -197,6 +208,9 @@ const BlogPreview = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="blog-modal-title"
             style={{
               backgroundColor: '#FFFFFF',
               width: '100%',
@@ -248,7 +262,7 @@ const BlogPreview = () => {
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '1rem', color: 'var(--color-soft-cream)' }}>
+              <h2 id="blog-modal-title" style={{ fontSize: '1.8rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '1rem', color: 'var(--color-soft-cream)' }}>
                 {selectedArticle.title}
               </h2>
 

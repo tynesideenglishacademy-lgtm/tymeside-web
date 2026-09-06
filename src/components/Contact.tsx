@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { trackEvent } from '../lib/analytics';
 import SectionHeader from './SectionHeader';
 
 const Contact = () => {
@@ -60,6 +61,7 @@ const Contact = () => {
       if (error) throw error;
 
       setSubmitted(true);
+      trackEvent('lead_submitted', { form: 'contact', course: formData.course });
     } catch (err) {
       console.error('Lead capture failed:', err);
       setFailed(true);

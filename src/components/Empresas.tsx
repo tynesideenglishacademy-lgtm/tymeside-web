@@ -4,6 +4,7 @@ import GoogleRatingBadge from './GoogleRatingBadge';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { trackEvent } from '../lib/analytics';
 
 /**
  * Landing for company / FUNDAE-bonificado English training.
@@ -154,6 +155,7 @@ const Empresas = () => {
       if (error) throw error;
 
       setSent(true);
+      trackEvent('lead_submitted', { form: 'empresas' });
     } catch (err) {
       console.error('Empresas lead capture failed:', err);
       setFailed(true);

@@ -4,6 +4,7 @@ import GoogleRatingBadge from './GoogleRatingBadge';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { trackEvent } from '../lib/analytics';
 
 /**
  * Landing for the APTIS intensive aimed at the 2027 teaching oposiciones.
@@ -148,6 +149,7 @@ const AptisOposiciones = () => {
       if (error) throw error;
 
       setSent(true);
+      trackEvent('lead_submitted', { form: 'aptis' });
     } catch (err) {
       console.error('APTIS lead capture failed:', err);
       setFailed(true);

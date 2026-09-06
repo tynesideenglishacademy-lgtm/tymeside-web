@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
+import { trackEvent } from '../lib/analytics';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
@@ -214,6 +215,7 @@ export default function LevelTest() {
       date: new Date().toLocaleDateString()
     });
     setView('test');
+    trackEvent('test_started');
     loadNextQuestion(2, 0, 0, { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[] }, 1);
   };
 
@@ -321,6 +323,9 @@ export default function LevelTest() {
 
     const results = { cefr: finalCEFR, desc: finalDesc, score: finalScore };
     setFinalResults(results);
+
+    // CEFR band only — no name/email/phone. See src/lib/analytics.ts.
+    trackEvent('test_completed', { cefr: finalCEFR });
 
     // The CRM save and the notification email are independent. They used to sit
     // in one try block with the Supabase insert first, so when RLS rejected that

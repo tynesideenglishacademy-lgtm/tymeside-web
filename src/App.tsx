@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Courses from './components/Courses'
@@ -89,6 +90,9 @@ function App() {
       </Routes>
       <WhatsAppFab />
       <CookieBanner />
+      {/* Cookieless page + custom-event analytics (see src/lib/analytics.ts).
+          No consent gate: it sets no cookies and stores no personal data. */}
+      <Analytics />
     </>
   )
 }

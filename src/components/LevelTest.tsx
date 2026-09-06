@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { submitLead } from '../lib/submitLead';
+import { Honeypot } from './Honeypot';
 import { PRE_ENROLMENT_URL, PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 import { RequiredMark, OptionalMark } from './RequiredMark';
@@ -213,6 +214,7 @@ export default function LevelTest() {
       postal: (form.elements.namedItem('postal') as HTMLInputElement).value.trim(),
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim(),
       address: (form.elements.namedItem('address') as HTMLInputElement).value.trim(),
+      website: (form.elements.namedItem('website') as HTMLInputElement)?.value ?? '',
       date: new Date().toLocaleDateString()
     });
     setView('test');
@@ -334,20 +336,18 @@ export default function LevelTest() {
     // test was lost twice over while the visitor was shown a success message.
     let savedToCrm = false;
 
-    if (isSupabaseConfigured) {
-      try {
-        const { error } = await supabase.from('leads').insert([{
-          name: student.name,
-          email: student.email,
-          phone: student.phone,
-          status: 'Active Lead',
-          notes: `CEFR Level: ${finalCEFR} (Score: ${finalScore}). Correct: ${finalTotalCorrect}/50. Address: ${student.address}, ${student.postal}`
-        }]);
-        if (error) throw error;
-        savedToCrm = true;
-      } catch (err) {
-        console.error('Could not save lead to CRM:', err);
-      }
+    try {
+      await submitLead({
+        source: 'level-test',
+        name: student.name,
+        email: student.email,
+        phone: student.phone,
+        notes: `CEFR Level: ${finalCEFR} (Score: ${finalScore}). Correct: ${finalTotalCorrect}/50. Address: ${student.address}, ${student.postal}`,
+        website: student.website
+      });
+      savedToCrm = true;
+    } catch (err) {
+      console.error('Could not save lead to CRM:', err);
     }
 
     try {
@@ -492,6 +492,7 @@ export default function LevelTest() {
                 <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t('levelTest.header_subtitle')}</p>
               </div>
               <form onSubmit={handleRegistration}>
+                <Honeypot />
                 <p className="lt-required-note">{t('levelTest.form_required_note')}</p>
                 <div className="lt-grid-2">
                   <div>

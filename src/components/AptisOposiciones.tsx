@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import GoogleRatingBadge from './GoogleRatingBadge';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { submitLead } from '../lib/submitLead';
+import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
 
 /**
@@ -115,7 +116,7 @@ const AptisOposiciones = () => {
     };
   }, []);
 
-  const [form, setForm] = useState({ name: '', phone: '', email: '', gdpr: false });
+  const [form, setForm] = useState({ name: '', phone: '', email: '', website: '', gdpr: false });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -128,26 +129,16 @@ const AptisOposiciones = () => {
     setFailed(false);
 
     try {
-      // Same trap as the main contact form: Supabase reports insert failures in
-      // the payload instead of throwing, and an unconfigured client drops the
-      // lead silently. Both have to end up in catch, never in finally, or the
-      // visitor sees a thank-you for an enquiry nobody ever received.
-      if (!isSupabaseConfigured) {
-        throw new Error('Supabase is not configured; the lead would be dropped.');
-      }
-
-      const { error } = await supabase.from('leads').insert([
-        {
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          status: 'Active Lead',
-          notes: '[APTIS Oposiciones 2027] Solicitud de información desde la landing de oposiciones.',
-          created_at: new Date().toISOString()
-        }
-      ]);
-
-      if (error) throw error;
+      // Throws unless the row is stored, so the thank-you below can only be
+      // reached by a lead reception will actually see.
+      await submitLead({
+        source: 'aptis',
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        notes: 'Solicitud de información desde la landing de oposiciones.',
+        website: form.website
+      });
 
       setSent(true);
       trackEvent('lead_submitted', { form: 'aptis' });
@@ -448,6 +439,7 @@ const AptisOposiciones = () => {
               </div>
             ) : (
               <form onSubmit={submit} style={{ display: 'grid', gap: '1.25rem' }}>
+                <Honeypot value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} />
                 {failed && (
                   <div role="alert" style={{
                     padding: '1rem 1.2rem',

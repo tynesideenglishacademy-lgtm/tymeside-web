@@ -66,9 +66,17 @@ const Navigation = () => {
             padding: '0.5rem'
           }}
           className="mobile-menu-btn"
-          aria-label="Toggle menu"
+          aria-label={mobileMenuOpen ? t('nav.close_menu') : t('nav.open_menu')}
+          aria-expanded={mobileMenuOpen}
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          {/* The icon mirrors the state it will produce on the next tap: a
+              burger to open, an X to close. A static burger while the drawer
+              is open gave no affordance for closing it. */}
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            {mobileMenuOpen
+              ? <path d="M18 6 6 18M6 6l12 12"></path>
+              : <path d="M4 6h16M4 12h16M4 18h16"></path>}
+          </svg>
         </button>
       </div>
 

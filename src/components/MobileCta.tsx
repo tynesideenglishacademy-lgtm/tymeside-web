@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
  *
  * On desktop the navbar stays in view and carries both actions; on a phone it
  * collapses into a burger, so past the hero there was nothing to tap without
- * scrolling all the way to the footer. It stays out of the way until the hero's
- * own CTA has scrolled off, so the two never compete.
+ * scrolling all the way to the footer. It stays out of the way until the hero
+ * headline has scrolled off, so it never covers the copy it is selling.
  */
 const MobileCta = () => {
   const { t } = useTranslation();
@@ -18,7 +18,12 @@ const MobileCta = () => {
     let ticking = false;
     const update = () => {
       ticking = false;
-      setVisible(window.scrollY > window.innerHeight * 0.85);
+      // 0.35, not 0.85: the hero used to carry its own level-test button and
+      // this bar was held back so the two never competed. That button is gone
+      // (the hero card is now the single CTA), which left a ~490px stretch on
+      // a phone with no way to start the test. 0.35 puts the bar up roughly
+      // where the old hero button used to scroll away.
+      setVisible(window.scrollY > window.innerHeight * 0.35);
     };
     const onScroll = () => {
       if (ticking) return;

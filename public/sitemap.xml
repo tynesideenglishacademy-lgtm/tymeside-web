@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tynesideacademy.com/</loc>
+    <loc>https://tyneside-web.vercel.app/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.tynesideacademy.com/level-test</loc>
+    <loc>https://tyneside-web.vercel.app/level-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.tynesideacademy.com/aptis-oposiciones</loc>
+    <loc>https://tyneside-web.vercel.app/aptis-oposiciones</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.tynesideacademy.com/empresas</loc>
+    <loc>https://tyneside-web.vercel.app/empresas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

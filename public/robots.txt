@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.tynesideacademy.com/sitemap.xml
+Sitemap: https://tyneside-web.vercel.app/sitemap.xml

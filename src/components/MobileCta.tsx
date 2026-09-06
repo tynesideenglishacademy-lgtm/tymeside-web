@@ -12,10 +12,20 @@ import { Link } from 'react-router-dom';
  */
 const MobileCta = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window !== 'undefined') return window.scrollY > window.innerHeight * 0.35;
+    return false;
+  });
 
+  // ⚡ Bolt: Performance optimization
+  // Scroll events fire extremely frequently. Checking if the state
+  // actually changes before calling the state dispatcher (`setVisible`)
+  // avoids queuing unnecessary updates in React, reducing main-thread
+  // overhead on scroll-heavy components.
   useEffect(() => {
     let ticking = false;
+    let currentVisible = window.scrollY > window.innerHeight * 0.35;
+
     const update = () => {
       ticking = false;
       // 0.35, not 0.85: the hero used to carry its own level-test button and
@@ -23,14 +33,19 @@ const MobileCta = () => {
       // (the hero card is now the single CTA), which left a ~490px stretch on
       // a phone with no way to start the test. 0.35 puts the bar up roughly
       // where the old hero button used to scroll away.
-      setVisible(window.scrollY > window.innerHeight * 0.35);
+      const isVisible = window.scrollY > window.innerHeight * 0.35;
+      if (isVisible !== currentVisible) {
+        currentVisible = isVisible;
+        setVisible(isVisible);
+      }
     };
+
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(update);
     };
-    update();
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

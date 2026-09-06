@@ -8,10 +8,37 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Glass while the bar overlaps the hero photo; solid navy once past it.
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => {
+    if (typeof window !== 'undefined') return window.scrollY > 24;
+    return false;
+  });
+
+  // ⚡ Bolt: Performance optimization
+  // Scroll events fire extremely frequently (60+ times per second).
+  // Using requestAnimationFrame batches the DOM reads, and checking
+  // `isScrolled !== currentScrolled` prevents thousands of unnecessary
+  // React state dispatches. This significantly reduces main-thread
+  // blocking and overhead while scrolling.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let ticking = false;
+    let currentScrolled = window.scrollY > 24;
+
+    const update = () => {
+      ticking = false;
+      const isScrolled = window.scrollY > 24;
+      if (isScrolled !== currentScrolled) {
+        currentScrolled = isScrolled;
+        setScrolled(isScrolled);
+      }
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

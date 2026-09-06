@@ -78,3 +78,24 @@ export const WHATSAPP_MESSAGES = {
 /** Opens WhatsApp's contact picker with the chosen message ready to send. */
 export const whatsappShare = (which: keyof typeof WHATSAPP_MESSAGES) =>
   `https://wa.me/?text=${encodeURIComponent(WHATSAPP_MESSAGES[which])}`;
+
+/**
+ * The full practice exam ("Test your CEFR level"). It is a separate app, not
+ * part of this site: Reading & Use of English, Listening and Writing, marked
+ * against the CEFR scale, taking about an hour rather than the ten minutes the
+ * adaptive level test asks for.
+ *
+ * There is deliberately NO fallback URL here. The exam app is not deployed yet,
+ * and a plausible-looking guess would ship a dead link to parents. Until
+ * VITE_EXAM_BASE_URL is set on the Vercel project, `PRACTICE_EXAM_URL` is empty
+ * and every entry point to it stays hidden; setting the variable turns all of
+ * them on at once. Check with `hasPracticeExam()` before rendering a link.
+ */
+const EXAM_BASE =
+  (import.meta.env.VITE_EXAM_BASE_URL as string | undefined)?.replace(/\/$/, '') || '';
+
+/** Full CEFR practice exam. Empty string when the exam app has no URL yet. */
+export const PRACTICE_EXAM_URL = EXAM_BASE;
+
+/** True once the exam app has a URL, i.e. once it is safe to link to it. */
+export const hasPracticeExam = () => PRACTICE_EXAM_URL !== '';

@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
@@ -87,6 +87,14 @@ function App() {
             </Suspense>
           }
         />
+        {/* The CRM's Admisiones header still hands out /test links from the
+            older URL scheme, and they were landing on a blank page. Keep the
+            query string so ?nocrm=1 — which suppresses the lead write — survives
+            the redirect. */}
+        <Route path="/test" element={<Navigate to={`/level-test${location.search}`} replace />} />
+        {/* Anything else. Without this an unknown path matched no route at all
+            and rendered a blank page under a 200, which no uptime check sees. */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <WhatsAppFab />
       <CookieBanner />

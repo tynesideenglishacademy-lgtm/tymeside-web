@@ -71,7 +71,8 @@ const Contact = () => {
           name,
           phone,
           email,
-          course: formData.course,
+          status: 'Active Lead',
+          notes: `[Formulario de contacto] Curso de interés: ${formData.course}`,
           created_at: new Date().toISOString()
         }
       ]);

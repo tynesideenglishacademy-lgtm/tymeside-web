@@ -141,7 +141,8 @@ const AptisOposiciones = () => {
           name: form.name,
           phone: form.phone,
           email: form.email,
-          course: 'APTIS Oposiciones 2027',
+          status: 'Active Lead',
+          notes: '[APTIS Oposiciones 2027] Solicitud de información desde la landing de oposiciones.',
           created_at: new Date().toISOString()
         }
       ]);

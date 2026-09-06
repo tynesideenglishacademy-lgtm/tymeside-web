@@ -147,7 +147,8 @@ const Empresas = () => {
           name: form.company ? `${form.name} (${form.company})` : form.name,
           phone: form.phone,
           email: form.email,
-          course: 'FUNDAE / Empresas',
+          status: 'Active Lead',
+          notes: `[FUNDAE / Empresas] Formación para empresas.${form.company ? ` Empresa: ${form.company}.` : ''}`,
           created_at: new Date().toISOString(),
         },
       ]);

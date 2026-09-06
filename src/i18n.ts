@@ -24,7 +24,8 @@ const resources = {
         h2: "Domina el inglés con Tyneside English Academy",
         p1: "Desde los 3 años hasta el dominio del C2 de Cambridge, Tyneside English Academy ofrece soluciones para cada edad y nivel.",
         p2: "Nuestra misión es proporcionar soluciones de aprendizaje adaptadas a cada etapa del desarrollo y a las distintas necesidades académicas y profesionales.",
-        cta: "Prueba de Nivel Gratuita"
+        cta: "Prueba de Nivel Gratuita",
+        courses_link: "Ver nuestros cursos"
       },
       courses: {
         title: "Nuestra Oferta Educativa",
@@ -236,7 +237,8 @@ const resources = {
         h2: "Master English with Tyneside English Academy",
         p1: "From age 3 to Cambridge C2 mastery, Tyneside English Academy offers solutions for every age and level.",
         p2: "Our mission is to provide learning solutions adapted to every stage of development and to various academic and professional needs.",
-        cta: "Free Level Test"
+        cta: "Free Level Test",
+        courses_link: "See our courses"
       },
       courses: {
         title: "Our Educational Offerings",

@@ -33,6 +33,10 @@
      gold *text* on any light surface (~5.9:1, passes AA). */
   --color-gold-ink: #7A5E10;
 
+  /* Required-field asterisk. Both forms that use it sit on white, where
+     this reads at about 7.5:1. */
+  --color-required: #9B1C1C;
+
   --color-bg-base: var(--color-deep-navy);
 
   /* Typography */

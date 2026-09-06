@@ -5,6 +5,7 @@ import { jsPDF } from 'jspdf';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 import { PRE_ENROLMENT_URL, PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
+import { RequiredMark, OptionalMark } from './RequiredMark';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
@@ -491,25 +492,26 @@ export default function LevelTest() {
                 <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t('levelTest.header_subtitle')}</p>
               </div>
               <form onSubmit={handleRegistration}>
+                <p className="lt-required-note">{t('levelTest.form_required_note')}</p>
                 <div className="lt-grid-2">
                   <div>
-                    <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}</label>
+                    <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}<RequiredMark /></label>
                     <input id="lt-name" type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}</label>
+                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}<RequiredMark /></label>
                     <input id="lt-email" type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}</label>
+                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}<RequiredMark /></label>
                     <input id="lt-postal" type="text" name="postal" required placeholder="30006" className="lt-input" />
                   </div>
                   <div>
-                    <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}</label>
+                    <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
                     <input id="lt-phone" type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
                   </div>
                   <div className="lt-col-span-2">
-                    <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}</label>
+                    <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
                     <input id="lt-address" type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
                   </div>
                 </div>

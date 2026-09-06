@@ -5,6 +5,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 import { trackEvent } from '../lib/analytics';
 import { CONSENT_CHANGED_EVENT, readConsent, setConsent } from '../lib/consent';
 import SectionHeader from './SectionHeader';
+import { RequiredMark } from './RequiredMark';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -12,7 +13,11 @@ const Contact = () => {
     name: '',
     phone: '',
     email: '',
-    course: 'Young Learners (3-6 años)',
+    // Deliberately empty. This used to default to 'Young Learners (3-6 años)',
+    // which meant every lead who ignored the dropdown was written to the
+    // leads table as an under-6 enquiry they never made. The select is now
+    // `required` with a disabled placeholder, so the visitor has to choose.
+    course: '',
     gdpr: false
   });
 
@@ -140,7 +145,7 @@ const Contact = () => {
                 <button
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({ name: '', phone: '', email: '', course: 'Young Learners (3-6 años)', gdpr: false });
+                    setFormData({ name: '', phone: '', email: '', course: '', gdpr: false });
                   }}
                   className="btn-gold"
                   style={{ padding: '0.8rem 1.8rem', fontSize: '0.95rem' }}
@@ -151,6 +156,7 @@ const Contact = () => {
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
+
                 {failed && (
                   <div role="alert" style={{
                     padding: '1.1rem 1.25rem',
@@ -158,7 +164,7 @@ const Contact = () => {
                     backgroundColor: 'rgba(190, 40, 40, 0.07)',
                     border: '1px solid rgba(190, 40, 40, 0.25)'
                   }}>
-                    <p style={{ fontWeight: 700, color: '#9B1C1C', marginBottom: '0.35rem' }}>
+                    <p style={{ fontWeight: 700, color: 'var(--color-required)', marginBottom: '0.35rem' }}>
                       {t('contact.error_title')}
                     </p>
                     <p style={{ fontSize: '0.95rem', color: 'var(--color-ink-muted)', lineHeight: 1.55 }}>
@@ -167,9 +173,12 @@ const Contact = () => {
                   </div>
                 )}
 
-                
+                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-ink-muted)' }}>
+                  {t('contact.form_required_note')}
+                </p>
+
                 <div>
-                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_name')}</label>
+                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_name')}<RequiredMark /></label>
                   <input
                     id="contact-name"
                     type="text"
@@ -184,7 +193,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-phone" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_phone')}</label>
+                  <label htmlFor="contact-phone" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_phone')}<RequiredMark /></label>
                   <input
                     id="contact-phone"
                     type="tel"
@@ -199,7 +208,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_email')}</label>
+                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_email')}<RequiredMark /></label>
                   <input
                     id="contact-email"
                     type="email"
@@ -214,8 +223,9 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-course" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}</label>
-                  <select id="contact-course" name="course" value={formData.course} onChange={handleChange} className="premium-input">
+                  <label htmlFor="contact-course" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}<RequiredMark /></label>
+                  <select id="contact-course" name="course" value={formData.course} onChange={handleChange} required className="premium-input">
+                    <option value="" disabled>{t('contact.form_course_placeholder')}</option>
                     <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
                     <option value="Cambridge Adolescentes (ESO/Bachillerato)">{t('contact.courses.teens')}</option>

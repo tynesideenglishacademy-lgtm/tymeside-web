@@ -652,6 +652,7 @@ export default function LevelTest() {
                     href={PRACTICE_EXAM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent('exam_click', { from: 'level_test_result' })}
                     className="lt-btn"
                     style={{
                       marginTop: 0,

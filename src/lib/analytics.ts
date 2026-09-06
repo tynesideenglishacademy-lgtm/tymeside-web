@@ -16,6 +16,7 @@ export type AnalyticsEvent =
   | 'test_started' // visitor begins the level test (registration form submitted)
   | 'test_completed' // visitor answers the final question
   | 'whatsapp_click' // floating WhatsApp button opened
+  | 'exam_click' // outbound click to the full CEFR practice exam (separate app)
   | 'lead_submitted'; // any lead form stored successfully
 
 export function trackEvent(

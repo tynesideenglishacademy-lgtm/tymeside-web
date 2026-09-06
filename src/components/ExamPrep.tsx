@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
 import { PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
+import { trackEvent } from '../lib/analytics';
 
 /**
  * Counts up to `end`, but only once the card is actually on screen.
@@ -121,6 +122,7 @@ const ExamPrep = () => {
                   href={PRACTICE_EXAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('exam_click', { from: 'exam_prep' })}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',

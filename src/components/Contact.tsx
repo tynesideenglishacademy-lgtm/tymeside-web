@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { trackEvent } from '../lib/analytics';
 import { CONSENT_CHANGED_EVENT, readConsent, setConsent } from '../lib/consent';
 import SectionHeader from './SectionHeader';
 
@@ -73,6 +74,7 @@ const Contact = () => {
       if (error) throw error;
 
       setSubmitted(true);
+      trackEvent('lead_submitted', { form: 'contact', course: formData.course });
     } catch (err) {
       console.error('Lead capture failed:', err);
       setFailed(true);
@@ -232,12 +234,12 @@ const Contact = () => {
                     checked={formData.gdpr}
                     onChange={handleChange}
                     required
-                    style={{ marginTop: '0.25rem', width: '18px', height: '18px', accentColor: 'var(--color-amber)' }}
+                    style={{ marginTop: '0.25rem', width: '18px', height: '18px', accentColor: 'var(--color-gold)' }}
                   />
                   <label htmlFor="gdpr" style={{ fontSize: '0.85rem', color: 'var(--color-ink-muted)', lineHeight: 1.5 }}>
                     <Trans i18nKey="contact.form_gdpr">
                       He leído y acepto la
-                      <Link to="/privacidad" style={{ color: 'var(--color-amber-ink)', textDecoration: 'underline' }}>
+                      <Link to="/privacidad" style={{ color: 'var(--color-gold-ink)', textDecoration: 'underline' }}>
                         Política de Privacidad
                       </Link>
                       y consiento el tratamiento de mis datos.
@@ -312,7 +314,7 @@ const Contact = () => {
             {/* Contact Details */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-gold-soft)', color: 'var(--color-gold-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 </div>
                 <div>
@@ -322,7 +324,7 @@ const Contact = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-gold-soft)', color: 'var(--color-gold-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                 </div>
                 <div>
@@ -332,7 +334,7 @@ const Contact = () => {
               </div>
 
               <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center' }}>
-                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-amber-soft)', color: 'var(--color-amber-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-gold-soft)', color: 'var(--color-gold-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
                 <div>

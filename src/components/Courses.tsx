@@ -111,7 +111,7 @@ const Courses = () => {
                   top: '14px',
                   right: '14px',
                   backgroundColor: 'var(--color-deep-navy)',
-                  color: 'var(--color-amber)',
+                  color: 'var(--color-gold)',
                   padding: '0.35rem 0.8rem',
                   borderRadius: 'var(--radius-sm)',
                   fontSize: '0.78rem',

@@ -69,14 +69,14 @@ const TripsCamps = () => {
             }}>
               <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: '#D4DEE8' }}>
                 {t('trips.p2')}<br/>
-                <a href="https://www.ihnewcastle.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-amber)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>
+                <a href="https://www.ihnewcastle.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-gold)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>
                   <span>International House Newcastle</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
                 </a>
               </p>
             </div>
 
-            <p style={{ fontSize: '1.2rem', lineHeight: 1.7, fontWeight: 700, color: 'var(--color-amber)' }}>
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.7, fontWeight: 700, color: 'var(--color-soft-cream)' }}>
               {t('trips.p3')}
             </p>
           </div>

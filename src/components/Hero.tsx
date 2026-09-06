@@ -57,14 +57,14 @@ const Hero = () => {
             {/* Main Headline */}
             <h1 className="animate-slide-up delay-100" style={{
               fontSize: 'var(--text-hero)',
-              fontWeight: 900,
+              fontWeight: 800,
               lineHeight: 1.08,
               marginBottom: '1.5rem',
-              letterSpacing: '-0.03em'
+              letterSpacing: '-0.02em'
             }}>
               <span style={{ display: 'block' }}>Learn.</span>
               <span style={{ display: 'block' }}>Grow.</span>
-              <span className="text-gradient-gold" style={{ display: 'block' }}>Connect.</span>
+              <span className="text-gold" style={{ display: 'block' }}>Connect.</span>
             </h1>
 
             {/* Subtitle */}
@@ -116,7 +116,7 @@ const Hero = () => {
                   The old "60 candidates / 5 years" figure spanned two
                   academies, so no five-year percentage goes on this site. */}
               <div className="hero-stat-self">
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-warm-gold)' }}>100%</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-gold)' }}>100%</div>
                 <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', fontWeight: 500 }}>Aprobados · últimos 2 años</div>
               </div>
               <div className="hero-stat-divider" style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }}></div>
@@ -141,7 +141,7 @@ const Hero = () => {
           {/* Hero Right Visual Highlight Glass Card */}
           <div className="animate-slide-up delay-200">
             <div className="glass-card-premium card-elevated card-accent-top" style={{
-              border: '1px solid var(--color-amber-border)',
+              border: '1px solid var(--color-gold-border)',
               padding: '2.25rem'
             }}>
               {/* Highlight Card Header */}
@@ -151,7 +151,7 @@ const Hero = () => {
                     width: '42px',
                     height: '42px',
                     borderRadius: 'var(--radius-sm)',
-                    backgroundColor: 'var(--color-amber)',
+                    backgroundColor: 'var(--color-gold)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -167,8 +167,8 @@ const Hero = () => {
                 <span style={{
                   padding: '0.25rem 0.7rem',
                   borderRadius: 'var(--radius-sm)',
-                  backgroundColor: 'var(--color-amber-soft)',
-                  color: 'var(--color-amber)',
+                  backgroundColor: 'var(--color-gold-soft)',
+                  color: 'var(--color-gold)',
                   fontSize: '0.75rem',
                   fontWeight: 700
                 }}>5 MIN</span>
@@ -182,7 +182,7 @@ const Hero = () => {
                   'Asesoramiento personalizado con profesor nativo',
                 ].map((item) => (
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', padding: '0.8rem 1rem', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.04)' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-amber)" strokeWidth="3" style={{ flexShrink: 0 }}><path d="M20 6 9 17l-5-5" /></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="3" style={{ flexShrink: 0 }}><path d="M20 6 9 17l-5-5" /></svg>
                     <div style={{ fontSize: '0.95rem', fontWeight: 500 }}>{item}</div>
                   </div>
                 ))}

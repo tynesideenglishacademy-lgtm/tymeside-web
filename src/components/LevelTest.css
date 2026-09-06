@@ -85,8 +85,8 @@
 }
 
 .lt-input:focus {
-  border-color: var(--color-amber);
-  box-shadow: 0 0 0 3px var(--color-amber-soft);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px var(--color-gold-soft);
 }
 
 .lt-btn {
@@ -105,7 +105,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--color-amber);
+  background-color: var(--color-gold);
   color: #1a1200;
   border: none;
   transition: var(--transition-fast);
@@ -113,7 +113,7 @@
 
 .lt-btn:hover {
   transform: translateY(-1px);
-  background-color: var(--color-amber-strong);
+  background-color: var(--color-gold-strong);
 }
 
 .lt-test-header {
@@ -152,8 +152,8 @@
 }
 
 .lt-option-btn:hover:not(:disabled) {
-  border-color: var(--color-amber);
-  background-color: var(--color-amber-soft);
+  border-color: var(--color-gold);
+  background-color: var(--color-gold-soft);
 }
 
 .lt-progress-bg {
@@ -173,8 +173,8 @@
 
 .lt-result-card {
   background-color: var(--color-deep-navy);
-  border: 1px solid var(--color-amber-border);
-  border-top: 3px solid var(--color-amber);
+  border: 1px solid var(--color-gold-border);
+  border-top: 3px solid var(--color-gold);
   padding: 3rem 2rem;
   border-radius: var(--radius-lg);
   display: inline-block;

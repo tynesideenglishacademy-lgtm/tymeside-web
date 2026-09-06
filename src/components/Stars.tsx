@@ -1,7 +1,7 @@
 /** Five stars, filled to `rating`. Shared by the hero badge and the reviews grid. */
-const Stars = ({ rating, size = 17 }: { rating: number; size?: number }) => (
+const Stars = ({ rating, size = 17, onDark = true }: { rating: number; size?: number; onDark?: boolean }) => (
   <div
-    style={{ display: 'inline-flex', gap: '0.1rem', color: 'var(--color-amber)' }}
+    style={{ display: 'inline-flex', gap: '0.1rem', color: onDark ? 'var(--color-gold)' : 'var(--color-gold-ink)' }}
     role="img"
     aria-label={`${rating} de 5`}
   >

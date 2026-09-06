@@ -55,7 +55,7 @@ const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string
 
   return (
     <div ref={ref} style={{ textAlign: 'center' }}>
-      <div className="text-gradient-gold" style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
+      <div className="text-gold" style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
         {count}{suffix}
       </div>
       <div style={{ fontSize: '1rem', color: '#E2E8F0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -95,7 +95,7 @@ const ExamPrep = () => {
             <p style={{ fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem', color: '#D4DEE8' }}>
               {t('examprep.p1')}
             </p>
-            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '2.8rem', color: 'var(--color-amber)', fontWeight: 700 }}>
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '2.8rem', color: 'var(--color-soft-cream)', fontWeight: 700 }}>
               {t('examprep.p2')}
             </p>
             
@@ -111,7 +111,7 @@ const ExamPrep = () => {
           </div>
 
           <div className="glass-card-premium" style={{
-            border: '1px solid var(--color-amber-border)',
+            border: '1px solid var(--color-gold-border)',
             padding: '3rem 2.5rem'
           }}>
             <div style={{

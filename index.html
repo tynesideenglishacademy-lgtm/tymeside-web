@@ -3,7 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Canonical origin. This is a single-page app served from one file, so the
+      canonical is the site root; per-route canonicals would need prerendering.
+      Points at the Vercel host: tynesideacademy.com is out of the academy's
+      control for now, so tyneside-web.vercel.app is the live home. Swap both
+      this and the URLs below back once the custom domain is reconnected.
+    -->
+    <link rel="canonical" href="https://tyneside-web.vercel.app/" />
 
     <!--
       The hero background is the largest thing painted on first load, but it is
@@ -44,6 +56,40 @@
     <meta name="twitter:image" content="https://tyneside-web.vercel.app/img/og-banner.jpg" />
 
     <meta name="theme-color" content="#09131E" />
+
+    <!--
+      Structured data for the academy. Every value here is either verifiable
+      (the 4.9 / 70 is read off the public Google listing) or the academy's own
+      confirmed detail. Keep it in step with the Google Business Profile.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["EducationalOrganization", "LocalBusiness"],
+      "name": "Tyneside English Academy",
+      "url": "https://tyneside-web.vercel.app/",
+      "logo": "https://tyneside-web.vercel.app/logo-dark.png",
+      "image": "https://tyneside-web.vercel.app/img/og-banner.jpg",
+      "description": "Academia de inglés en Puente Tocinos, Murcia. Centro preparador de exámenes Cambridge, con clases para niños, adolescentes y adultos.",
+      "foundingDate": "2015",
+      "email": "info@tynesideacademy.com",
+      "telephone": "+34605661212",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Plaza Tomás y Valiente 6",
+        "addressLocality": "Puente Tocinos",
+        "addressRegion": "Murcia",
+        "postalCode": "30006",
+        "addressCountry": "ES"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "70",
+        "bestRating": "5"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

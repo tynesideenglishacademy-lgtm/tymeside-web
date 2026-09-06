@@ -132,6 +132,8 @@ const resources = {
         label_address: "Dirección",
         label_phone: "Teléfono / WhatsApp",
         label_email: "Email",
+        map_consent_notice: "El mapa se carga desde Google y solo lo activamos con tu permiso.",
+        map_consent_button: "Cargar mapa",
         courses: {
           yl36: "Young Learners (3-6 años)",
           yle612: "YLE Primaria (6-12 años)",
@@ -338,6 +340,8 @@ const resources = {
         label_address: "Address",
         label_phone: "Phone / WhatsApp",
         label_email: "Email",
+        map_consent_notice: "The map loads from Google and we only enable it with your permission.",
+        map_consent_button: "Load map",
         courses: {
           yl36: "Young Learners (Ages 3-6)",
           yle612: "YLE Primary (Ages 6-12)",

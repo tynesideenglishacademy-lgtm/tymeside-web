@@ -171,7 +171,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: si aceptas, cargamos las tipografías desde los servidores de Google (fonts.googleapis.com y fonts.gstatic.com), lo que implica que Google recibe tu dirección IP. Si no aceptas, el sitio usa las tipografías del sistema.',
           'Sentry: si aceptas, activamos una herramienta de monitorización de errores que puede registrar la sesión de navegación para diagnosticar fallos. Si no aceptas, no se carga.',
-          'Google Maps: el mapa de la sección de contacto solo se carga cuando se muestra y puede instalar cookies de Google. [PENDIENTE: valorar con la asesoría si el mapa debe cargarse también solo tras consentimiento.]',
+          'Google Maps: el mapa de la sección de contacto sigue el mismo consentimiento que las tipografías y Sentry — si aceptas, se carga y puede instalar cookies de Google; si no aceptas, se muestra un aviso con un botón para cargarlo cuando quieras.',
         ],
       },
       {
@@ -319,7 +319,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: if you accept, we load the fonts from Google’s servers (fonts.googleapis.com and fonts.gstatic.com), which means Google receives your IP address. If you do not accept, the site uses system fonts.',
           'Sentry: if you accept, we enable an error-monitoring tool that may record the browsing session to diagnose faults. If you do not accept, it is not loaded.',
-          'Google Maps: the map in the contact section only loads when shown and may set Google cookies. [PENDIENTE: review with the adviser whether the map should also load only after consent.]',
+          'Google Maps: the map in the contact section follows the same consent choice as the fonts and Sentry — if you accept, it loads and may set Google cookies; if you do not accept, a notice with a button to load it is shown instead.',
         ],
       },
       {

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { submitLead } from '../lib/submitLead';
+import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
 import { CONSENT_CHANGED_EVENT, readConsent, setConsent } from '../lib/consent';
 import SectionHeader from './SectionHeader';
@@ -11,6 +12,8 @@ const Contact = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
+    // Honeypot. Always empty for a real visitor; see Honeypot.tsx.
+    website: '',
     phone: '',
     email: '',
     // Deliberately empty. This used to default to 'Young Learners (3-6 años)',
@@ -58,26 +61,17 @@ const Contact = () => {
     const email = formData.email.trim().slice(0, 160);
 
     try {
-      // Supabase returns errors in the payload rather than throwing, and a
-      // missing config means the lead goes nowhere at all. Both used to end up
-      // in `finally`, which showed the success screen for a lead we never
-      // stored — a parent thought they had enquired and nobody ever called.
-      if (!isSupabaseConfigured) {
-        throw new Error('Supabase is not configured; the lead would be dropped.');
-      }
-
-      const { error } = await supabase.from('leads').insert([
-        {
-          name,
-          phone,
-          email,
-          status: 'Active Lead',
-          notes: `[Formulario de contacto] Curso de interés: ${formData.course}`,
-          created_at: new Date().toISOString()
-        }
-      ]);
-
-      if (error) throw error;
+      // submitLead resolves only once the row is actually stored, and throws
+      // otherwise. Showing the success screen for a lead we never kept is how a
+      // parent ends up believing they enquired while nobody ever calls back.
+      await submitLead({
+        source: 'contact',
+        name,
+        phone,
+        email,
+        notes: `Curso de interés: ${formData.course}`,
+        website: formData.website
+      });
 
       setSubmitted(true);
       trackEvent('lead_submitted', { form: 'contact', course: formData.course });
@@ -146,7 +140,7 @@ const Contact = () => {
                 <button
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({ name: '', phone: '', email: '', course: '', gdpr: false });
+                    setFormData({ name: '', website: '', phone: '', email: '', course: '', gdpr: false });
                   }}
                   className="btn-gold"
                   style={{ padding: '0.8rem 1.8rem', fontSize: '0.95rem' }}
@@ -156,6 +150,7 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <Honeypot value={formData.website} onChange={handleChange} />
 
 
                 {failed && (

@@ -27,3 +27,7 @@ preview_proposal_2026_2027.html
 # graphify knowledge-graph tooling artifacts
 .gitattributes
 graphify-out/
+
+# Vercel CLI local link (holds project + org ids)
+.vercel
+.env*

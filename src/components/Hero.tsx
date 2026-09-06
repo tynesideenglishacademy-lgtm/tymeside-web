@@ -85,8 +85,28 @@ const Hero = () => {
               gap: '1.2rem',
               alignItems: 'center'
             }}>
-              <a href="#courses" className="btn-secondary">
-                <span>{t('nav.courses')}</span>
+              {/* A text link, not a button. The card on the right carries the
+                  hero's only button-weight CTA; a second pill here read as an
+                  orphan once the duplicate level-test button was removed. Kept
+                  rather than deleted because the navbar collapses to a burger
+                  on a phone, so this is the only route to the courses above
+                  the fold. */}
+              <a
+                href="#courses"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  minHeight: 44,
+                  color: 'var(--color-gold)',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '4px'
+                }}
+              >
+                {t('hero.courses_link')}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </a>
             </div>
 

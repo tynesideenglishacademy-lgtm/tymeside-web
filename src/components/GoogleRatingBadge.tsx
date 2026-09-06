@@ -31,7 +31,7 @@ const GoogleRatingBadge = ({ onDark = true }: { onDark?: boolean }) => {
         color: 'inherit',
       }}
     >
-      <span style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-warm-gold)', lineHeight: 1 }}>
+      <span style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-gold)', lineHeight: 1 }}>
         {GOOGLE_RATING.score.toLocaleString('es-ES', { minimumFractionDigits: 1 })}
       </span>
       <span style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>

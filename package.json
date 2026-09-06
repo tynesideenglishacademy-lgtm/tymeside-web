@@ -11,9 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@novu/react": "^3.19.0",
     "@sentry/react": "^10.70.0",
     "@supabase/supabase-js": "^2.110.7",
+    "@vercel/analytics": "^1.6.1",
     "i18next": "^26.3.6",
     "jspdf": "^4.2.1",
     "react": "^19.2.7",

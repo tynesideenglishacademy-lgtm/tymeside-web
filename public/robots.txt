@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tyneside-web.vercel.app/sitemap.xml

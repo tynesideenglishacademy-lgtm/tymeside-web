@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
-import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
+import { PRE_ENROLMENT_URL, PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 import './LevelTest.css';
 
@@ -639,6 +639,40 @@ export default function LevelTest() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                   {t('levelTest.download_cert')}
                 </button>
+
+                {/* This test is fifty adaptive multiple-choice questions, so it
+                    places a level and no more. Anyone who wants the level
+                    confirmed against real papers - Reading & Use of English,
+                    Listening and Writing - goes to the exam app from here.
+                    Outlined rather than amber: the reserve-a-place button above
+                    is still the action the academy wants. Hidden entirely until
+                    VITE_EXAM_BASE_URL gives that app a URL. */}
+                {hasPracticeExam() && (
+                  <a
+                    href={PRACTICE_EXAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('exam_click', { from: 'level_test_result' })}
+                    className="lt-btn"
+                    style={{
+                      marginTop: 0,
+                      textDecoration: 'none',
+                      background: 'transparent',
+                      color: 'var(--color-deep-navy)',
+                      border: '2px solid var(--color-deep-navy)',
+                      boxShadow: 'none'
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                    {t('levelTest.full_exam_cta')}
+                  </a>
+                )}
+
+                {hasPracticeExam() && (
+                  <div style={{ fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--color-ink-muted)', marginTop: '-0.4rem' }}>
+                    {t('levelTest.full_exam_note')}
+                  </div>
+                )}
 
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-river-teal)' }}>
                    {emailStatus}

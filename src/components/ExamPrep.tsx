@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
+import { PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
+import { trackEvent } from '../lib/analytics';
 
 /**
  * Counts up to `end`, but only once the card is actually on screen.
@@ -108,6 +110,39 @@ const ExamPrep = () => {
                 {t('examprep.details')}
               </a>
             </div>
+
+            {/* The ten-minute adaptive test above stays the headline offer. This
+                is the long sitting underneath it - a full paper, Reading & Use
+                of English, Listening and Writing, marked on the CEFR scale.
+                It is a separate app, so the link only appears once that app has
+                a URL (VITE_EXAM_BASE_URL); otherwise nothing renders here. */}
+            {hasPracticeExam() && (
+              <div style={{ marginTop: '2rem' }}>
+                <a
+                  href={PRACTICE_EXAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent('exam_click', { from: 'exam_prep' })}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    minHeight: 44,
+                    color: 'var(--color-gold)',
+                    fontWeight: 700,
+                    fontSize: '1rem',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: '4px'
+                  }}
+                >
+                  {t('examprep.full_exam_cta')}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </a>
+                <div style={{ fontSize: '0.9rem', lineHeight: 1.7, color: '#9FB0C0', maxWidth: '34rem' }}>
+                  {t('examprep.full_exam_note')}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="glass-card-premium" style={{

@@ -16,7 +16,8 @@ const resources = {
         whatsapp: "WhatsApp",
         whatsappAria: "Escríbenos por WhatsApp",
         open_menu: "Abrir menú",
-        close_menu: "Cerrar menú"
+        close_menu: "Cerrar menú",
+        toggle_language: "Cambiar idioma"
       },
       hero: {
         connect: "CONNECT.",
@@ -235,7 +236,8 @@ const resources = {
         whatsapp: "WhatsApp",
         whatsappAria: "Message us on WhatsApp",
         open_menu: "Open menu",
-        close_menu: "Close menu"
+        close_menu: "Close menu",
+        toggle_language: "Change language"
       },
       hero: {
         connect: "CONNECT.",

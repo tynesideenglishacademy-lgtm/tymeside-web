@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { readConsent, setConsent } from '../lib/consent';
@@ -11,11 +11,8 @@ import { readConsent, setConsent } from '../lib/consent';
  */
 const CookieBanner = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (readConsent() === null) setVisible(true);
-  }, []);
+  // Performance: Lazy init avoids a synchronous state update and cascading render on mount
+  const [visible, setVisible] = useState(() => typeof window !== 'undefined' ? readConsent() === null : false);
 
   if (!visible) return null;
 

@@ -1,0 +1,3 @@
+## 2024-11-20 - React(set-state-in-effect) Cascading Renders
+**Learning:** This codebase enforces the `react(set-state-in-effect)` rule strictly via `oxlint`. Several components (`Navigation`, `MobileCta`, `CookieBanner`) were triggering an immediate second render cycle on mount because they initialized state to `false` and then immediately updated it based on `window` APIs or localStorage inside a `useEffect`.
+**Action:** Use lazy state initialization (`useState(() => typeof window !== 'undefined' ? ... : false)`) when computing initial state derived from browser APIs to prevent completely avoidable cascading re-renders on mount.

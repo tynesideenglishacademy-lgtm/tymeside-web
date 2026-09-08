@@ -8,10 +8,10 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Glass while the bar overlaps the hero photo; solid navy once past it.
-  const [scrolled, setScrolled] = useState(false);
+  // Performance: Lazy init avoids a synchronous state update and cascading render on mount
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' ? window.scrollY > 24 : false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

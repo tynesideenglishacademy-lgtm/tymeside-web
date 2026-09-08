@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
  */
 const MobileCta = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
+  // Performance: Lazy init avoids a synchronous state update and cascading render on mount
+  const [visible, setVisible] = useState(() => typeof window !== 'undefined' ? window.scrollY > window.innerHeight * 0.35 : false);
 
   useEffect(() => {
     let ticking = false;
@@ -30,7 +31,6 @@ const MobileCta = () => {
       ticking = true;
       window.requestAnimationFrame(update);
     };
-    update();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

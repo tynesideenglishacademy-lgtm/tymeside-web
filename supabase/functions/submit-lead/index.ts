@@ -145,8 +145,8 @@ Deno.serve(async (req: Request) => {
   // That is deliberate: it is a bucket for traffic we cannot attribute, and it
   // should be throttled as one.
   const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     req.headers.get('cf-connecting-ip') ||
+    req.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
     'unknown';
   if (await isRateLimited(admin, ip)) {
     return json({ error: 'rate_limited' }, 429, origin);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { readConsent, setConsent } from '../lib/consent';
@@ -11,11 +11,16 @@ import { readConsent, setConsent } from '../lib/consent';
  */
 const CookieBanner = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (readConsent() === null) setVisible(true);
-  }, []);
+  // ⚡ Bolt: Lazy state initialization
+  // What: Initialize state derived from browser APIs via a callback in useState rather than inside a useEffect on mount.
+  // Why: Prevents a cascading re-render. Reading consent inside a useEffect forced the component to render once with default state, then immediately re-render if consent was missing.
+  // Impact: Eliminates an unnecessary render cycle on mount, improving initial load performance and resolving the `react(set-state-in-effect)` linting rule.
+  const [visible, setVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return readConsent() === null;
+    }
+    return false;
+  });
 
   if (!visible) return null;
 

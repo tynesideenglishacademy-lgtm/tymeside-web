@@ -13,7 +13,19 @@ import { trackEvent } from '../lib/analytics';
  * which is the one case where a ticking number is genuinely a problem.
  */
 const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string, label: string }) => {
-  const [count, setCount] = useState(0);
+  // ⚡ Bolt: Lazy state initialization
+  // What: Initialize state derived from browser APIs via a callback in useState rather than inside a useEffect on mount.
+  // Why: Prevents a cascading re-render. Reading matchMedia inside a useEffect forced the component to render once with default state, then immediately re-render if animations were disabled.
+  // Impact: Eliminates an unnecessary render cycle on mount when animations are disabled, improving performance and resolving the `react(set-state-in-effect)` linting rule.
+  const [count, setCount] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || typeof IntersectionObserver === 'undefined') {
+        return end;
+      }
+    }
+    return 0;
+  });
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,7 +34,6 @@ const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced || typeof IntersectionObserver === 'undefined') {
-      setCount(end);
       return;
     }
 

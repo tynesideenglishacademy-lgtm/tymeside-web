@@ -259,6 +259,12 @@ const Contact = () => {
                   className="btn-gold"
                   style={{ width: '100%', padding: '1.1rem', marginTop: '0.5rem', opacity: isSubmitting ? 0.7 : 1 }}
                 >
+                  {isSubmitting && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '1.2rem', height: '1.2rem', animation: 'spin 1s linear infinite' }} aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                      <path d="M12 2a10 10 0 0 1 10 10" />
+                    </svg>
+                  )}
                   {isSubmitting ? t('contact.sending') : failed ? t('contact.retry') : t('contact.submit')}
                 </button>
 

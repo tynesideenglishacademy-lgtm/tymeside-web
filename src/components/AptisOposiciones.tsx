@@ -459,6 +459,7 @@ const AptisOposiciones = () => {
                     required
                     name="name"
                     autoComplete="name"
+                    maxLength={120}
                     value={form.name}
                     onChange={e => setForm({ ...form, name: e.target.value })}
                     style={field}
@@ -473,6 +474,7 @@ const AptisOposiciones = () => {
                     name="phone"
                     autoComplete="tel"
                     inputMode="tel"
+                    maxLength={40}
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
                     style={field}
@@ -487,6 +489,7 @@ const AptisOposiciones = () => {
                     name="email"
                     autoComplete="email"
                     spellCheck={false}
+                    maxLength={160}
                     value={form.email}
                     onChange={e => setForm({ ...form, email: e.target.value })}
                     style={field}

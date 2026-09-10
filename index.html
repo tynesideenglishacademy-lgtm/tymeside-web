@@ -18,12 +18,10 @@
     <link rel="canonical" href="https://tyneside-web.vercel.app/" />
 
     <!--
-      The hero background is the largest thing painted on first load, but it is
-      a CSS background: the browser cannot find it until the stylesheet has been
-      fetched and parsed, which pushes LCP out by a full round trip. This starts
-      the request in the head instead.
+      Vercel sends the homepage hero preload as a response header for `/` only.
+      Keeping it out of this shared SPA document prevents unused-preload warnings
+      on legal, campaign and level-test routes.
     -->
-    <link rel="preload" as="image" href="/img/hero-bg-new-960.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!--

@@ -2,12 +2,21 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/aviso-legal", "destination": "/index.html" },
+    { "source": "/privacidad", "destination": "/index.html" },
+    { "source": "/cookies", "destination": "/index.html" },
+    { "source": "/aptis-oposiciones", "destination": "/index.html" },
+    { "source": "/empresas", "destination": "/index.html" },
+    { "source": "/level-test", "destination": "/index.html" },
+    { "source": "/test", "destination": "/index.html" }
   ],
   "headers": [
+    {
+      "source": "/",
+      "headers": [
+        { "key": "Link", "value": "</img/hero-bg-new-960.webp>; rel=preload; as=image; fetchpriority=high" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

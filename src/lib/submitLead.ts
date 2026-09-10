@@ -1,4 +1,7 @@
-import { supabase, isSupabaseConfigured } from './supabaseClient';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
 /**
  * Lead capture for the whole site. Every form goes through the `submit-lead`
@@ -38,13 +41,22 @@ export async function submitLead(input: LeadInput): Promise<void> {
     throw new Error('Supabase is not configured; the lead would be dropped.');
   }
 
-  const { data, error } = await supabase.functions.invoke<{ ok?: boolean; error?: string }>(
-    'submit-lead',
-    { body: input }
-  );
+  const response = await fetch(`${supabaseUrl}/functions/v1/submit-lead`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${supabaseAnonKey}`,
+      apikey: supabaseAnonKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(input),
+  });
 
-  if (error) throw error;
-  if (!data?.ok) {
+  const data = (await response.json().catch(() => null)) as {
+    ok?: boolean;
+    error?: string;
+  } | null;
+
+  if (!response.ok || !data?.ok) {
     throw new Error(`submit-lead rejected the lead: ${data?.error ?? 'unknown reason'}`);
   }
 }

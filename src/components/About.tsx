@@ -39,7 +39,7 @@ const About = () => {
             <div>
               <SectionHeader
                 section="about"
-                label="Nuestra esencia"
+                label={t('about.label')}
                 title={t('about.title')}
                 onDark
               />
@@ -98,12 +98,12 @@ const About = () => {
                     clearly his experience, not the academy's age. */}
                 <div>
                   <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-gold)' }}>2015</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Enseñando</div>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t('about.teaching_since')}</div>
                 </div>
                 <div style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }} />
                 <div>
                   <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-soft-cream)' }}>100%</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Nativos</div>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t('about.native_teachers')}</div>
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ const About = () => {
         <div className="container">
           <SectionHeader
             section="method"
-            label="Claves del éxito"
+            label={t('methodology.label')}
             title={t('methodology.title')}
             lead={t('methodology.desc')}
           />

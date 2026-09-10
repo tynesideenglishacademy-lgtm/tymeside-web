@@ -25,6 +25,7 @@ interface HoneypotProps {
 export const Honeypot = ({ id = 'website', value, onChange }: HoneypotProps) => (
   <div
     aria-hidden="true"
+    inert
     style={{
       position: 'absolute',
       width: '1px',

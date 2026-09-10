@@ -87,10 +87,9 @@
   background-color: rgba(245, 247, 250, 0.5);
   font-size: 1rem;
   transition: var(--transition-fast);
-  outline: none;
 }
 
-.lt-input:focus {
+.lt-input:focus-visible {
   border-color: var(--color-gold);
   box-shadow: 0 0 0 3px var(--color-gold-soft);
 }

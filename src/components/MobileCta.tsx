@@ -12,27 +12,34 @@ import { Link } from 'react-router-dom';
  */
 const MobileCta = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() =>
+    typeof window !== 'undefined' ? window.scrollY > window.innerHeight * 0.35 : false
+  );
 
   useEffect(() => {
-    let ticking = false;
+    let frame = 0;
+    let current = window.scrollY > window.innerHeight * 0.35;
     const update = () => {
-      ticking = false;
+      frame = 0;
       // 0.35, not 0.85: the hero used to carry its own level-test button and
       // this bar was held back so the two never competed. That button is gone
       // (the hero card is now the single CTA), which left a ~490px stretch on
       // a phone with no way to start the test. 0.35 puts the bar up roughly
       // where the old hero button used to scroll away.
-      setVisible(window.scrollY > window.innerHeight * 0.35);
+      const next = window.scrollY > window.innerHeight * 0.35;
+      if (next === current) return;
+      current = next;
+      setVisible(next);
     };
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
     };
-    update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -43,7 +50,7 @@ const MobileCta = () => {
         aria-label={t('nav.call')}
         tabIndex={visible ? 0 : -1}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
         </svg>
       </a>

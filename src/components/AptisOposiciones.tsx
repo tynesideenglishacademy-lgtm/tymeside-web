@@ -457,6 +457,7 @@ const AptisOposiciones = () => {
                   Nombre
                   <input
                     required
+                    name="name"
                     autoComplete="name"
                     value={form.name}
                     onChange={e => setForm({ ...form, name: e.target.value })}
@@ -469,7 +470,9 @@ const AptisOposiciones = () => {
                   <input
                     required
                     type="tel"
+                    name="phone"
                     autoComplete="tel"
+                    inputMode="tel"
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
                     style={field}
@@ -481,7 +484,9 @@ const AptisOposiciones = () => {
                   <input
                     required
                     type="email"
+                    name="email"
                     autoComplete="email"
+                    spellCheck={false}
                     value={form.email}
                     onChange={e => setForm({ ...form, email: e.target.value })}
                     style={field}
@@ -492,16 +497,17 @@ const AptisOposiciones = () => {
                   <input
                     required
                     type="checkbox"
+                    name="gdpr"
                     checked={form.gdpr}
                     onChange={e => setForm({ ...form, gdpr: e.target.checked })}
                     style={{ marginTop: '0.25rem', flexShrink: 0 }}
                   />
-                  {/* Deliberately not a link: the site has no privacy-policy
-                      page to link to. Under the RGPD this consent line has to
-                      point at a reachable policy, so the page is a blocker for
-                      publishing the landing, not a nice-to-have. */}
                   <span>
-                    He leído y acepto la Política de Privacidad y consiento el tratamiento de mis datos.
+                    He leído y acepto la{' '}
+                    <Link to="/privacidad" style={{ color: 'var(--color-gold-ink)', fontWeight: 600 }}>
+                      Política de Privacidad
+                    </Link>{' '}
+                    y consiento el tratamiento de mis datos.
                   </span>
                 </label>
 

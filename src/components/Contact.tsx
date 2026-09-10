@@ -181,6 +181,7 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="name"
                     required
                     maxLength={120}
                     placeholder={t('contact.form_name')}
@@ -196,6 +197,8 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    autoComplete="tel"
+                    inputMode="tel"
                     required
                     maxLength={40}
                     placeholder="+34 600 000 000"
@@ -211,6 +214,8 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="email"
+                    spellCheck={false}
                     required
                     maxLength={160}
                     placeholder="hola@ejemplo.com"
@@ -335,7 +340,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_phone')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{t('contact.phone')}</p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}><a href="tel:+34605661212">{t('contact.phone')}</a></p>
                 </div>
               </div>
 
@@ -345,7 +350,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_email')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}>{t('contact.email')}</p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}><a href="mailto:info@tynesideacademy.com">{t('contact.email')}</a></p>
                 </div>
               </div>
             </div>

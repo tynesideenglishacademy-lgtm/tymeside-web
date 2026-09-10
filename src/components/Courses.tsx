@@ -11,7 +11,7 @@ const Courses = () => {
       titleKey: 'courses.explorers_title',
       descKey: 'courses.explorers_desc',
       image: 'young_learners',
-      badge: '3 - 6 Años',
+      badgeKey: 'courses.badge_explorers',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
       )
@@ -21,7 +21,7 @@ const Courses = () => {
       titleKey: 'courses.yl_title',
       descKey: 'courses.yl_desc',
       image: 'young_learners',
-      badge: 'Primaria (6-12 Años)',
+      badgeKey: 'courses.badge_primary',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
       )
@@ -31,7 +31,7 @@ const Courses = () => {
       titleKey: 'courses.adolescents_title',
       descKey: 'courses.adolescents_desc',
       image: 'teens',
-      badge: 'ESO y Bachillerato',
+      badgeKey: 'courses.badge_teens',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12 12 2l10 10-10 10Z"></path></svg>
       )
@@ -41,7 +41,7 @@ const Courses = () => {
       titleKey: 'courses.adults_title',
       descKey: 'courses.adults_desc',
       image: 'adults',
-      badge: 'Adultos & Cambridge',
+      badgeKey: 'courses.badge_adults',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
       )
@@ -51,7 +51,7 @@ const Courses = () => {
       titleKey: 'courses.speaking_title',
       descKey: 'courses.speaking_desc',
       image: 'speaking',
-      badge: 'Conversación Fluida',
+      badgeKey: 'courses.badge_speaking',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
       )
@@ -61,7 +61,7 @@ const Courses = () => {
       titleKey: 'courses.intensive_title',
       descKey: 'courses.intensive_desc',
       image: 'intensive',
-      badge: 'Cursos Intensivos',
+      badgeKey: 'courses.badge_intensive',
       icon: (
         <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
       )
@@ -79,9 +79,9 @@ const Courses = () => {
         
         <SectionHeader
           section="courses"
-          label="Oferta académica"
+          label={t('courses.label')}
           title={t('courses.title')}
-          lead="De los tres años al C2. Cada etapa tiene su propio grupo, su propio material y un profesor nativo que la conoce a fondo."
+          lead={t('courses.lead')}
         />
 
         <div className="grid-cards" style={{ marginBottom: '5rem' }}>
@@ -118,7 +118,7 @@ const Courses = () => {
                   fontWeight: 700,
                   letterSpacing: '0.02em'
                 }}>
-                  {course.badge}
+                  {t(course.badgeKey)}
                 </div>
               </div>
 
@@ -142,7 +142,7 @@ const Courses = () => {
                     borderRadius: 'var(--radius-sm)',
                     marginBottom: '1rem'
                   }}>
-                    {course.icon}
+                    <span aria-hidden="true">{course.icon}</span>
                   </div>
 
                   <h3 className="light-card-title" style={{
@@ -172,8 +172,8 @@ const Courses = () => {
                   fontSize: '0.95rem',
                   transition: 'color 0.2s ease'
                 }}>
-                  <span>Más información</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                  <span>{t('courses.more')}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </a>
               </div>
             </div>
@@ -196,7 +196,7 @@ const Courses = () => {
               {t('courses.cta')}
             </Link>
             <a href="#contact" className="btn-secondary">
-              Contáctanos
+              {t('courses.contact')}
             </a>
           </div>
         </div>

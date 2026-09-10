@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { readConsent, setConsent } from '../lib/consent';
@@ -11,11 +11,9 @@ import { readConsent, setConsent } from '../lib/consent';
  */
 const CookieBanner = () => {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (readConsent() === null) setVisible(true);
-  }, []);
+  const [visible, setVisible] = useState(() =>
+    typeof window !== 'undefined' && readConsent() === null
+  );
 
   if (!visible) return null;
 

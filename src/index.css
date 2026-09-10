@@ -747,16 +747,19 @@ a {
   border-radius: var(--radius-sm);
   border: 1px solid rgba(11, 27, 43, 0.16);
   font-size: 1rem;
-  outline: none;
   background-color: #FFFFFF;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   font-family: var(--font-body);
   color: var(--color-ink);
 }
 
-.premium-input:focus {
+.premium-input:focus-visible {
   border-color: var(--color-gold);
   box-shadow: 0 0 0 3px var(--color-gold-soft);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* --- Footer --- */
@@ -825,6 +828,10 @@ a {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  [style*="animation: spin"] {
+    animation: none !important;
   }
 }
 

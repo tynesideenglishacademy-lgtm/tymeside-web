@@ -463,6 +463,7 @@ const Empresas = () => {
                   Nombre y apellidos
                   <input
                     required
+                    name="name"
                     autoComplete="name"
                     value={form.name}
                     onChange={e => setForm({ ...form, name: e.target.value })}
@@ -473,6 +474,7 @@ const Empresas = () => {
                 <label style={label}>
                   Empresa
                   <input
+                    name="company"
                     autoComplete="organization"
                     value={form.company}
                     onChange={e => setForm({ ...form, company: e.target.value })}
@@ -485,7 +487,9 @@ const Empresas = () => {
                   <input
                     required
                     type="tel"
+                    name="phone"
                     autoComplete="tel"
+                    inputMode="tel"
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
                     style={field}
@@ -497,7 +501,9 @@ const Empresas = () => {
                   <input
                     required
                     type="email"
+                    name="email"
                     autoComplete="email"
+                    spellCheck={false}
                     value={form.email}
                     onChange={e => setForm({ ...form, email: e.target.value })}
                     style={field}
@@ -508,6 +514,7 @@ const Empresas = () => {
                   <input
                     required
                     type="checkbox"
+                    name="gdpr"
                     checked={form.gdpr}
                     onChange={e => setForm({ ...form, gdpr: e.target.checked })}
                     style={{ marginTop: '0.25rem', flexShrink: 0 }}

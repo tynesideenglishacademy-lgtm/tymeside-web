@@ -5,7 +5,7 @@ import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimo
 import { hasSocialProof } from '../lib/sections';
 import type { Testimonial } from '../data/testimonials';
 
-const ReviewCard = ({ review }: { review: Testimonial }) => (
+const ReviewCard = ({ review, locale }: { review: Testimonial; locale: string }) => (
   <figure
     className="light-card"
     style={{
@@ -29,7 +29,7 @@ const ReviewCard = ({ review }: { review: Testimonial }) => (
       <div style={{ fontSize: '0.9rem', color: 'var(--color-ink-muted)' }}>
         {review.role && <span>{review.role} · </span>}
         <time dateTime={review.date}>
-          {new Date(review.date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
+          {new Date(review.date).toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
         </time>
       </div>
     </figcaption>
@@ -45,7 +45,8 @@ const ReviewCard = ({ review }: { review: Testimonial }) => (
  * more damage than an absent section.
  */
 const Testimonials = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage?.startsWith('en') ? 'en-GB' : 'es-ES';
 
   if (!hasSocialProof) return null;
 
@@ -80,7 +81,7 @@ const Testimonials = () => {
                 color: 'var(--color-ink)',
               }}
             >
-              {GOOGLE_RATING.score.toLocaleString('es-ES', { minimumFractionDigits: 1 })}
+              {GOOGLE_RATING.score.toLocaleString(locale, { minimumFractionDigits: 1 })}
             </span>
             <Stars rating={Math.round(GOOGLE_RATING.score)} onDark={false} />
             <span style={{ color: 'var(--color-ink-muted)' }}>
@@ -92,7 +93,7 @@ const Testimonials = () => {
         {testimonials.length > 0 && (
           <div className="grid-cards">
             {testimonials.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+              <ReviewCard key={review.id} review={review} locale={locale} />
             ))}
           </div>
         )}

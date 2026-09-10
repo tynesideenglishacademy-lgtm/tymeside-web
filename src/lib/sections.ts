@@ -22,7 +22,6 @@ const SECTIONS = [
   ...(hasSocialProof ? ['testimonials'] : []),
   'services',
   'trips',
-  'blog',
   'contact',
 ];
 

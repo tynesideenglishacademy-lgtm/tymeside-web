@@ -16,7 +16,9 @@ const resources = {
         whatsapp: "WhatsApp",
         whatsappAria: "Escríbenos por WhatsApp",
         open_menu: "Abrir menú",
-        close_menu: "Cerrar menú"
+        close_menu: "Cerrar menú",
+        preenrol: "Matrícula",
+        toggle_language: "Cambiar idioma"
       },
       hero: {
         connect: "CONNECT.",
@@ -27,7 +29,17 @@ const resources = {
         p1: "Desde los 3 años hasta el dominio del C2 de Cambridge, Tyneside English Academy ofrece soluciones para cada edad y nivel.",
         p2: "Nuestra misión es proporcionar soluciones de aprendizaje adaptadas a cada etapa del desarrollo y a las distintas necesidades académicas y profesionales.",
         cta: "Prueba de Nivel Gratuita",
-        courses_link: "Ver nuestros cursos"
+        courses_link: "Ver nuestros cursos",
+        eyebrow: "Centro preparador Cambridge · Murcia",
+        stat_pass: "Aprobados · últimos 2 años",
+        stat_since: "Enseñando inglés desde",
+        test_title: "Test de Nivel Online",
+        test_subtitle: "Gratuito y sin compromiso",
+        test_duration: "~10 MIN",
+        test_feature_grammar: "Evaluación detallada de Gramática y Vocabulario",
+        test_feature_exam: "Recomendación del examen Cambridge adecuado",
+        test_feature_advice: "Asesoramiento personalizado con profesor nativo",
+        test_cta: "Empezar Test de Nivel Gratis"
       },
       courses: {
         title: "Nuestra Oferta Educativa",
@@ -44,13 +56,26 @@ const resources = {
         intensive_title: "Intensive Courses",
         intensive_desc: "Cursos acelerados de preparación de exámenes y refuerzo intensivo para conseguir tu titulación oficial en tiempo récord.",
         footer: "En Tyneside English Academy, no solo enseñamos un idioma; construimos un camino sólido hacia la fluidez global.",
-        cta: "Solicita Información"
+        cta: "Solicita Información",
+        label: "Oferta académica",
+        lead: "De los tres años al C2. Cada etapa tiene su propio grupo, su propio material y un profesor nativo que la conoce a fondo.",
+        badge_explorers: "3 - 6 años",
+        badge_primary: "Primaria (6-12 años)",
+        badge_teens: "ESO y Bachillerato",
+        badge_adults: "Adultos y Cambridge",
+        badge_speaking: "Conversación fluida",
+        badge_intensive: "Cursos intensivos",
+        more: "Más información",
+        contact: "Contáctanos"
       },
       about: {
         title: "Sobre nosotros",
         p1: "Situados en la céntrica Plaza Tomás y Valiente de Puente Tocinos, somos mucho más que una academia de idiomas; somos tu conexión directa con la cultura y la excelencia académica británica.",
         p2: "Inspirados en la histórica y trabajadora región de Tyneside (noreste de Inglaterra), basamos nuestra enseñanza en cuatro pilares: Rigor, Integridad, Comunidad y Autenticidad.",
-        p3: "Nuestra misión es proporcionar una educación de inglés de la más alta calidad, superando los estándares tradicionales."
+        p3: "Nuestra misión es proporcionar una educación de inglés de la más alta calidad, superando los estándares tradicionales.",
+        label: "Nuestra esencia",
+        teaching_since: "Enseñando",
+        native_teachers: "Nativos"
       },
       methodology: {
         title: "El Método Tyneside: Aprende, Aplica, Domina",
@@ -62,7 +87,8 @@ const resources = {
         m3_title: "Profesores Expertos",
         m3_desc: "Equipo docente altamente cualificado, asegurando un estándar de inglés nativo y profesional.",
         m4_title: "Seguimiento Continuo",
-        m4_desc: "Evaluaciones regulares y tutorías para garantizar que la inversión en educación se traduzca en resultados medibles."
+        m4_desc: "Evaluaciones regulares y tutorías para garantizar que la inversión en educación se traduzca en resultados medibles.",
+        label: "Claves del éxito"
       },
       examprep: {
         title: "Acredita tu Nivel: Preparación de Exámenes Oficiales",
@@ -74,7 +100,8 @@ const resources = {
         full_exam_note: "Un examen de práctica entero: Reading & Use of English, Listening y Writing. Alrededor de una hora, gratuito, con tu nivel CEFR al terminar.",
         stat_pass: "Aprobados · últimos 2 años",
         stat_years: "Años enseñando inglés",
-        stat_students: "Alumnos certificados"
+        stat_students: "Alumnos certificados",
+        label: "Centro preparador oficial"
       },
       testimonials: {
         badge: "Lo que dicen las familias",
@@ -97,13 +124,17 @@ const resources = {
         o_desc: "Flexibilidad total y exclusividad. Clases privadas adaptadas 100% a tu ritmo, horario y necesidades específicas.",
         t_title: "Traducción e Interpretación",
         t_desc: "Servicios profesionales de traducción de documentos técnicos, comerciales, webs y asistencia de interpretación para reuniones internacionales de empresas murcianas.",
-        cta: "MÁS INFORMACIÓN"
+        cta: "MÁS INFORMACIÓN",
+        label: "Empresas y formación"
       },
       trips: {
         title: "Inmersión Total: Viajes y Campamentos",
         p1: "La verdadera asimilación de un idioma ocurre cuando lo vives.",
         p2: "En colaboración directa con International House Newcastle, desarrollamos campamentos de verano (Summer Camps) y viajes de inmersión lingüística en el extranjero diseñados para vivir el idioma.",
-        p3: "Una oportunidad única para conectar con la herencia británica, hacer amigos y practicar el inglés 24/7 en un entorno estimulante y supervisado."
+        p3: "Una oportunidad única para conectar con la herencia británica, hacer amigos y practicar el inglés 24/7 en un entorno estimulante y supervisado.",
+        label: "Experiencias internacionales",
+        alt_camps: "Campamentos de verano",
+        alt_trips: "Viajes de inmersión lingüística"
       },
       blog: {
         title: "Tyneside News: Cultura, Consejos y Comunidad",
@@ -111,7 +142,7 @@ const resources = {
         cta: "Leer el Blog Completo",
         read_more: "Leer artículo completo",
         modal_cta_title: "¿Quieres certificar tu nivel de inglés?",
-        modal_cta_desc: "Realiza nuestra prueba de nivel adaptativa online y conoce tu puntuación CEFR (A1-C2) en menos de 15 minutos.",
+        modal_cta_desc: "Realiza nuestra prueba de nivel adaptativa online y conoce tu puntuación CEFR (A1-C2) en unos 10 minutos.",
         modal_cta_button: "Ir a la Prueba de Nivel"
       },
       contact: {
@@ -152,6 +183,8 @@ const resources = {
         }
       },
       levelTest: {
+        page_title: "Test de nivel de inglés gratuito | Tyneside English Academy",
+        page_desc: "Descubre tu nivel de inglés en la escala de Cambridge (A1–C2) con nuestro test adaptativo gratuito de unos 10 minutos. Recibirás tu certificado al terminar.",
         badge: "Evaluación de Nivel CEFR",
         header_title: "Prueba de Nivel Adaptativa",
         header_subtitle: "Bienvenido a Tyneside English Academy. Introduce tus datos para iniciar la evaluación adaptativa de 50 preguntas.",
@@ -160,6 +193,9 @@ const resources = {
         form_postal: "Código Postal",
         form_phone: "Teléfono",
         form_address: "Dirección",
+        placeholder_name: "Ej. Sara Martínez",
+        placeholder_email: "sara@ejemplo.com",
+        placeholder_address: "Puente Tocinos, Murcia",
         form_optional: "opcional",
         form_required_note: "Los campos marcados con * son obligatorios.",
         start_btn: "Comenzar Evaluación",
@@ -176,7 +212,7 @@ const resources = {
         download_cert: "Descargar Certificado Oficial (PDF)",
         full_exam_cta: "Hacer el examen completo",
         full_exam_note: "¿Quieres confirmar tu nivel con papeles reales? El examen completo añade Reading & Use of English, Listening y Writing, y dura alrededor de una hora.",
-        email_saved: "✓ Evaluación guardada y enviada a la secretaría académica.",
+        email_saved: "✓ Evaluación guardada correctamente.",
         email_completed: "✓ Evaluación completada con éxito.",
         rec_A1_name: "Curso Young Learners / Iniciación A1",
         rec_A1_desc: "Ideal para afianzar bases gramaticales y soltura léxica.",
@@ -201,7 +237,10 @@ const resources = {
         gdpr: "Formularios de Autorización y Privacidad (RGPD/LOPDGDD)"
       },
       footer: {
-        rights: "Tyneside English Academy. Todos los derechos reservados."
+        description: "Auténtica formación británica con profesores nativos. Resultados reales y acreditaciones oficiales Cambridge en Murcia.",
+        virtual_title: "Aulario Virtual",
+        virtual_desc: "Accede a tus clases, material didáctico y evaluaciones online.",
+        rights: "Todos los derechos reservados."
       },
       legal: {
         section_title: "Información legal",
@@ -235,7 +274,9 @@ const resources = {
         whatsapp: "WhatsApp",
         whatsappAria: "Message us on WhatsApp",
         open_menu: "Open menu",
-        close_menu: "Close menu"
+        close_menu: "Close menu",
+        preenrol: "Enrolment",
+        toggle_language: "Change language"
       },
       hero: {
         connect: "CONNECT.",
@@ -246,7 +287,17 @@ const resources = {
         p1: "From age 3 to Cambridge C2 mastery, Tyneside English Academy offers solutions for every age and level.",
         p2: "Our mission is to provide learning solutions adapted to every stage of development and to various academic and professional needs.",
         cta: "Free Level Test",
-        courses_link: "See our courses"
+        courses_link: "See our courses",
+        eyebrow: "Cambridge preparation centre · Murcia",
+        stat_pass: "Pass rate · last 2 years",
+        stat_since: "Teaching English since",
+        test_title: "Online Level Test",
+        test_subtitle: "Free, with no obligation",
+        test_duration: "~10 MIN",
+        test_feature_grammar: "Detailed grammar and vocabulary assessment",
+        test_feature_exam: "Recommendation for the right Cambridge exam",
+        test_feature_advice: "Personal guidance from a native teacher",
+        test_cta: "Start Your Free Level Test"
       },
       courses: {
         title: "Our Educational Offerings",
@@ -263,13 +314,26 @@ const resources = {
         intensive_title: "Intensive Courses",
         intensive_desc: "Accelerated exam preparation and immersion courses to achieve your official certification in record time.",
         footer: "At Tyneside English Academy, we don't just teach a language; we build a solid path to global fluency.",
-        cta: "Request Information"
+        cta: "Request Information",
+        label: "Academic programmes",
+        lead: "From age three to C2. Every stage has its own group, materials and a native teacher who understands it in depth.",
+        badge_explorers: "Ages 3-6",
+        badge_primary: "Primary (Ages 6-12)",
+        badge_teens: "Secondary and Sixth Form",
+        badge_adults: "Adults and Cambridge",
+        badge_speaking: "Fluent conversation",
+        badge_intensive: "Intensive courses",
+        more: "More information",
+        contact: "Contact us"
       },
       about: {
         title: "About Us",
         p1: "Located in the central Plaza Tomás y Valiente in Puente Tocinos, we are much more than a language academy; we are your direct connection to British culture and academic excellence.",
         p2: "Inspired by the historic and hardworking region of Tyneside (northeast England), we base our teaching on four pillars: Rigor, Integrity, Community, and Authenticity.",
-        p3: "Our mission is to provide the highest quality English education, exceeding traditional standards."
+        p3: "Our mission is to provide the highest quality English education, exceeding traditional standards.",
+        label: "Who we are",
+        teaching_since: "Teaching since",
+        native_teachers: "Native teachers"
       },
       methodology: {
         title: "The Tyneside Method: Learn, Apply, Master",
@@ -281,7 +345,8 @@ const resources = {
         m3_title: "Expert Teachers",
         m3_desc: "Highly qualified teaching team, ensuring a native and professional English standard.",
         m4_title: "Continuous Monitoring",
-        m4_desc: "Regular assessments and tutoring to ensure that the investment in education translates into measurable results."
+        m4_desc: "Regular assessments and tutoring to ensure that the investment in education translates into measurable results.",
+        label: "Keys to success"
       },
       examprep: {
         title: "Certify Your Level: Official Exam Preparation",
@@ -293,7 +358,8 @@ const resources = {
         full_exam_note: "A complete practice exam: Reading & Use of English, Listening and Writing. About an hour, free, with your CEFR level at the end.",
         stat_pass: "Pass rate · last 2 years",
         stat_years: "Years teaching English",
-        stat_students: "Certified students"
+        stat_students: "Certified students",
+        label: "Official preparation centre"
       },
       testimonials: {
         badge: "What families say",
@@ -316,13 +382,17 @@ const resources = {
         o_desc: "Total flexibility and exclusivity. Private classes 100% adapted to your pace, schedule, and specific needs.",
         t_title: "Translation & Interpretation",
         t_desc: "Professional translation services for technical and commercial documents, websites, and interpretation assistance for international meetings of Murcian companies.",
-        cta: "MORE INFORMATION"
+        cta: "MORE INFORMATION",
+        label: "Business and education"
       },
       trips: {
         title: "Total Immersion: Trips and Camps",
         p1: "The true assimilation of a language happens when you live it.",
         p2: "In direct collaboration with International House Newcastle, we develop Summer Camps and language immersion trips abroad designed to experience the language.",
-        p3: "A unique opportunity to connect with British heritage, make friends, and practice English 24/7 in a stimulating and supervised environment."
+        p3: "A unique opportunity to connect with British heritage, make friends, and practice English 24/7 in a stimulating and supervised environment.",
+        label: "International experiences",
+        alt_camps: "Summer camps",
+        alt_trips: "Language immersion trips"
       },
       blog: {
         title: "Tyneside News: Culture, Tips, and Community",
@@ -330,7 +400,7 @@ const resources = {
         cta: "Read Full Blog",
         read_more: "Read full article",
         modal_cta_title: "Do you want to certify your English level?",
-        modal_cta_desc: "Take our online adaptive placement test and find out your CEFR score (A1-C2) in under 15 minutes.",
+        modal_cta_desc: "Take our online adaptive placement test and find out your CEFR score (A1-C2) in about 10 minutes.",
         modal_cta_button: "Go to Level Test"
       },
       contact: {
@@ -371,6 +441,8 @@ const resources = {
         }
       },
       levelTest: {
+        page_title: "Free English level test | Tyneside English Academy",
+        page_desc: "Discover your English level on the Cambridge scale (A1–C2) with our free adaptive test, which takes about 10 minutes. Receive your certificate when you finish.",
         badge: "CEFR Placement Assessment",
         header_title: "Adaptive Level Test",
         header_subtitle: "Welcome to Tyneside English Academy. Enter your information to begin the 50-question adaptive assessment.",
@@ -379,6 +451,9 @@ const resources = {
         form_postal: "Postal Code",
         form_phone: "Phone",
         form_address: "Address",
+        placeholder_name: "e.g. Sara Martínez",
+        placeholder_email: "sara@example.com",
+        placeholder_address: "Puente Tocinos, Murcia",
         form_optional: "optional",
         form_required_note: "Fields marked with * are required.",
         start_btn: "Start Assessment",
@@ -395,7 +470,7 @@ const resources = {
         download_cert: "Download Official Certificate (PDF)",
         full_exam_cta: "Sit the full exam",
         full_exam_note: "Want your level confirmed against real papers? The full exam adds Reading & Use of English, Listening and Writing, and takes about an hour.",
-        email_saved: "✓ Assessment saved and sent to academic administration.",
+        email_saved: "✓ Assessment saved successfully.",
         email_completed: "✓ Assessment completed successfully.",
         rec_A1_name: "Young Learners / Starter A1 Course",
         rec_A1_desc: "Ideal for solidifying grammar foundations and lexical fluency.",
@@ -420,7 +495,10 @@ const resources = {
         gdpr: "Authorisation & Privacy Forms (GDPR/LOPDGDD)"
       },
       footer: {
-        rights: "Tyneside English Academy. All rights reserved."
+        description: "Authentic British education with native teachers. Real results and official Cambridge preparation in Murcia.",
+        virtual_title: "Virtual Classroom",
+        virtual_desc: "Access your classes, learning materials and online assessments.",
+        rights: "All rights reserved."
       },
       legal: {
         section_title: "Legal information",

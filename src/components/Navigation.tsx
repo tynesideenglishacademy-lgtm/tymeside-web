@@ -8,12 +8,27 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Glass while the bar overlaps the hero photo; solid navy once past it.
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() =>
+    typeof window !== 'undefined' ? window.scrollY > 24 : false
+  );
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let frame = 0;
+    let current = window.scrollY > 24;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const next = window.scrollY > 24;
+        if (next === current) return;
+        current = next;
+        setScrolled(next);
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const toggleLanguage = () => {
@@ -28,7 +43,7 @@ const Navigation = () => {
     <nav className={`floating-navbar animate-fade-in delay-100${scrolled || mobileMenuOpen ? ' is-solid' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <img src="/logo-light.png" alt="Tyneside English Academy" />
+          <img src="/logo-light.png" alt="Tyneside English Academy" width={600} height={600} />
         </Link>
 
         {/* Desktop Nav Links */}
@@ -39,8 +54,8 @@ const Navigation = () => {
           <a href="/#services" className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" className="navbar-link">{t('nav.contact')}</a>
 
-          <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label="Toggle language">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+          <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
             {currentLangDisplay}
           </button>
 
@@ -100,8 +115,8 @@ const Navigation = () => {
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}
           </a>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
-            <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label="Toggle language">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+            <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
               {currentLangDisplay}
             </button>
             <Link to="/level-test" onClick={() => setMobileMenuOpen(false)} className="btn-gold" style={{ width: '100%', textAlign: 'center' }}>

@@ -89,7 +89,7 @@ const ExamPrep = () => {
           <div>
             <SectionHeader
               section="examprep"
-              label="Centro preparador oficial"
+              label={t('examprep.label')}
               title={t('examprep.title')}
               onDark
             />
@@ -104,7 +104,7 @@ const ExamPrep = () => {
             <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
               <Link to="/level-test" className="btn-gold">
                 <span>{t('examprep.cta')}</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </Link>
               <a href="#contact" className="btn-secondary">
                 {t('examprep.details')}

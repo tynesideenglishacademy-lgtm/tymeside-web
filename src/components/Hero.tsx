@@ -51,7 +51,7 @@ const Hero = () => {
             <div className="animate-slide-up eyebrow" style={{
               marginBottom: '1.8rem'
             }}>
-              Centro preparador Cambridge · Murcia
+              {t('hero.eyebrow')}
             </div>
 
             {/* Main Headline */}
@@ -132,7 +132,7 @@ const Hero = () => {
                   academies, so no five-year percentage goes on this site. */}
               <div className="hero-stat-self">
                 <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-gold)' }}>100%</div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', fontWeight: 500 }}>Aprobados · últimos 2 años</div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', fontWeight: 500 }}>{t('hero.stat_pass')}</div>
               </div>
               <div className="hero-stat-divider" style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }}></div>
               {/* Replaced "15+ Años de Excelencia" (Tyneside is ~2 years old,
@@ -142,7 +142,7 @@ const Hero = () => {
                   experience, not the academy's age. */}
               <div className="hero-stat-self">
                 <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-soft-cream)' }}>2015</div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', fontWeight: 500 }}>Enseñando inglés desde</div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)', fontWeight: 500 }}>{t('hero.stat_since')}</div>
               </div>
               <div className="hero-stat-divider" style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }}></div>
               {/* Was a third "100% Profesores Nativos" — the same claim appears
@@ -172,11 +172,11 @@ const Hero = () => {
                     justifyContent: 'center',
                     color: '#1a1200'
                   }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Test de Nivel Online</h3>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)' }}>Gratuito y sin compromiso</p>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>{t('hero.test_title')}</h3>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)' }}>{t('hero.test_subtitle')}</p>
                   </div>
                 </div>
                 <span style={{
@@ -186,18 +186,18 @@ const Hero = () => {
                   color: 'var(--color-gold)',
                   fontSize: '0.75rem',
                   fontWeight: 700
-                }}>5 MIN</span>
+                }}>{t('hero.test_duration')}</span>
               </div>
 
               {/* Course Features List */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.75rem' }}>
                 {[
-                  'Evaluación detallada de Gramática y Vocabulario',
-                  'Recomendación del examen Cambridge adecuado',
-                  'Asesoramiento personalizado con profesor nativo',
+                  t('hero.test_feature_grammar'),
+                  t('hero.test_feature_exam'),
+                  t('hero.test_feature_advice'),
                 ].map((item) => (
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', padding: '0.8rem 1rem', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.04)' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="3" style={{ flexShrink: 0 }}><path d="M20 6 9 17l-5-5" /></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="3" style={{ flexShrink: 0 }} aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
                     <div style={{ fontSize: '0.95rem', fontWeight: 500 }}>{item}</div>
                   </div>
                 ))}
@@ -205,8 +205,8 @@ const Hero = () => {
 
               {/* Card Action Link */}
               <Link to="/level-test" className="btn-gold" style={{ width: '100%' }}>
-                <span>Empezar Test de Nivel Gratis</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                <span>{t('hero.test_cta')}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </Link>
             </div>
           </div>

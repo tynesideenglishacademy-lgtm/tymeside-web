@@ -66,7 +66,7 @@ const Services = () => {
         
         <SectionHeader
           section="services"
-          label="Empresas y formación"
+          label={t('services.label')}
           title={t('services.title')}
           onDark
         />

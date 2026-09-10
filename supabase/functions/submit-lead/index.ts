@@ -31,10 +31,12 @@ const SOURCE_TAGS: Record<string, string> = {
 /**
  * Browsers are told which origins may call this. It is not a security control -
  * curl ignores CORS entirely - it just stops the endpoint being usable from
- * someone else's page. Add tynesideacademy.com here when the domain is
- * recovered; until then the Vercel hosts are the live site.
+ * someone else's page. Keep both the apex and www production origins here so
+ * the lead forms survive the DNS cutover regardless of the canonical host.
  */
 const STATIC_ORIGINS = new Set([
+  'https://tynesideacademy.com',
+  'https://www.tynesideacademy.com',
   'https://tyneside-web.vercel.app',
   'https://tymeside-web-btloban93-5646s-projects.vercel.app',
   'https://tymeside-web-git-main-btloban93-5646s-projects.vercel.app',
@@ -141,13 +143,13 @@ Deno.serve(async (req: Request) => {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  // Requests arriving without a forwarded address all share the 'unknown' key.
-  // That is deliberate: it is a bucket for traffic we cannot attribute, and it
-  // should be throttled as one.
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('cf-connecting-ip') ||
-    'unknown';
+  // Supabase's edge gateway exposes Cloudflare's connection address. Do not
+  // fall back to X-Forwarded-For: a caller can supply the left-most entry, and
+  // choosing the right-most entry assumes a proxy chain we do not control.
+  // Requests without the infrastructure-owned header deliberately share the
+  // 'unknown' bucket, so missing attribution fails closed rather than allowing
+  // a caller to mint a fresh rate-limit identity.
+  const ip = req.headers.get('cf-connecting-ip')?.trim() || 'unknown';
   if (await isRateLimited(admin, ip)) {
     return json({ error: 'rate_limited' }, 429, origin);
   }

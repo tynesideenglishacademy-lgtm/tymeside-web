@@ -10,7 +10,6 @@ import { RequiredMark, OptionalMark } from './RequiredMark';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
-  admissionsEmail: "secretaria@tynesideacademy.com",
   testTimePerQuestion: 45 // seconds
 };
 
@@ -159,12 +158,8 @@ const QUESTION_BANK: Record<number, any[]> = {
 const TOTAL_QUESTIONS = 50;
 const QUESTIONS_PER_STAGE = 5;
 
-const PAGE_TITLE = 'Test de nivel de inglés gratuito | Tyneside English Academy';
-const PAGE_DESC =
-  'Descubre tu nivel de inglés en la escala de Cambridge (A1–C2) con nuestro test adaptativo gratuito de 10 minutos. Recibirás tu certificado por correo.';
-
 export default function LevelTest() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [view, setView] = useState<'registration' | 'test' | 'results'>('registration');
   const [isLoading, setIsLoading] = useState(false);
   const [student, setStudent] = useState<any>({});
@@ -193,17 +188,17 @@ export default function LevelTest() {
   // publicly on its own (WhatsApp, the CRM admin header), so it needs its own.
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = PAGE_TITLE;
+    document.title = t('levelTest.page_title');
 
     const meta = document.querySelector('meta[name="description"]');
     const previousDesc = meta?.getAttribute('content') ?? null;
-    meta?.setAttribute('content', PAGE_DESC);
+    meta?.setAttribute('content', t('levelTest.page_desc'));
 
     return () => {
       document.title = previousTitle;
       if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
     };
-  }, []);
+  }, [i18n.resolvedLanguage, t]);
 
   const handleRegistration = (e: React.FormEvent) => {
     e.preventDefault();
@@ -330,10 +325,9 @@ export default function LevelTest() {
     // CEFR band only — no name/email/phone. See src/lib/analytics.ts.
     trackEvent('test_completed', { cefr: finalCEFR });
 
-    // The CRM save and the notification email are independent. They used to sit
-    // in one try block with the Supabase insert first, so when RLS rejected that
-    // insert the throw skipped the FormSubmit call entirely - every completed
-    // test was lost twice over while the visitor was shown a success message.
+    // The Edge Function is the single source of truth for this lead. Do not add
+    // a browser-side email relay here: it duplicates personal data to another
+    // processor and cannot prove delivery.
     let savedToCrm = false;
 
     try {
@@ -348,32 +342,6 @@ export default function LevelTest() {
       savedToCrm = true;
     } catch (err) {
       console.error('Could not save lead to CRM:', err);
-    }
-
-    try {
-      const formSubmitEndpoint = `https://formsubmit.co/ajax/${ACADEMY_CONFIG.admissionsEmail}`;
-      const payload = {
-        _subject: `Placement Test Result: ${student.name} [Level: ${finalCEFR}]`,
-        _replyto: student.email,
-        _captcha: "false",
-        _template: "table",
-        "Student Name": student.name,
-        "Email Address": student.email,
-        "Postal Code": student.postal,
-        "Phone Number": student.phone || "Not Provided",
-        "Assessed CEFR Level": finalCEFR,
-        "Cambridge Scale Score": finalScore,
-        "Test Date": student.date,
-        "Correct Answers": `${finalTotalCorrect} out of 50`,
-        "Saved to CRM": savedToCrm ? "yes" : "NO - add this lead manually"
-      };
-      await fetch(formSubmitEndpoint, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch (err) {
-      console.error('Could not send the placement-test notification email:', err);
     }
 
     setEmailStatus(savedToCrm ? t('levelTest.email_saved') : t('levelTest.email_completed'));
@@ -465,7 +433,7 @@ export default function LevelTest() {
       <header style={{ backgroundColor: 'var(--color-deep-navy)', borderBottom: '4px solid var(--color-gold)', padding: '1.25rem 2rem', width: '100%' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link to="/">
-            <img src="/logo-light.png" alt="Tyneside English Academy" style={{ height: '50px' }} />
+            <img src="/logo-light.png" alt="Tyneside English Academy" width={600} height={600} style={{ width: '50px', height: '50px' }} />
           </Link>
           <span style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem 1rem', borderRadius: 'var(--radius-sm)', fontSize: '0.8rem', fontWeight: 600, border: '1px solid rgba(255,255,255,0.2)' }}>
             {t('levelTest.badge')}
@@ -488,7 +456,7 @@ export default function LevelTest() {
           {view === 'registration' && (
             <div className="animate-fade-in">
               <div className="lt-text-center">
-                <h2 style={{ fontSize: '2rem', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>{t('levelTest.header_title')}</h2>
+                <h1 style={{ fontSize: '2rem', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>{t('levelTest.header_title')}</h1>
                 <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t('levelTest.header_subtitle')}</p>
               </div>
               <form onSubmit={handleRegistration}>
@@ -497,23 +465,23 @@ export default function LevelTest() {
                 <div className="lt-grid-2">
                   <div>
                     <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}<RequiredMark /></label>
-                    <input id="lt-name" type="text" name="name" required placeholder="Ej. Sara Martínez" className="lt-input" />
+                    <input id="lt-name" type="text" name="name" autoComplete="name" required placeholder={t('levelTest.placeholder_name')} className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}<RequiredMark /></label>
-                    <input id="lt-email" type="email" name="email" required placeholder="sara@ejemplo.com" className="lt-input" />
+                    <input id="lt-email" type="email" name="email" autoComplete="email" spellCheck={false} required placeholder={t('levelTest.placeholder_email')} className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}<RequiredMark /></label>
-                    <input id="lt-postal" type="text" name="postal" required placeholder="30006" className="lt-input" />
+                    <input id="lt-postal" type="text" name="postal" autoComplete="postal-code" inputMode="numeric" required placeholder="30006" className="lt-input" />
                   </div>
                   <div>
                     <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
-                    <input id="lt-phone" type="tel" name="phone" placeholder="+34 600 000 000" className="lt-input" />
+                    <input id="lt-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder="+34 600 000 000" className="lt-input" />
                   </div>
                   <div className="lt-col-span-2">
                     <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
-                    <input id="lt-address" type="text" name="address" placeholder="Puente Tocinos, Murcia" className="lt-input" />
+                    <input id="lt-address" type="text" name="address" autoComplete="street-address" placeholder={t('levelTest.placeholder_address')} className="lt-input" />
                   </div>
                 </div>
                 <button type="submit" className="lt-btn">

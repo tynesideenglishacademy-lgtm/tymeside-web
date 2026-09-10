@@ -21,9 +21,9 @@ const Footer = () => {
         }}>
           
           <div>
-            <img src="/logo-light.png" alt="Tyneside English Academy" style={{ height: '56px', marginBottom: '1.5rem' }} />
+            <img src="/logo-light.png" alt="Tyneside English Academy" width={600} height={600} style={{ width: '56px', height: '56px', marginBottom: '1.5rem' }} />
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.95rem', lineHeight: 1.7, maxWidth: '320px' }}>
-              Auténtica formación británica con profesores nativos. Resultados reales y acreditaciones oficiales Cambridge en Murcia.
+              {t('footer.description')}
             </p>
           </div>
 
@@ -31,8 +31,8 @@ const Footer = () => {
             <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('nav.contact')}</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
               <li>Plaza Tomás y Valiente 6, Puente Tocinos</li>
-              <li>605 661 212</li>
-              <li>info@tynesideacademy.com</li>
+              <li><a className="footer-link" href="tel:+34605661212">605 661 212</a></li>
+              <li><a className="footer-link" href="mailto:info@tynesideacademy.com">info@tynesideacademy.com</a></li>
             </ul>
           </div>
 
@@ -46,9 +46,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>Aulario Virtual</h4>
+            <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('footer.virtual_title')}</h4>
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.9rem', marginBottom: '1.2rem', lineHeight: 1.6 }}>
-              Accede a tus clases, material didáctico y evaluaciones online.
+              {t('footer.virtual_desc')}
             </p>
             <a href="#contact" className="btn-secondary" style={{ padding: '0.65rem 1.4rem', fontSize: '0.9rem', width: '100%', justifyContent: 'center' }}>
               {t('nav.virtualClassroom')}

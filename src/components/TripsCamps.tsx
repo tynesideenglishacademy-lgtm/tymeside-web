@@ -34,7 +34,7 @@ const TripsCamps = () => {
                 transform: 'translateY(1.5rem)',
                 border: '1px solid var(--color-border-glass)'
               }}>
-                <img src="/img/camps1-480.webp" alt="Campamentos de verano" width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/img/camps1-480.webp" alt={t('trips.alt_camps')} width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{
                 borderRadius: 'var(--radius-lg)',
@@ -43,7 +43,7 @@ const TripsCamps = () => {
                 height: '320px',
                 border: '1px solid var(--color-border-glass)'
               }}>
-                <img src="/img/camps2-480.webp" alt="Viajes de inmersión lingüística" width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/img/camps2-480.webp" alt={t('trips.alt_trips')} width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ const TripsCamps = () => {
           <div>
             <SectionHeader
               section="trips"
-              label="Experiencias internacionales"
+              label={t('trips.label')}
               title={t('trips.title')}
               onDark
             />
@@ -71,7 +71,7 @@ const TripsCamps = () => {
                 {t('trips.p2')}<br/>
                 <a href="https://www.ihnewcastle.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-gold)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>
                   <span>International House Newcastle</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
                 </a>
               </p>
             </div>

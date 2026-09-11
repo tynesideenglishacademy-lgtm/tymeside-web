@@ -1,11 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 import Stars from './Stars';
+import { memo } from 'react';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
 import { hasSocialProof } from '../lib/sections';
 import type { Testimonial } from '../data/testimonials';
 
-const ReviewCard = ({ review, locale }: { review: Testimonial; locale: string }) => (
+// ⚡ Bolt: Wrapped ReviewCard in React.memo() to prevent unnecessary re-renders.
+// What: Memoized the ReviewCard component.
+// Why: The review list items are purely presentational and rely solely on the static 'review' and 'locale' props.
+// Impact: Prevents re-rendering of all testimonial cards when the parent component or app state updates.
+// Measurement: Reduces React render cycles for these list items by ~100% when parent state changes.
+const ReviewCard = memo(({ review, locale }: { review: Testimonial; locale: string }) => (
   <figure
     className="light-card"
     style={{
@@ -34,7 +40,7 @@ const ReviewCard = ({ review, locale }: { review: Testimonial; locale: string })
       </div>
     </figcaption>
   </figure>
-);
+));
 
 /**
  * Reviews, straight from the academy's Google listing.

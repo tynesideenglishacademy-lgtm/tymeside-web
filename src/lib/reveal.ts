@@ -71,9 +71,10 @@ export function initReveal(root: ParentNode = document): () => void {
   /** Reveal anything currently within reach, then tidy up once empty. */
   const flush = () => {
     if (disposed) return;
+    const triggerY = window.innerHeight * VIEW_TRIGGER;
     for (const el of [...pending]) {
       const rect = el.getBoundingClientRect();
-      if (rect.bottom > 0 && rect.top < window.innerHeight * VIEW_TRIGGER) {
+      if (rect.bottom > 0 && rect.top < triggerY) {
         observer?.unobserve(el);
         reveal(el);
       }
@@ -82,15 +83,14 @@ export function initReveal(root: ParentNode = document): () => void {
   };
 
   let throttled = false;
+  let scrollTimeout = 0;
   const onScroll = () => {
     if (throttled) return;
     throttled = true;
-    timers.push(
-      window.setTimeout(() => {
-        throttled = false;
-        flush();
-      }, 120),
-    );
+    scrollTimeout = window.setTimeout(() => {
+      throttled = false;
+      flush();
+    }, 120);
   };
 
   const stopListening = () => {
@@ -148,5 +148,6 @@ export function initReveal(root: ParentNode = document): () => void {
     observer?.disconnect();
     stopListening();
     for (const id of timers) window.clearTimeout(id);
+    window.clearTimeout(scrollTimeout);
   };
 }

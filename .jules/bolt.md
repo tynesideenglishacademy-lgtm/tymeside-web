@@ -1,0 +1,3 @@
+## 2026-09-13 - [Prevent Unbounded Memory Growth in Scroll Handlers]
+**Learning:** Pushing timeout IDs into an array within a scroll handler without clearing them causes a memory leak, as the array grows continuously while the user scrolls. Also, calculating viewport metrics like `window.innerHeight` repeatedly within a tight loop checking DOM element bounding rects causes redundant calculations on every scroll flush.
+**Action:** Always maintain a single reference to a scroll debouncer/throttler timeout instead of pushing to an array. Hoist loop-invariant calculations (like viewport thresholds) outside of loops to minimize work per iteration.

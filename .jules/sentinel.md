@@ -1,0 +1,4 @@
+## 2026-09-14 - Fix OOM DoS and Prototype Access in Deno Edge Functions
+**Vulnerability:** Deno Edge Functions using `req.json()` without a payload size limit are vulnerable to Out Of Memory (OOM) Denial of Service attacks when malicious actors send arbitrarily large JSON bodies. Additionally, direct dictionary lookups like `dict[key]` without using `hasOwnProperty` expose the function to unintended prototype property access or prototype pollution.
+**Learning:** These vulnerabilities exist because `req.json()` buffers the entire payload in memory before parsing, and direct bracket notation access on objects can resolve properties inherited from `Object.prototype`.
+**Prevention:** Always check `req.headers.get('content-length')` to enforce a payload size limit (e.g., 10KB) before parsing `req.json()`. Use `Object.prototype.hasOwnProperty.call(dict, key)` to safely access dictionary keys.

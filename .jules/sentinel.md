@@ -1,0 +1,4 @@
+## 2024-09-15 - Prevent Edge Function OOM and Prototype Pollution
+**Vulnerability:** Deno Edge Functions using `req.json()` without size checks were vulnerable to Out-Of-Memory (OOM) DoS attacks from arbitrarily large payloads. In addition, direct property access on `SOURCE_TAGS` using untrusted user input could lead to unintended prototype property access or prototype pollution.
+**Learning:** Supabase Edge Functions do not enforce default payload limits on `req.json()`, requiring manual `content-length` validation. Furthermore, using user input directly as an object key (`dict[key]`) is unsafe even for simple lookups.
+**Prevention:** Always check `req.headers.get('content-length')` and enforce a reasonable limit (e.g., 10KB) before parsing JSON bodies in edge functions. Always use `Object.prototype.hasOwnProperty.call(dict, key)` when validating user input against a dictionary or record object.

@@ -154,6 +154,11 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'rate_limited' }, 429, origin);
   }
 
+  const contentLength = Number(req.headers.get('content-length') || '0');
+  if (contentLength > 10240) {
+    return json({ error: 'payload_too_large' }, 413, origin);
+  }
+
   let payload: Record<string, unknown>;
   try {
     payload = await req.json();
@@ -169,7 +174,7 @@ Deno.serve(async (req: Request) => {
   }
 
   const source = clean(payload.source, 40);
-  const tag = SOURCE_TAGS[source];
+  const tag = Object.prototype.hasOwnProperty.call(SOURCE_TAGS, source) ? SOURCE_TAGS[source] : undefined;
   if (!tag) {
     return json({ error: 'unknown_source' }, 400, origin);
   }

@@ -1,0 +1,3 @@
+## 2026-09-17 - [Replace scroll listeners with IntersectionObserver]
+**Learning:** Attaching passive scroll listeners with `requestAnimationFrame` still triggers overhead on every scroll event (waking up the main thread). Reading layout properties like `window.innerHeight` can also be avoided entirely by using an `IntersectionObserver` on a sentinel element placed at the target threshold, offloading the calculations to the browser's C++ side.
+**Action:** Use `IntersectionObserver` on sentinel elements for threshold-based scroll actions (like sticky headers or floating CTAs) instead of binding `scroll` event listeners.

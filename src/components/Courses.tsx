@@ -2,71 +2,71 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
 
+const courseList = [
+  {
+    id: 'tyneside-explorers',
+    titleKey: 'courses.explorers_title',
+    descKey: 'courses.explorers_desc',
+    image: 'young_learners',
+    badgeKey: 'courses.badge_explorers',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+    )
+  },
+  {
+    id: 'young-learners-primaria',
+    titleKey: 'courses.yl_title',
+    descKey: 'courses.yl_desc',
+    image: 'young_learners',
+    badgeKey: 'courses.badge_primary',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+    )
+  },
+  {
+    id: 'adolescents-secundaria',
+    titleKey: 'courses.adolescents_title',
+    descKey: 'courses.adolescents_desc',
+    image: 'teens',
+    badgeKey: 'courses.badge_teens',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12 12 2l10 10-10 10Z"></path></svg>
+    )
+  },
+  {
+    id: 'adult-courses',
+    titleKey: 'courses.adults_title',
+    descKey: 'courses.adults_desc',
+    image: 'adults',
+    badgeKey: 'courses.badge_adults',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+    )
+  },
+  {
+    id: 'speaking-classes',
+    titleKey: 'courses.speaking_title',
+    descKey: 'courses.speaking_desc',
+    image: 'speaking',
+    badgeKey: 'courses.badge_speaking',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    )
+  },
+  {
+    id: 'intensive-courses',
+    titleKey: 'courses.intensive_title',
+    descKey: 'courses.intensive_desc',
+    image: 'intensive',
+    badgeKey: 'courses.badge_intensive',
+    icon: (
+      <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+    )
+  }
+];
+
 const Courses = () => {
   const { t } = useTranslation();
-
-  const courseList = [
-    {
-      id: 'tyneside-explorers',
-      titleKey: 'courses.explorers_title',
-      descKey: 'courses.explorers_desc',
-      image: 'young_learners',
-      badgeKey: 'courses.badge_explorers',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
-      )
-    },
-    {
-      id: 'young-learners-primaria',
-      titleKey: 'courses.yl_title',
-      descKey: 'courses.yl_desc',
-      image: 'young_learners',
-      badgeKey: 'courses.badge_primary',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
-      )
-    },
-    {
-      id: 'adolescents-secundaria',
-      titleKey: 'courses.adolescents_title',
-      descKey: 'courses.adolescents_desc',
-      image: 'teens',
-      badgeKey: 'courses.badge_teens',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12 12 2l10 10-10 10Z"></path></svg>
-      )
-    },
-    {
-      id: 'adult-courses',
-      titleKey: 'courses.adults_title',
-      descKey: 'courses.adults_desc',
-      image: 'adults',
-      badgeKey: 'courses.badge_adults',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-      )
-    },
-    {
-      id: 'speaking-classes',
-      titleKey: 'courses.speaking_title',
-      descKey: 'courses.speaking_desc',
-      image: 'speaking',
-      badgeKey: 'courses.badge_speaking',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-      )
-    },
-    {
-      id: 'intensive-courses',
-      titleKey: 'courses.intensive_title',
-      descKey: 'courses.intensive_desc',
-      image: 'intensive',
-      badgeKey: 'courses.badge_intensive',
-      icon: (
-        <svg className="icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-      )
-    }
-  ];
 
   return (
     <section id="courses" className="section-light" style={{

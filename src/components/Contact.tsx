@@ -116,7 +116,7 @@ const Contact = () => {
             border: '1px solid var(--color-border-light)'
           }}>
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
+              <div role="status" style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                 <div style={{
                   width: '72px',
                   height: '72px',

@@ -17,28 +17,47 @@ const MobileCta = () => {
   );
 
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > window.innerHeight * 0.35;
-    const update = () => {
-      frame = 0;
-      // 0.35, not 0.85: the hero used to carry its own level-test button and
-      // this bar was held back so the two never competed. That button is gone
-      // (the hero card is now the single CTA), which left a ~490px stretch on
-      // a phone with no way to start the test. 0.35 puts the bar up roughly
-      // where the old hero button used to scroll away.
-      const next = window.scrollY > window.innerHeight * 0.35;
-      if (next === current) return;
-      current = next;
-      setVisible(next);
-    };
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Avoid creating the observer during SSR
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
+    // We use a sentinel element to track scroll instead of binding to the scroll event.
+    // 0.35, not 0.85: the hero used to carry its own level-test button and
+    // this bar was held back so the two never competed. That button is gone
+    // (the hero card is now the single CTA), which left a ~490px stretch on
+    // a phone with no way to start the test. 35vh puts the bar up roughly
+    // where the old hero button used to scroll away.
+    let sentinel = document.getElementById('mobile-cta-scroll-sentinel');
+    let created = false;
+
+    if (!sentinel) {
+      sentinel = document.createElement('div');
+      sentinel.id = 'mobile-cta-scroll-sentinel';
+      sentinel.style.position = 'absolute';
+      sentinel.style.top = '0';
+      sentinel.style.left = '0';
+      sentinel.style.width = '1px';
+      sentinel.style.height = '35vh';
+      sentinel.style.visibility = 'hidden';
+      sentinel.style.pointerEvents = 'none';
+      document.body.appendChild(sentinel);
+      created = true;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the 35vh sentinel is fully out of view, we're scrolled past the threshold.
+        setVisible(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (created && sentinel && sentinel.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

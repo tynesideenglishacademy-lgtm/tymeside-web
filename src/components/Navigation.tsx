@@ -11,23 +11,45 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(() =>
     typeof window !== 'undefined' ? window.scrollY > 24 : false
   );
+
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > 24;
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        const next = window.scrollY > 24;
-        if (next === current) return;
-        current = next;
-        setScrolled(next);
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Avoid creating the observer during SSR
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
+    // We use a sentinel element to track scroll instead of binding to the scroll event.
+    // This removes the need for layout-thrashing reads like `window.scrollY`.
+    let sentinel = document.getElementById('nav-scroll-sentinel');
+    let created = false;
+
+    if (!sentinel) {
+      sentinel = document.createElement('div');
+      sentinel.id = 'nav-scroll-sentinel';
+      sentinel.style.position = 'absolute';
+      sentinel.style.top = '0';
+      sentinel.style.left = '0';
+      sentinel.style.width = '1px';
+      sentinel.style.height = '24px';
+      sentinel.style.visibility = 'hidden';
+      sentinel.style.pointerEvents = 'none';
+      document.body.appendChild(sentinel);
+      created = true;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the sentinel is fully out of view (scrolled past 24px), we're scrolled.
+        setScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (created && sentinel && sentinel.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

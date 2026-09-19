@@ -45,6 +45,22 @@ const TripsCamps = () => {
             <span>International House Newcastle</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
           </a>
+
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '0.65rem',
+            marginTop: '1.4rem',
+            padding: '0.9rem 1.1rem',
+            borderRadius: 'var(--radius-sm)',
+            backgroundColor: 'rgba(232, 153, 28, 0.08)',
+            border: '1px solid var(--color-amber-border)'
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-amber)" strokeWidth="3" style={{ flexShrink: 0, marginTop: '0.2rem' }}><path d="M20 6 9 17l-5-5" /></svg>
+            <p style={{ fontSize: '0.92rem', lineHeight: 1.6, color: '#D4DEE8', margin: 0 }}>
+              {t('trips.track_record')}
+            </p>
+          </div>
         </div>
 
         {/* camps1-480.webp / camps2-480.webp, previously here, turned out to

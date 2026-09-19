@@ -97,6 +97,10 @@ const resources = {
         title: "Inmersión Total: Viajes y Campamentos",
         p1: "La verdadera asimilación de un idioma ocurre cuando lo vives.",
         p2: "En colaboración directa con International House Newcastle, desarrollamos campamentos de verano (Summer Camps) y viajes de inmersión lingüística en el extranjero diseñados para vivir el idioma.",
+        /* Reported directly by the client 2026-09-19, not yet in writing —
+           confirm exact spelling of "Smart English" and whether "English
+           Adventure Camp" is the camp's actual name before this goes live. */
+        track_record: "El curso pasado colaboramos con la academia Smart English para enviar a un grupo de alumnos a un English Adventure Camp — la experiencia fue todo un éxito.",
         p3: "Una oportunidad única para conectar con la herencia británica, hacer amigos y practicar el inglés 24/7 en un entorno estimulante y supervisado."
       },
       blog: {
@@ -288,6 +292,7 @@ const resources = {
         title: "Total Immersion: Trips and Camps",
         p1: "The true assimilation of a language happens when you live it.",
         p2: "In direct collaboration with International House Newcastle, we develop Summer Camps and language immersion trips abroad designed to experience the language.",
+        track_record: "Last year we partnered with Smart English academy to send a group of students to an English Adventure Camp — the experience was a real success.",
         p3: "A unique opportunity to connect with British heritage, make friends, and practice English 24/7 in a stimulating and supervised environment."
       },
       blog: {

@@ -17,28 +17,36 @@ const MobileCta = () => {
   );
 
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > window.innerHeight * 0.35;
-    const update = () => {
-      frame = 0;
-      // 0.35, not 0.85: the hero used to carry its own level-test button and
-      // this bar was held back so the two never competed. That button is gone
-      // (the hero card is now the single CTA), which left a ~490px stretch on
-      // a phone with no way to start the test. 0.35 puts the bar up roughly
-      // where the old hero button used to scroll away.
-      const next = window.scrollY > window.innerHeight * 0.35;
-      if (next === current) return;
-      current = next;
-      setVisible(next);
-    };
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    // ⚡ Bolt: Use IntersectionObserver on a sentinel element to track scroll
+    // This avoids main thread overhead and layout thrashing from reading window.innerHeight on scroll
+    const sentinel = document.createElement('div');
+    sentinel.style.position = 'absolute';
+    sentinel.style.top = '0';
+    sentinel.style.left = '0';
+    sentinel.style.width = '1px';
+    // 0.35, not 0.85: the hero used to carry its own level-test button and
+    // this bar was held back so the two never competed. That button is gone
+    // (the hero card is now the single CTA), which left a ~490px stretch on
+    // a phone with no way to start the test. 0.35 puts the bar up roughly
+    // where the old hero button used to scroll away.
+    sentinel.style.height = '35vh';
+    sentinel.style.pointerEvents = 'none';
+    sentinel.style.visibility = 'hidden';
+    document.body.appendChild(sentinel);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(!entry.isIntersecting);
+    });
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (sentinel.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

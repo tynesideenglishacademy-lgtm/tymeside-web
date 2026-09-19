@@ -12,22 +12,32 @@ const Navigation = () => {
     typeof window !== 'undefined' ? window.scrollY > 24 : false
   );
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > 24;
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        const next = window.scrollY > 24;
-        if (next === current) return;
-        current = next;
-        setScrolled(next);
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    // ⚡ Bolt: Use IntersectionObserver on a sentinel element to track scroll
+    // This avoids main thread overhead from listening to scroll events
+    const sentinel = document.createElement('div');
+    sentinel.style.position = 'absolute';
+    sentinel.style.top = '0';
+    sentinel.style.left = '0';
+    sentinel.style.width = '1px';
+    // Glass while the bar overlaps the hero photo; solid navy once past it.
+    sentinel.style.height = '24px';
+    sentinel.style.pointerEvents = 'none';
+    sentinel.style.visibility = 'hidden';
+    document.body.appendChild(sentinel);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setScrolled(!entry.isIntersecting);
+    });
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (sentinel.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

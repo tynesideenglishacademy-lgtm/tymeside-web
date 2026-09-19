@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
+import BridgeMotif from './BridgeMotif';
 
 const Courses = () => {
   const { t } = useTranslation();
@@ -75,8 +76,9 @@ const Courses = () => {
       color: 'var(--color-deep-navy)',
       position: 'relative'
     }}>
+      <BridgeMotif />
       <div className="container">
-        
+
         <SectionHeader
           section="courses"
           label="Oferta académica"
@@ -173,7 +175,6 @@ const Courses = () => {
                   transition: 'color 0.2s ease'
                 }}>
                   <span>Más información</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </a>
               </div>
             </div>

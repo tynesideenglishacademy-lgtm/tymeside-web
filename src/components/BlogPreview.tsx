@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
+import BridgeMotif from './BridgeMotif';
 
 interface Article {
   id: string;
@@ -84,6 +85,7 @@ const BlogPreview = () => {
       backgroundColor: '#F8FAFC',
       color: 'var(--color-deep-navy)'
     }}>
+      <BridgeMotif />
       <div className="container">
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem', flexWrap: 'wrap', gap: '1.5rem' }}>
@@ -182,7 +184,6 @@ const BlogPreview = () => {
                   gap: '0.45rem'
                 }}>
                   <span>{t('blog.read_more')}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </div>
               </div>
             </div>

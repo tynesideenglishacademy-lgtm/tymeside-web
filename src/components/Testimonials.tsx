@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
+import BridgeMotif from './BridgeMotif';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
 import { hasSocialProof } from '../lib/sections';
@@ -51,6 +52,7 @@ const Testimonials = () => {
 
   return (
     <section id="testimonials" className="section-light" style={{ padding: 'var(--section-y) 0' }}>
+      <BridgeMotif />
       <div className="container">
         <SectionHeader
           section="testimonials"

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
+import BridgeMotif from './BridgeMotif';
 
 const About = () => {
   const { t } = useTranslation();
@@ -117,6 +118,7 @@ const About = () => {
         padding: 'var(--section-y) 0',
         color: 'var(--color-deep-navy)'
       }}>
+        <BridgeMotif />
         <div className="container">
           <SectionHeader
             section="method"

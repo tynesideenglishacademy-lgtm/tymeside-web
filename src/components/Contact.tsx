@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 import SectionHeader from './SectionHeader';
+import BridgeMotif from './BridgeMotif';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -67,8 +68,9 @@ const Contact = () => {
       color: 'var(--color-deep-navy)',
       position: 'relative'
     }}>
+      <BridgeMotif />
       <div className="container">
-        
+
         <SectionHeader
           section="contact"
           label={t('contact.badge')}

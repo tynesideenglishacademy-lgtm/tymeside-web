@@ -308,28 +308,6 @@ a {
   transform: scale(1.04);
 }
 
-/* --- Duotone stock photos ---
-   TEST: the course-card and trips photos are stock, and look it. Real
-   photography of the academy is pending (see CLAUDE.md); until then,
-   tinting every photo into the brand's own navy-to-amber duotone makes six
-   unrelated stock downloads read as one deliberate system instead of a
-   generic photo grid. Revert this block (and the classes on the img/wrapper
-   elements) if it doesn't earn its keep. */
-.card-media img,
-.duotone-media img {
-  filter: grayscale(1) contrast(1.05) brightness(0.95);
-}
-
-.card-media::after,
-.duotone-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--color-deep-navy) 0%, var(--color-amber) 100%);
-  mix-blend-mode: color;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card-media img { transition: none; }
   .light-card:hover .card-media img { transform: none; }

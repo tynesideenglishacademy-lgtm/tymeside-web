@@ -47,39 +47,49 @@ const TripsCamps = () => {
           </a>
         </div>
 
-        {/* Asymmetric image band: 1.6fr/1fr rather than an even split, with
-            the second image offset lower - deliberately not a mirror of the
-            50/50 layout used everywhere else. */}
+        {/* camps1-480.webp / camps2-480.webp, previously here, turned out to
+            be the site's own logo banner rather than trip/camp photography -
+            showing them as "photos" was already wrong before the duotone
+            test made it obvious. No real trip photography exists yet (see
+            CLAUDE.md), so rather than fake it with a stock photo of the
+            wrong thing, this is an honest illustration of what the section
+            is actually about: the Murcia-Newcastle route itself. */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(280px, 1.6fr) minmax(220px, 1fr)',
-          gap: '1.5rem',
-          marginBottom: '3.5rem'
+          position: 'relative',
+          borderRadius: 'var(--radius-lg)',
+          overflow: 'hidden',
+          background: 'linear-gradient(160deg, var(--color-navy-surface), var(--color-deep-navy))',
+          border: '1px solid var(--color-border-glass)',
+          boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
+          padding: '2.5rem',
+          marginBottom: '3.5rem',
+          display: 'flex',
+          justifyContent: 'center'
         }}>
-          {/* NOT duotone: camps1/camps2 are the site's own logo banner, not
-              trip/camp photography (see the placeholder note below) - tinting
-              a logo like a photo made it look broken rather than branded. */}
-          <div style={{
-            position: 'relative',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            height: '380px',
-            boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
-            border: '1px solid var(--color-border-glass)'
-          }}>
-            <img src="/img/camps1-480.webp" alt="Campamentos de verano" width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <div style={{
-            position: 'relative',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            height: '380px',
-            marginTop: '3rem',
-            boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
-            border: '1px solid var(--color-border-glass)'
-          }}>
-            <img src="/img/camps2-480.webp" alt="Viajes de inmersión lingüística" width={480} height={480} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 600 300"
+            style={{ width: '100%', maxWidth: '560px', height: 'auto' }}
+          >
+            <path
+              d="M55,250 Q300,40 545,95"
+              fill="none"
+              stroke="var(--color-amber)"
+              strokeWidth="2"
+              strokeDasharray="7 9"
+              opacity="0.85"
+            />
+            <circle cx="55" cy="250" r="6" fill="var(--color-amber)" />
+            <text x="45" y="274" textAnchor="start" fill="#D4DEE8" fontSize="15" fontFamily="var(--font-body)" fontWeight="600">Murcia</text>
+
+            <circle cx="545" cy="95" r="6" fill="var(--color-soft-cream)" />
+            <text x="555" y="76" textAnchor="end" fill="#D4DEE8" fontSize="15" fontFamily="var(--font-body)" fontWeight="600">Newcastle upon Tyne</text>
+
+            {/* Small paper-plane mark, angled roughly along the route. */}
+            <g transform="translate(300,108) rotate(-32)">
+              <path d="M-9,-6 L11,0 L-9,6 L-4,0 Z" fill="var(--color-soft-cream)" />
+            </g>
+          </svg>
         </div>
 
         <blockquote style={{

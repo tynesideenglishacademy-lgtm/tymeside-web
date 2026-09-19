@@ -79,29 +79,12 @@ const About = () => {
                 <h3 style={{ fontSize: 'var(--text-xl)', color: 'var(--color-soft-cream)', fontWeight: 700 }}>Tyneside English Academy</h3>
                 <p style={{ color: 'var(--color-slate-muted)', marginTop: '0.5rem', fontSize: '1.05rem' }}>Puente Tocinos · Murcia</p>
               </div>
-
-              <div style={{
-                display: 'flex',
-                gap: '2.5rem',
-                paddingTop: '1.75rem',
-                borderTop: '1px solid var(--color-border-glass)',
-                width: '100%',
-                justifyContent: 'center'
-              }}>
-                {/* "15+ Años" as academy age was false (Tyneside founded
-                    mid-2023/24). Replaced with Ben's teaching start year,
-                    2015, confirmed 2026-08-30 — labelled "Enseñando" so it is
-                    clearly his experience, not the academy's age. */}
-                <div>
-                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-amber)' }}>2015</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Enseñando</div>
-                </div>
-                <div style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }} />
-                <div>
-                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-soft-cream)' }}>100%</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Nativos</div>
-                </div>
-              </div>
+              {/* The 2015/100% stat pair that used to sit here repeated the
+                  same two numbers already in the Hero stat row, and again in
+                  ExamPrep - three restatements of one claim reads as padding,
+                  not proof (see CLAUDE.md). The Hero keeps the canonical
+                  version, next to the one independently verifiable number
+                  (the Google rating), so it's the one that stays. */}
             </div>
           </div>
         </div>

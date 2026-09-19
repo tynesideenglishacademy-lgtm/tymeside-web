@@ -66,10 +66,7 @@ const resources = {
         p1: "Tu esfuerzo merece reconocimiento oficial. En Tyneside English Academy somos especialistas en preparar a nuestros alumnos para superar con éxito las certificaciones internacionales más demandadas.",
         p2: "Te entrenamos con simulacros reales, estrategias de examen y refuerzo específico para exámenes de Cambridge. No solo te enseñamos inglés; te enseñamos a aprobar.",
         cta: "Haz tu prueba de nivel gratuita",
-        details: "Más detalles",
-        stat_pass: "Aprobados · últimos 2 años",
-        stat_years: "Años enseñando inglés",
-        stat_students: "Alumnos certificados"
+        details: "Más detalles"
       },
       testimonials: {
         badge: "Lo que dicen las familias",
@@ -267,10 +264,7 @@ const resources = {
         p1: "Your effort deserves official recognition. At Tyneside English Academy, we are specialists in preparing our students to successfully pass the most demanded international certifications.",
         p2: "We train you with real mock exams, exam strategies, and specific reinforcement for Cambridge exams. We don't just teach you English; we teach you how to pass.",
         cta: "Take your free level test",
-        details: "More details",
-        stat_pass: "Pass rate · last 2 years",
-        stat_years: "Years teaching English",
-        stat_students: "Certified students"
+        details: "More details"
       },
       testimonials: {
         badge: "What families say",

@@ -22,6 +22,9 @@ const LevelTest = lazy(() => import('./components/LevelTest'))
 // business sitting in the main bundle everyone else downloads.
 const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
 
+const BlogIndex = lazy(() => import('./components/BlogIndex'))
+const BlogPost = lazy(() => import('./components/BlogPost'))
+
 function Home() {
   return (
     <>
@@ -66,6 +69,22 @@ function App() {
         element={
           <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
             <LevelTest />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/blog"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+            <BlogIndex />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/blog/:slug"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+            <BlogPost />
           </Suspense>
         }
       />

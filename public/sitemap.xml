@@ -15,4 +15,27 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://tyneside-web.vercel.app/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- One <url> per post in src/data/blogPosts.ts. There's no build step
+       generating this from the data file, so a new post needs a line added
+       here by hand or it stays out of Google's crawl. -->
+  <url>
+    <loc>https://tyneside-web.vercel.app/blog/speaking-b2-tips</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tyneside-web.vercel.app/blog/writing-b2-opinion-essay</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tyneside-web.vercel.app/blog/listening-cambridge-strategies</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

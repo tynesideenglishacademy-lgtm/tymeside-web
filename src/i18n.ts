@@ -98,9 +98,6 @@ const resources = {
         details: "Más detalles",
         full_exam_cta: "O haz el examen completo de nivel CEFR",
         full_exam_note: "Un examen de práctica entero: Reading & Use of English, Listening y Writing. Alrededor de una hora, gratuito, con tu nivel CEFR al terminar.",
-        stat_pass: "Aprobados · últimos 2 años",
-        stat_years: "Años enseñando inglés",
-        stat_students: "Alumnos certificados",
         label: "Centro preparador oficial",
         levels_title: "Niveles Cambridge que preparamos"
       },
@@ -134,8 +131,6 @@ const resources = {
         p2: "En colaboración directa con International House Newcastle, desarrollamos campamentos de verano (Summer Camps) y viajes de inmersión lingüística en el extranjero diseñados para vivir el idioma.",
         p3: "Una oportunidad única para conectar con la herencia británica, hacer amigos y practicar el inglés 24/7 en un entorno estimulante y supervisado.",
         label: "Experiencias internacionales",
-        alt_camps: "Campamentos de verano",
-        alt_trips: "Viajes de inmersión lingüística",
         /* Reported directly by the client, not yet in writing - confirm exact
            spelling of "Smart English" and whether "English Adventure Camp" is
            the camp's actual name before this goes live. */
@@ -365,9 +360,6 @@ const resources = {
         details: "More details",
         full_exam_cta: "Or sit the full CEFR level exam",
         full_exam_note: "A complete practice exam: Reading & Use of English, Listening and Writing. About an hour, free, with your CEFR level at the end.",
-        stat_pass: "Pass rate · last 2 years",
-        stat_years: "Years teaching English",
-        stat_students: "Certified students",
         label: "Official preparation centre",
         levels_title: "Cambridge levels we prepare for"
       },
@@ -401,8 +393,6 @@ const resources = {
         p2: "In direct collaboration with International House Newcastle, we develop Summer Camps and language immersion trips abroad designed to experience the language.",
         p3: "A unique opportunity to connect with British heritage, make friends, and practice English 24/7 in a stimulating and supervised environment.",
         label: "International experiences",
-        alt_camps: "Summer camps",
-        alt_trips: "Language immersion trips",
         track_record: "Last year we partnered with Smart English academy to send a group of students to an English Adventure Camp — the experience was a real success."
       },
       blog: {

@@ -80,7 +80,6 @@ const Courses = () => {
       <div className="container">
 
         <SectionHeader
-          section="courses"
           label="Oferta académica"
           title={t('courses.title')}
           lead="De los tres años al C2. Cada etapa tiene su propio grupo, su propio material y un profesor nativo que la conoce a fondo."

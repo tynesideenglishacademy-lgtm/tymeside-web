@@ -86,7 +86,6 @@ const ExamPrep = () => {
           
           <div>
             <SectionHeader
-              section="examprep"
               label="Centro preparador oficial"
               title={t('examprep.title')}
               onDark

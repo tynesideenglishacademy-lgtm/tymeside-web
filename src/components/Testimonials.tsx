@@ -55,7 +55,6 @@ const Testimonials = () => {
       <BridgeMotif />
       <div className="container">
         <SectionHeader
-          section="testimonials"
           label={t('testimonials.badge')}
           title={t('testimonials.title')}
           lead={t('testimonials.desc')}

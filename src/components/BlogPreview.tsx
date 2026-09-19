@@ -90,7 +90,6 @@ const BlogPreview = () => {
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem', flexWrap: 'wrap', gap: '1.5rem' }}>
           <SectionHeader
-            section="blog"
             label={t('blog.badge')}
             title={t('blog.title')}
             flush

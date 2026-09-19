@@ -72,7 +72,6 @@ const Contact = () => {
       <div className="container">
 
         <SectionHeader
-          section="contact"
           label={t('contact.badge')}
           title={t('contact.title')}
           lead={t('contact.desc')}

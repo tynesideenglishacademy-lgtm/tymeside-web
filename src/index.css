@@ -1,12 +1,6 @@
-/* TEST BRANCH — typography swap for review, see CLAUDE.md "Design guardrails"
-   and the Sept 2026 type-pairing comparison.
-   Libre Caslon Display ships one weight (400) only, by design: it's a
-   display cut, meant to be set big and left alone rather than pushed to
-   bold. Forcing a heavier weight onto it would trigger the browser's faux
-   bold instead of a real one, so `font-synthesis: none` further down turns
-   that off rather than leaving every h1-h6 fontWeight override rendering
-   as fake, blurry bold. */
-@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Public+Sans:wght@400;500;600;700&display=swap');
+/* Variable ranges: one file per family, and 900 actually exists now — the hero
+   h1 asks for it. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600..900&family=Inter:wght@400..700&display=swap');
 
 :root {
   /* --- Tyneside brand palette (navy + amber, from the wordmark) --- */
@@ -42,8 +36,8 @@
   --color-bg-base: var(--color-deep-navy);
 
   /* Typography */
-  --font-heading: 'Libre Caslon Display', Georgia, 'Times New Roman', serif;
-  --font-body: 'Public Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-heading: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-serif: var(--font-heading);
   --font-subheading: var(--font-heading);
 
@@ -112,12 +106,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  /* Libre Caslon Display only ships weight 400. Inherited so it covers every
-     fontWeight: 700/800/900 override already scattered across components
-     (Hero's h1, StatCounter, card titles...) without hunting each one down —
-     without this, the browser fakes those weights by algorithmically
-     thickening the glyphs, which looks blurry/uneven on a serif this fine. */
-  font-synthesis: none;
 }
 
 h1, h2, h3, h4, h5, h6 {

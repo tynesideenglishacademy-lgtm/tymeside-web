@@ -197,6 +197,8 @@ const resources = {
         gdpr: "Formularios de Autorización y Privacidad (RGPD/LOPDGDD)"
       },
       footer: {
+        tagline: "Auténtica formación británica con profesores nativos. Resultados reales y acreditaciones oficiales Cambridge en Murcia.",
+        virtual_classroom_desc: "Accede a tus clases, material didáctico y evaluaciones online.",
         rights: "Todos los derechos reservados."
       }
     }
@@ -393,6 +395,8 @@ const resources = {
         gdpr: "Authorisation & Privacy Forms (GDPR)"
       },
       footer: {
+        tagline: "Authentic British education with native teachers. Real results and official Cambridge accreditations in Murcia.",
+        virtual_classroom_desc: "Access your classes, learning materials and online assessments.",
         rights: "All rights reserved."
       }
     }

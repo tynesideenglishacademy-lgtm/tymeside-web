@@ -23,7 +23,7 @@ const Footer = () => {
           <div>
             <img src="/logo-light.png" alt="Tyneside English Academy" style={{ height: '56px', marginBottom: '1.5rem' }} />
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.95rem', lineHeight: 1.7, maxWidth: '320px' }}>
-              Auténtica formación británica con profesores nativos. Resultados reales y acreditaciones oficiales Cambridge en Murcia.
+              {t('footer.tagline')}
             </p>
           </div>
 
@@ -46,9 +46,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1rem', color: 'var(--color-amber)', marginBottom: '1.25rem', fontWeight: 700 }}>Aulario Virtual</h4>
+            <h4 style={{ fontSize: '1rem', color: 'var(--color-amber)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('nav.virtualClassroom')}</h4>
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.9rem', marginBottom: '1.2rem', lineHeight: 1.6 }}>
-              Accede a tus clases, material didáctico y evaluaciones online.
+              {t('footer.virtual_classroom_desc')}
             </p>
             <a href="#contact" className="btn-secondary" style={{ padding: '0.65rem 1.4rem', fontSize: '0.9rem', width: '100%', justifyContent: 'center' }}>
               {t('nav.virtualClassroom')}

@@ -5,19 +5,15 @@ import BridgeMotif from './BridgeMotif';
 const About = () => {
   const { t } = useTranslation();
 
+  // Icon-in-a-colored-square for each item was the single most generic
+  // "AI SaaS template" tell on the page (see CLAUDE.md). These four pillars
+  // are a real, fixed, small set — unlike the page's sections, a numeral
+  // here isn't implying a false sequence, just labelling "the four things."
   const methods = [
-    { titleKey: 'methodology.m1_title', descKey: 'methodology.m1_desc', icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-    ) },
-    { titleKey: 'methodology.m2_title', descKey: 'methodology.m2_desc', icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-    ) },
-    { titleKey: 'methodology.m3_title', descKey: 'methodology.m3_desc', icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-    ) },
-    { titleKey: 'methodology.m4_title', descKey: 'methodology.m4_desc', icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-    ) }
+    { titleKey: 'methodology.m1_title', descKey: 'methodology.m1_desc' },
+    { titleKey: 'methodology.m2_title', descKey: 'methodology.m2_desc' },
+    { titleKey: 'methodology.m3_title', descKey: 'methodology.m3_desc' },
+    { titleKey: 'methodology.m4_title', descKey: 'methodology.m4_desc' },
   ];
 
   return (
@@ -39,7 +35,6 @@ const About = () => {
           }}>
             <div>
               <SectionHeader
-                section="about"
                 label="Nuestra esencia"
                 title={t('about.title')}
                 onDark
@@ -121,7 +116,6 @@ const About = () => {
         <BridgeMotif />
         <div className="container">
           <SectionHeader
-            section="method"
             label="Claves del éxito"
             title={t('methodology.title')}
             lead={t('methodology.desc')}
@@ -137,13 +131,15 @@ const About = () => {
                 height: '100%'
               }}>
                 <div style={{
-                  color: 'var(--color-river-teal)',
-                  marginBottom: '1.5rem',
-                  backgroundColor: 'rgba(29, 92, 138, 0.1)',
-                  padding: '1rem',
-                  borderRadius: 'var(--radius-md)'
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '2.75rem',
+                  fontWeight: 800,
+                  lineHeight: 1,
+                  color: 'transparent',
+                  WebkitTextStroke: '1.5px rgba(27, 58, 91, 0.28)',
+                  marginBottom: '1rem'
                 }}>
-                  {method.icon}
+                  {String(i + 1).padStart(2, '0')}
                 </div>
                 <h3 className="light-card-title" style={{ fontSize: '1.3rem', marginBottom: '0.8rem' }}>
                   {t(method.titleKey)}

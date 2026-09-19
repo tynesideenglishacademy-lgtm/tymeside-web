@@ -60,7 +60,6 @@ const Services = () => {
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         
         <SectionHeader
-          section="services"
           label="Empresas y formación"
           title={t('services.title')}
           onDark
@@ -75,15 +74,11 @@ const Services = () => {
               height: '100%'
             }}>
               <div>
-                <div style={{
-                  marginBottom: '1.5rem',
-                  backgroundColor: 'var(--color-amber-soft)',
-                  display: 'inline-block',
-                  padding: '1rem',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-amber-border)',
-                  color: 'var(--color-amber)'
-                }}>{svc.icon}</div>
+                {/* Boxed icon-on-tinted-square dropped (see CLAUDE.md) — a bare
+                    icon reads less like a template than the same icon boxed
+                    twice on one page (Methodology already carries the boxed
+                    version's replacement: numerals, not this icon set). */}
+                <div style={{ marginBottom: '1.25rem', color: 'var(--color-amber)' }}>{svc.icon}</div>
 
                 <h3 style={{ fontSize: '1.35rem', color: 'var(--color-soft-cream)', marginBottom: '1.2rem', fontWeight: 700 }}>
                   {t(svc.titleKey)}

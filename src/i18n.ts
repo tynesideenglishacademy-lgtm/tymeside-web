@@ -197,7 +197,7 @@ const resources = {
         gdpr: "Formularios de Autorización y Privacidad (RGPD/LOPDGDD)"
       },
       footer: {
-        rights: "Tyneside English Academy. Todos los derechos reservados."
+        rights: "Todos los derechos reservados."
       }
     }
   },
@@ -384,6 +384,16 @@ const resources = {
         rec_C2_desc: "Highest academic level and native bilingual competence.",
         rec_default_name: "Tyneside Tailored Course",
         rec_default_desc: "Personalized advice at our academy."
+      },
+      resources: {
+        title: "Resources & Documentation",
+        test: "Free Online Level Test",
+        material: "Exam Material",
+        calendar: "2026/27 School Calendar",
+        gdpr: "Authorisation & Privacy Forms (GDPR)"
+      },
+      footer: {
+        rights: "All rights reserved."
       }
     }
   }

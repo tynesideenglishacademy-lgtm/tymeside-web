@@ -52,6 +52,7 @@ const Navigation = () => {
           <a href="/#methodology" className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" className="navbar-link">{t('nav.services')}</a>
+          <Link to="/blog" className="navbar-link">{t('nav.blog', { defaultValue: 'Blog' })}</Link>
           <a href="/#contact" className="navbar-link">{t('nav.contact')}</a>
 
           <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
@@ -110,6 +111,7 @@ const Navigation = () => {
           <a href="/#methodology" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.services')}</a>
+          <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.blog', { defaultValue: 'Blog' })}</Link>
           <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.contact')}</a>
           <a href={PRE_ENROLMENT_URL} onClick={() => setMobileMenuOpen(false)} className="navbar-link" style={{ fontWeight: 700 }}>
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}

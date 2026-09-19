@@ -141,6 +141,10 @@ const resources = {
         badge: "Blog & Novedades",
         cta: "Leer el Blog Completo",
         read_more: "Leer artículo completo",
+        back_to_blog: "Volver al blog",
+        google_title: "Síguenos en Google",
+        google_desc: "Reseñas reales de familias y alumnos, publicadas directamente en nuestro perfil de Google Business.",
+        google_cta: "Ver nuestro perfil de Google",
         modal_cta_title: "¿Quieres certificar tu nivel de inglés?",
         modal_cta_desc: "Realiza nuestra prueba de nivel adaptativa online y conoce tu puntuación CEFR (A1-C2) en unos 10 minutos.",
         modal_cta_button: "Ir a la Prueba de Nivel"
@@ -399,6 +403,10 @@ const resources = {
         badge: "Blog & News",
         cta: "Read Full Blog",
         read_more: "Read full article",
+        back_to_blog: "Back to blog",
+        google_title: "Follow us on Google",
+        google_desc: "Real reviews from families and students, published directly on our Google Business profile.",
+        google_cta: "View our Google profile",
         modal_cta_title: "Do you want to certify your English level?",
         modal_cta_desc: "Take our online adaptive placement test and find out your CEFR score (A1-C2) in about 10 minutes.",
         modal_cta_button: "Go to Level Test"

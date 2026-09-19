@@ -9,6 +9,7 @@ import ExamPrep from './components/ExamPrep'
 import Testimonials from './components/Testimonials'
 import Services from './components/Services'
 import TripsCamps from './components/TripsCamps'
+import BlogPreview from './components/BlogPreview'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileCta from './components/MobileCta'
@@ -29,6 +30,9 @@ const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
 // somewhere a general visitor lands, so it stays out of the main bundle.
 const Empresas = lazy(() => import('./components/Empresas'))
 
+const BlogIndex = lazy(() => import('./components/BlogIndex'))
+const BlogPost = lazy(() => import('./components/BlogPost'))
+
 function Home() {
   return (
     <>
@@ -42,6 +46,7 @@ function Home() {
         <Testimonials />
         <Services />
         <TripsCamps />
+        <BlogPreview />
         <Contact />
       </main>
       <Footer />
@@ -84,6 +89,22 @@ function App() {
           element={
             <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
               <LevelTest />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+              <BlogIndex />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: 'var(--color-deep-navy)' }} />}>
+              <BlogPost />
             </Suspense>
           }
         />

@@ -1,12 +1,10 @@
-import { sectionIndex } from '../lib/sections';
-
 interface SectionHeaderProps {
   /**
-   * Section id from src/lib/sections.ts. The two-digit marker is derived from
-   * its position there rather than passed in, so a section that is hidden or
-   * reordered can never leave a hole in the sequence.
+   * No longer used for a numeral (see below) — kept optional so the many
+   * call sites across the app don't all need a simultaneous edit. Safe to
+   * drop from a call site whenever that file is next touched.
    */
-  section: string;
+  section?: string;
   label: string;
   title: string;
   lead?: string;
@@ -24,10 +22,13 @@ interface SectionHeaderProps {
  * The one section header used across the whole page.
  *
  * Every section previously hand-rolled the same pill + centred H2 + 64px amber
- * dash, which is why the page read as a template.
+ * dash, which is why the page read as a template. It briefly grew a "01/02/03"
+ * numeral instead, which fixed the look but not the underlying issue: these
+ * sections aren't a sequence — the nav lets a visitor jump straight to
+ * Contacto — so numbering them implied an order that isn't real. Dropped;
+ * see CLAUDE.md.
  */
 const SectionHeader = ({
-  section,
   label,
   title,
   lead,
@@ -40,7 +41,6 @@ const SectionHeader = ({
     style={flush ? { marginBottom: 0 } : undefined}
   >
     <div className="section-head-label">
-      <span className="section-head-num">{sectionIndex(section)}</span>
       {/* Decorative: the label text alongside it already carries the meaning. */}
       <span className="section-head-rule" aria-hidden="true" />
       <span>{label}</span>

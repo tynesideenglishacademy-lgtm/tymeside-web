@@ -83,29 +83,10 @@ const About = () => {
                 <h3 style={{ fontSize: 'var(--text-xl)', color: 'var(--color-soft-cream)', fontWeight: 700 }}>Tyneside English Academy</h3>
                 <p style={{ color: 'var(--color-slate-muted)', marginTop: '0.5rem', fontSize: '1.05rem' }}>Puente Tocinos · Murcia</p>
               </div>
-
-              <div style={{
-                display: 'flex',
-                gap: '2.5rem',
-                paddingTop: '1.75rem',
-                borderTop: '1px solid var(--color-border-glass)',
-                width: '100%',
-                justifyContent: 'center'
-              }}>
-                {/* "15+ Años" as academy age was false (Tyneside founded
-                    mid-2023/24). Replaced with Ben's teaching start year,
-                    2015, confirmed 2026-08-30 — labelled "Enseñando" so it is
-                    clearly his experience, not the academy's age. */}
-                <div>
-                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-gold)' }}>2015</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t('about.teaching_since')}</div>
-                </div>
-                <div style={{ width: '1px', backgroundColor: 'var(--color-border-glass)' }} />
-                <div>
-                  <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: 'var(--color-soft-cream)' }}>100%</div>
-                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-slate-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t('about.native_teachers')}</div>
-                </div>
-              </div>
+              {/* The 2015 / 100% stat pair that used to sit here duplicated
+                  Hero's own stat row word for word (see CLAUDE.md on
+                  stat-counter redundancy) - this card is the identity block,
+                  not a second scoreboard. */}
             </div>
           </div>
         </div>

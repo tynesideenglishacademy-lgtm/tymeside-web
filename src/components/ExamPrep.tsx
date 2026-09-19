@@ -1,71 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
 import { PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 
-/**
- * Counts up to `end`, but only once the card is actually on screen.
- *
- * It used to animate on mount, so on a long page the numbers had finished
- * before anyone scrolled down to them. It also ignored prefers-reduced-motion,
- * which is the one case where a ticking number is genuinely a problem.
- */
-const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string, label: string }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || typeof IntersectionObserver === 'undefined') {
-      setCount(end);
-      return;
-    }
-
-    let frame = 0;
-    let startedAt = 0;
-
-    const run = (now: number) => {
-      if (!startedAt) startedAt = now;
-      const progress = Math.min((now - startedAt) / 1800, 1);
-      // Ease-out, so the number decelerates into its final value instead of
-      // stopping dead.
-      setCount(Math.round(end * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) frame = requestAnimationFrame(run);
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-        frame = requestAnimationFrame(run);
-      },
-      { threshold: 0.4 }
-    );
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [end]);
-
-  return (
-    <div ref={ref} style={{ textAlign: 'center' }}>
-      <div className="text-gold" style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
-        {count}{suffix}
-      </div>
-      <div style={{ fontSize: '1rem', color: '#E2E8F0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        {label}
-      </div>
-    </div>
-  );
-};
+// The pass-rate/years-teaching counters that used to live here duplicated
+// Hero's own stat row word for word (see CLAUDE.md on stat-counter
+// redundancy). What this card can say that Hero doesn't is which Cambridge
+// levels are actually taught.
+const CEFR_LEVELS = ['A2 Key', 'B1 Preliminary', 'B2 First', 'C1 Advanced', 'C2 Proficiency'];
 
 const ExamPrep = () => {
   const { t } = useTranslation();
@@ -149,28 +92,16 @@ const ExamPrep = () => {
             border: '1px solid var(--color-gold-border)',
             padding: '3rem 2.5rem'
           }}>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '3rem'
-            }}>
-              {/* Was 98%. The old five-year sample spanned Hello Academy
-                  (Ben was there 2022–2024) and Tyneside, so it can't back a
-                  Tyneside claim. One failed candidate since founding Tyneside,
-                  and Ben confirms it was in 2024 — so the last two years are
-                  clean and that is what publishes. */}
-              <StatCounter end={100} suffix="%" label={t('examprep.stat_pass')} />
-              <div style={{ height: '1px', backgroundColor: 'var(--color-border-glass)', width: '100%' }}></div>
-              {/* Was "15+" as academy history (false — Tyneside is ~2 years
-                  old). Now Ben's own teaching record: teaching English since
-                  2015, confirmed 2026-08-30. "10+" stays true for years; the
-                  label (examprep.stat_years) says "enseñando inglés" so it
-                  reads as his experience, not the academy's age. */}
-              <StatCounter end={10} suffix="+" label={t('examprep.stat_years')} />
-              {/* The "3.000+ Alumnos certificados" counter (examprep.stat_students)
-                  stays removed — ~60 exam candidates can't produce 3.000
-                  certifications, that one was invented. The i18n key is left
-                  in i18n.ts as a one-line restore once Ben has a real count. */}
+            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1.5rem' }}>
+              {t('examprep.levels_title')}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {CEFR_LEVELS.map((level) => (
+                <div key={level} style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', padding: '0.8rem 1rem', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.04)' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="3" style={{ flexShrink: 0 }} aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-soft-cream)' }}>{level}</div>
+                </div>
+              ))}
             </div>
           </div>
 

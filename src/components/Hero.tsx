@@ -162,18 +162,9 @@ const Hero = () => {
               {/* Highlight Card Header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.75rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <div style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: 'var(--color-gold)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#1a1200'
-                  }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
-                  </div>
+                  {/* Boxed icon-on-tinted-square dropped (see CLAUDE.md) - a
+                      bare icon reads as considered instead of templated. */}
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="2.5" aria-hidden="true" style={{ flexShrink: 0 }}><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
                   <div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>{t('hero.test_title')}</h3>
                     <p style={{ fontSize: '0.85rem', color: 'var(--color-slate-muted)' }}>{t('hero.test_subtitle')}</p>

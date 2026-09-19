@@ -162,18 +162,20 @@ const Courses = () => {
                   </p>
                 </div>
 
-                {/* Card Action Link */}
+                {/* Card Action Link. No trailing arrow: it goes to #contact
+                    on the same page, not off-site, so a chevron would just
+                    be reflex (see CLAUDE.md). */}
                 <a href="#contact" style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.45rem',
                   color: 'var(--color-tyneside-blue)',
                   fontWeight: 700,
                   fontSize: '0.95rem',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '3px',
                   transition: 'color 0.2s ease'
                 }}>
-                  <span>{t('courses.more')}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                  {t('courses.more')}
                 </a>
               </div>
             </div>

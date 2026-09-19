@@ -47,20 +47,48 @@ const Services = () => {
       padding: '7.5rem 0',
       position: 'relative',
       color: 'white',
-      backgroundColor: 'var(--color-deep-navy)'
+      backgroundColor: 'var(--color-deep-navy)',
+      overflow: 'hidden'
     }}>
-      {/* Background Image with Dark Gradient Overlay */}
+      {/* services_b2b-960.webp turned out to be almost certainly AI-generated
+          on close inspection: the presentation slide reads "Q4 GLOBAL GROWTH
+          & MARKET STRATEGY" over garbled chart labels ("BXENES RANK
+          STRATEGY"), and the building signage in the window is illegible
+          gibberish. Replaced with a plain gradient and a large-scale version
+          of the bridge motif - the one background element that's actually
+          this brand's own. See CLAUDE.md. */}
       <div style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundImage: 'linear-gradient(to bottom, rgba(9, 19, 30, 0.94), rgba(9, 19, 30, 0.9)), url("/img/services_b2b-960.webp")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        inset: 0,
+        background: 'linear-gradient(165deg, var(--color-navy-surface) 0%, var(--color-deep-navy) 65%)',
         zIndex: 0
       }}></div>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1440 100"
+        preserveAspectRatio="xMaxYMid slice"
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: '-40px',
+          width: '85%',
+          maxWidth: '900px',
+          height: '260px',
+          color: 'var(--color-tyneside-blue)',
+          opacity: 0.22,
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      >
+        <line x1="0" y1="72" x2="1440" y2="72" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M120,72 C120,10 1320,10 1320,72" fill="none" stroke="currentColor" strokeWidth="2" />
+        {[
+          [240, 48.4], [360, 31.6], [480, 19.6], [600, 12.4],
+          [840, 12.4], [960, 19.6], [1080, 31.6], [1200, 48.4],
+        ].map(([x, y]) => (
+          <line key={x} x1={x} y1={y} x2={x} y2="72" stroke="currentColor" strokeWidth="1.25" />
+        ))}
+      </svg>
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         
@@ -80,15 +108,10 @@ const Services = () => {
               height: '100%'
             }}>
               <div>
-                <div style={{
-                  marginBottom: '1.5rem',
-                  backgroundColor: 'var(--color-gold-soft)',
-                  display: 'inline-block',
-                  padding: '1rem',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-gold-border)',
-                  color: 'var(--color-gold)'
-                }}>{svc.icon}</div>
+                {/* Boxed icon-on-tinted-square dropped (see CLAUDE.md) - the
+                    single most generic "AI SaaS template" pattern; a bare
+                    icon reads as considered instead of templated. */}
+                <div style={{ marginBottom: '1.25rem', color: 'var(--color-gold)' }}>{svc.icon}</div>
 
                 <h3 style={{ fontSize: '1.35rem', color: 'var(--color-soft-cream)', marginBottom: '1.2rem', fontWeight: 700 }}>
                   {t(svc.titleKey)}

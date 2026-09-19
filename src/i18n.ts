@@ -101,7 +101,8 @@ const resources = {
         stat_pass: "Aprobados · últimos 2 años",
         stat_years: "Años enseñando inglés",
         stat_students: "Alumnos certificados",
-        label: "Centro preparador oficial"
+        label: "Centro preparador oficial",
+        levels_title: "Niveles Cambridge que preparamos"
       },
       testimonials: {
         badge: "Lo que dicen las familias",
@@ -134,7 +135,11 @@ const resources = {
         p3: "Una oportunidad única para conectar con la herencia británica, hacer amigos y practicar el inglés 24/7 en un entorno estimulante y supervisado.",
         label: "Experiencias internacionales",
         alt_camps: "Campamentos de verano",
-        alt_trips: "Viajes de inmersión lingüística"
+        alt_trips: "Viajes de inmersión lingüística",
+        /* Reported directly by the client, not yet in writing - confirm exact
+           spelling of "Smart English" and whether "English Adventure Camp" is
+           the camp's actual name before this goes live. */
+        track_record: "El curso pasado colaboramos con la academia Smart English para enviar a un grupo de alumnos a un English Adventure Camp — la experiencia fue todo un éxito."
       },
       blog: {
         title: "Tyneside News: Cultura, Consejos y Comunidad",
@@ -363,7 +368,8 @@ const resources = {
         stat_pass: "Pass rate · last 2 years",
         stat_years: "Years teaching English",
         stat_students: "Certified students",
-        label: "Official preparation centre"
+        label: "Official preparation centre",
+        levels_title: "Cambridge levels we prepare for"
       },
       testimonials: {
         badge: "What families say",
@@ -396,7 +402,8 @@ const resources = {
         p3: "A unique opportunity to connect with British heritage, make friends, and practice English 24/7 in a stimulating and supervised environment.",
         label: "International experiences",
         alt_camps: "Summer camps",
-        alt_trips: "Language immersion trips"
+        alt_trips: "Language immersion trips",
+        track_record: "Last year we partnered with Smart English academy to send a group of students to an English Adventure Camp — the experience was a real success."
       },
       blog: {
         title: "Tyneside News: Culture, Tips, and Community",

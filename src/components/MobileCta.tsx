@@ -17,28 +17,36 @@ const MobileCta = () => {
   );
 
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > window.innerHeight * 0.35;
-    const update = () => {
-      frame = 0;
-      // 0.35, not 0.85: the hero used to carry its own level-test button and
-      // this bar was held back so the two never competed. That button is gone
-      // (the hero card is now the single CTA), which left a ~490px stretch on
-      // a phone with no way to start the test. 0.35 puts the bar up roughly
-      // where the old hero button used to scroll away.
-      const next = window.scrollY > window.innerHeight * 0.35;
-      if (next === current) return;
-      current = next;
-      setVisible(next);
-    };
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // ⚡ Bolt: Replace scroll listener and window.innerHeight reads with an IntersectionObserver
+    // on a dynamically injected sentinel to prevent layout thrashing and main thread overhead.
+    const sentinel = document.createElement('div');
+    sentinel.style.position = 'absolute';
+    // 0.35, not 0.85: the hero used to carry its own level-test button and
+    // this bar was held back so the two never competed. That button is gone
+    // (the hero card is now the single CTA), which left a ~490px stretch on
+    // a phone with no way to start the test. 0.35 puts the bar up roughly
+    // where the old hero button used to scroll away.
+    sentinel.style.top = '35vh';
+    sentinel.style.left = '0';
+    sentinel.style.width = '100%';
+    sentinel.style.height = '1px';
+    sentinel.style.visibility = 'hidden';
+    sentinel.style.pointerEvents = 'none';
+
+    document.body.appendChild(sentinel);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      // The CTA should be visible once the sentinel scrolls out of view above the viewport
+      setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (sentinel.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

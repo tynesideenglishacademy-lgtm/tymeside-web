@@ -6,6 +6,26 @@ import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 const Navigation = () => {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(() =>
+    typeof window !== 'undefined' ? window.scrollY > 28 : false
+  );
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 28);
+      });
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', update);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -33,7 +53,7 @@ const Navigation = () => {
   const currentLangDisplay = (i18n.language || 'es').startsWith('en') ? 'EN' : 'ES';
 
   return (
-    <nav className={`floating-navbar editorial-navbar${mobileMenuOpen ? ' is-solid' : ''}`}>
+    <nav className={`floating-navbar editorial-navbar refined-navbar${scrolled || mobileMenuOpen ? ' is-solid' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" aria-label="Tyneside English Academy, inicio">
           <img src="/logo-light-nav.png" alt="Tyneside English Academy" width={360} height={209} />

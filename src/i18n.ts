@@ -335,6 +335,7 @@ const resources = {
       resources: {
         title: "Recursos y Documentación",
         test: "Prueba de Nivel Online Gratuita",
+        practice_exam: "Examen completo de prueba",
         exam_bank: "Banco de exámenes",
         material: "Cursos y niveles",
         calendar: "Solicitar horarios",
@@ -697,6 +698,7 @@ const resources = {
       resources: {
         title: "Resources & Documentation",
         test: "Free Online Level Test",
+        practice_exam: "Full practice exam",
         exam_bank: "Exam Bank",
         material: "Courses and levels",
         calendar: "Ask about timetables",

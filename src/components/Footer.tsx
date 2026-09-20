@@ -42,6 +42,7 @@ const Footer = () => {
             <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('resources.title')}</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
               <li><Link to="/level-test" className="footer-link">{t('resources.test')}</Link></li>
+              <li><Link to="/examen-prueba-ingles" className="footer-link">{t('resources.practice_exam')}</Link></li>
               <li><Link to="/alumnos" className="footer-link">{t('student_area.label')}</Link></li>
               <li><Link to="/alumnos" className="footer-link">{t('resources.exam_bank')}</Link></li>
               <li><Link to="/#courses" className="footer-link">{t('resources.material')}</Link></li>

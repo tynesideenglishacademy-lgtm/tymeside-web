@@ -117,8 +117,8 @@ const ExamPrep = () => {
                 a URL (VITE_EXAM_BASE_URL); otherwise nothing renders here. */}
             <div style={{ marginTop: '2rem' }}>
                 <Link
-                  to="/alumnos"
-                  onClick={() => trackEvent('exam_click', { from: 'exam_prep_student_login' })}
+                  to="/examen-prueba-ingles"
+                  onClick={() => trackEvent('exam_click', { from: 'exam_prep_public_landing' })}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',

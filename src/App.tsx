@@ -32,13 +32,14 @@ const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
 const Empresas = lazy(() => import('./components/Empresas'))
 const ServiceLanding = lazy(() => import('./components/ServiceLanding'))
 const StudentArea = lazy(() => import('./components/StudentArea'))
+const PracticeExamLanding = lazy(() => import('./components/PracticeExamLanding'))
 
 function Home() {
   return (
     <>
       <a href="#main" className="skip-link">Ir al contenido principal</a>
       <Navigation />
-      <main id="main" className="site-editorial">
+      <main id="main" className="site-editorial site-refined">
         <Hero />
         <Courses />
         <About />
@@ -85,6 +86,7 @@ function App() {
         <Route path="/privacidad" element={<LegalPage slug="privacidad" />} />
         <Route path="/cookies" element={<LegalPage slug="cookies" />} />
         <Route path="/alumnos" element={<Suspense fallback={<div className="route-loading" />}><StudentArea /></Suspense>} />
+        <Route path="/examen-prueba-ingles" element={<Suspense fallback={<div className="route-loading" />}><PracticeExamLanding /></Suspense>} />
         <Route
           path="/aptis-oposiciones"
           element={

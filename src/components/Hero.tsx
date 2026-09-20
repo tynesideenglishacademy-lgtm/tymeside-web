@@ -9,7 +9,11 @@ const Hero = () => {
     <section className="editorial-hero" aria-labelledby="hero-title">
       <div className="editorial-hero-copy">
         <p className="editorial-kicker">{t('hero.eyebrow')}</p>
-        <h1 id="hero-title">English.<br /><span>For life.</span></h1>
+        <h1 id="hero-title">
+          <span>Learn.</span>
+          <span>Grow.</span>
+          <span className="hero-gold">Connect.</span>
+        </h1>
         <p className="editorial-hero-lead">{t('hero.h1')}</p>
 
         <div className="editorial-hero-actions">
@@ -26,7 +30,7 @@ const Hero = () => {
             <strong><small>{t('hero.stat_since')}</small> 2015</strong>
             <span>{t('hero.stat_teaching')}</span>
           </div>
-          <GoogleRatingBadge onDark={false} />
+          <GoogleRatingBadge />
         </div>
       </div>
 

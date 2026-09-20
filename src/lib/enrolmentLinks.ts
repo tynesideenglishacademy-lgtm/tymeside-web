@@ -32,7 +32,7 @@
 // DNS records. This prevents a visual release from shipping dead form links.
 const CRM_BASE =
   (import.meta.env.VITE_CRM_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
-  'https://tyneside-crm.vercel.app';
+  'https://matricula.tynesideacademy.com';
 
 /** Public "reserve a place" form. This is the link to share. */
 export const PRE_ENROLMENT_URL = `${CRM_BASE}/preinscripcion`;

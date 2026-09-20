@@ -154,9 +154,32 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'rate_limited' }, 429, origin);
   }
 
+  // 🛡️ Security: Enforce a payload size limit (10KB) by safely reading the stream.
+  // This prevents Out Of Memory (OOM) Denial of Service attacks caused by
+  // buffering arbitrarily large JSON bodies without trusting the Content-Length header.
+  const MAX_PAYLOAD_SIZE = 10240;
+  let payloadString = '';
+  if (req.body) {
+    const reader = req.body.getReader();
+    const decoder = new TextDecoder();
+    let totalLength = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value) {
+        totalLength += value.length;
+        if (totalLength > MAX_PAYLOAD_SIZE) {
+          return json({ error: 'payload_too_large' }, 413, origin);
+        }
+        payloadString += decoder.decode(value, { stream: true });
+      }
+    }
+    payloadString += decoder.decode();
+  }
+
   let payload: Record<string, unknown>;
   try {
-    payload = await req.json();
+    payload = payloadString ? JSON.parse(payloadString) : {};
   } catch {
     return json({ error: 'invalid_json' }, 400, origin);
   }

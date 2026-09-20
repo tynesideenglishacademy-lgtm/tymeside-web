@@ -13,6 +13,7 @@
     { "source": "/newcastle", "destination": "/index.html" },
     { "source": "/level-test", "destination": "/index.html" },
     { "source": "/alumnos", "destination": "/index.html" },
+    { "source": "/recursos", "destination": "/index.html" },
     { "source": "/examen-prueba-ingles", "destination": "/index.html" },
     { "source": "/test", "destination": "/index.html" }
   ],

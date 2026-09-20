@@ -52,13 +52,7 @@ const TripsCamps = () => {
               {t('trips.p1')}
             </p>
 
-            <div style={{
-              padding: '1.2rem 1.5rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'rgba(255, 255, 255, 0.72)',
-              border: '1px solid var(--color-border-light)',
-              marginBottom: '1.8rem'
-            }}>
+            <div className="trips-partner-note">
               <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--color-ink-muted)' }}>
                 {t('trips.p2')}<br/>
                 <a href="https://www.ihnewcastle.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-gold-ink)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>

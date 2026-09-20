@@ -25,8 +25,8 @@
  * flapping" note in earlier handoffs. It was never SSO: the Vercel API reports
  * every form of deployment protection disabled for this project.
  *
- * When tynesideacademy.com is live, `crm.tynesideacademy.com` is shorter still
- * and worth moving to. Set VITE_CRM_BASE_URL and everything here follows.
+ * Set VITE_CRM_BASE_URL to move every public CRM link together if the branded
+ * subdomain changes in future.
  */
 // Keep the verified Vercel origins active until CDmon publishes the two new
 // DNS records. This prevents a visual release from shipping dead form links.
@@ -90,18 +90,19 @@ export const whatsappShare = (which: keyof typeof WHATSAPP_MESSAGES) =>
  * against the CEFR scale, taking about an hour rather than the ten minutes the
  * adaptive level test asks for.
  *
- * There is deliberately NO fallback URL here. The exam app is not deployed yet,
- * and a plausible-looking guess would ship a dead link to parents. Until
- * VITE_EXAM_BASE_URL is set on the Vercel project, `PRACTICE_EXAM_URL` is empty
- * and every entry point to it stays hidden; setting the variable turns all of
- * them on at once. Check with `hasPracticeExam()` before rendering a link.
+ * The public demo and the student entrance share the same deployed exam engine,
+ * but remain separate journeys: public campaigns open /exam-demo, while signed-
+ * in students enter through /student after the website records their launch.
  */
 const EXAM_BASE: string =
   (import.meta.env.VITE_EXAM_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
-  'https://tyneside-exam.vercel.app';
+  'https://exam.tynesideacademy.com';
 
-/** Full CEFR practice exam. Empty string when the exam app has no URL yet. */
-export const PRACTICE_EXAM_URL = EXAM_BASE;
+/** Free public CEFR practice exam used by advertising and SEO landing pages. */
+export const PRACTICE_EXAM_URL = `${EXAM_BASE}/exam-demo`;
+
+/** Student-facing entrance to the exam engine, reached from authenticated access. */
+export const STUDENT_EXAM_BANK_URL = `${EXAM_BASE}/student`;
 
 /** True once the exam app has a URL, i.e. once it is safe to link to it. */
-export const hasPracticeExam = () => PRACTICE_EXAM_URL !== '';
+export const hasPracticeExam = () => EXAM_BASE !== '';

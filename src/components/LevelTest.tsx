@@ -619,7 +619,7 @@ export default function LevelTest() {
                     is still the action the academy wants. Hidden entirely until
                     VITE_EXAM_BASE_URL gives that app a URL. */}
                 <Link
-                    to="/alumnos"
+                    to="/examen-prueba-ingles"
                     onClick={() => trackEvent('exam_click', { from: 'level_test_student_login' })}
                     className="lt-btn"
                     style={{

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 import Stars from './Stars';
@@ -5,33 +6,25 @@ import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimo
 import { hasSocialProof } from '../lib/sections';
 import type { Testimonial } from '../data/testimonials';
 
-const ReviewCard = ({ review, locale }: { review: Testimonial; locale: string }) => (
+const ReviewCard = ({ review, english }: { review: Testimonial; english: boolean }) => (
   <figure
-    className="light-card"
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1.25rem',
-      padding: '2rem',
-      margin: 0,
-    }}
+    className="review-feature"
   >
-    <Stars rating={review.rating} onDark={false} />
-
-    <blockquote style={{ margin: 0 }}>
-      <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--color-ink)' }}>
+    <div className="review-feature-meta">
+      <Stars rating={review.rating} onDark={false} />
+      <span>Google</span>
+    </div>
+    <blockquote>
+      <p>
         {review.quote}
       </p>
     </blockquote>
-
-    <figcaption style={{ marginTop: 'auto', paddingTop: '0.5rem' }}>
-      <div style={{ fontWeight: 700, color: 'var(--color-ink)' }}>{review.author}</div>
-      <div style={{ fontSize: '0.9rem', color: 'var(--color-ink-muted)' }}>
+    <figcaption>
+      <strong>{review.author}</strong>
+      <span>
         {review.role && <span>{review.role} · </span>}
-        <time dateTime={review.date}>
-          {new Date(review.date).toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
-        </time>
-      </div>
+        <span>{english ? review.dateLabel.en : review.dateLabel.es}</span>
+      </span>
     </figcaption>
   </figure>
 );
@@ -47,6 +40,21 @@ const ReviewCard = ({ review, locale }: { review: Testimonial; locale: string })
 const Testimonials = () => {
   const { t, i18n } = useTranslation();
   const locale = i18n.resolvedLanguage?.startsWith('en') ? 'en-GB' : 'es-ES';
+  const [activeReview, setActiveReview] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const interval = window.setInterval(
+      () => setActiveReview((current) => (current + 1) % testimonials.length),
+      6500,
+    );
+    return () => window.clearInterval(interval);
+  }, [paused]);
+
+  const moveReview = (direction: number) => {
+    setActiveReview((current) => (current + direction + testimonials.length) % testimonials.length);
+  };
 
   if (!hasSocialProof) return null;
 
@@ -58,7 +66,6 @@ const Testimonials = () => {
           label={t('testimonials.badge')}
           title={t('testimonials.title')}
           lead={t('testimonials.desc')}
-          align="center"
         />
 
         {GOOGLE_RATING && (
@@ -95,10 +102,27 @@ const Testimonials = () => {
         )}
 
         {testimonials.length > 0 && (
-          <div className="grid-cards">
-            {testimonials.map((review) => (
-              <ReviewCard key={review.id} review={review} locale={locale} />
-            ))}
+          <div
+            className="reviews-carousel"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
+            aria-roledescription="carousel"
+            aria-label={t('testimonials.carousel_label', { defaultValue: 'Reseñas de Google' })}
+          >
+            <div className="reviews-carousel-index" aria-hidden="true">
+              <span>{String(activeReview + 1).padStart(2, '0')}</span>
+              <i />
+              <span>{String(testimonials.length).padStart(2, '0')}</span>
+            </div>
+            <div className="reviews-carousel-stage">
+              <ReviewCard key={testimonials[activeReview].id} review={testimonials[activeReview]} english={locale === 'en-GB'} />
+            </div>
+            <div className="reviews-carousel-controls">
+              <button type="button" onClick={() => moveReview(-1)} aria-label={t('testimonials.previous', { defaultValue: 'Reseña anterior' })}>←</button>
+              <button type="button" onClick={() => moveReview(1)} aria-label={t('testimonials.next', { defaultValue: 'Siguiente reseña' })}>→</button>
+            </div>
           </div>
         )}
 

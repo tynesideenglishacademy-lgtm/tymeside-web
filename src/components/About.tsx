@@ -22,7 +22,7 @@ const About = () => {
           </div>
 
           <aside className="academy-facts" aria-label="Tyneside English Academy">
-            <img src="/tyneside-mark-2026.svg" alt="" width={192} height={192} loading="lazy" />
+            <img src="/logo-light.png" alt="" width={600} height={600} loading="lazy" />
             <div><span>Tyneside English Academy</span><strong>Puente Tocinos, Murcia</strong></div>
             <dl>
               <div><dt>{t('about.teaching_since')}</dt><dd>2015</dd></div>

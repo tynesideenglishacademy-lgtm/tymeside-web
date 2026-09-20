@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "images": "node scripts/optimize-images.mjs",
+    "upload:student-resources": "node scripts/upload-student-resources.mjs",
+    "verify:connections": "node scripts/verify-live-connections.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"

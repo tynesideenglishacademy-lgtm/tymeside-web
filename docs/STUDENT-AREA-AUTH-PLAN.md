@@ -4,7 +4,7 @@
 
 - A visible student-area link in the desktop and mobile navigation.
 - A homepage access band for the Exam Bank and Cambridge Library.
-- A dedicated `/alumnos` sign-in and protected A2-C2 resource dashboard.
+- A dedicated `/alumnos` sign-in and protected B1-C1 resource dashboard.
 - A clear boundary: homework, messages, timetables and personal progress remain in the CRM.
 - Shared Supabase authentication with the CRM and mobile app.
 - Server-controlled `app_metadata.role` validation: only `Student` accounts enter.
@@ -17,9 +17,18 @@ The website and CRM use the same Supabase project, so the website can authentica
 
 Files placed in the website's `public` directory remain public and must not be used for restricted student PDFs.
 
-## Next content phase
+## Resource library content
 
-1. Store downloadable PDFs in a private Supabase bucket.
-2. Issue short-lived signed URLs only after the active student session is authorised.
-3. Pass the authenticated student identity into the Exam Bank so completed attempts can be attached to the same CRM student record, not just record the launch.
-4. Keep homework and class administration in the CRM; the website student area remains a preparation and reference library.
+- B1 Preliminary, B2 First and C1 Advanced exam toolkits, each with writing structures, a model answer, speaking language, collocations, phrasal verbs, common corrections, mini practice and an answer key.
+- One self-marking online worksheet per priority level with answer explanations, scoring and retry.
+- Activity events for resource opens, downloads, worksheet starts and worksheet completions (including score and total).
+- A private `student-resources` Supabase Storage bucket with a Student-role and CRM-profile read policy.
+- Ninety-second signed download URLs so the files never need to be placed in the website's public directory.
+
+The private storage migration is live and the three approved toolkits are uploaded. The release verifier confirms that anonymous visitors cannot obtain a signed download URL. Homework and class administration remain exclusively in the CRM.
+
+## Later phases
+
+1. Add A2 Key and C2 Proficiency private packs after the B1-C1 core has been reviewed by a teacher.
+2. Pass the authenticated student identity into the Exam Bank so completed attempts can be attached to the same CRM student record, not just record the launch.
+3. Add staff-facing content publishing if the resource collection becomes too large for release-managed files.

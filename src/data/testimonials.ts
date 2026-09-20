@@ -15,7 +15,7 @@
  *   1. Open the academy's Google Maps listing, "Reseñas".
  *   2. Paste the share link into GOOGLE_REVIEWS_URL below.
  *   3. Put the overall score and review count into GOOGLE_RATING.
- *   4. Copy 3–6 reviews into `testimonials`, verbatim, with the reviewer's
+ *   4. Copy selected reviews into `testimonials`, verbatim, with the reviewer's
  *      name exactly as Google shows it. Trim with an ellipsis if too long,
  *      never reword.
  */
@@ -30,8 +30,8 @@ export interface Testimonial {
   /** Optional context Ben can confirm, e.g. "Madre de alumna de B2". */
   role?: string;
   rating: 1 | 2 | 3 | 4 | 5;
-  /** ISO date of the review, for <time datetime>. */
-  date: string;
+  /** Relative date exactly as the public listing showed when checked. */
+  dateLabel: { es: string; en: string };
 }
 
 /** Google Place ID for Tyneside English Academy, Puente Tocinos. */
@@ -47,18 +47,64 @@ export const GOOGLE_REVIEWS_URL: string = `https://search.google.com/local/revie
 export const GOOGLE_RATING: { score: number; count: number } | null = { score: 4.9, count: 70 };
 
 /**
- * Still empty on purpose.
- *
- * Google's own listing surfaces these three excerpts publicly, verbatim, but
- * without the reviewer's name attached — and an anonymous quote is weak proof
- * and reads as invented, which is the opposite of the point:
- *
- *   "Excelente profesor nativo Estoy muy contenta con la academia recomiendo 100x100"
- *   "Conseguí mi objetivo gracias a la profesionalidad del centro y los profesores."
- *   "Los padres satisfechos y contentos de ver los progresos."
- *
- * Open GOOGLE_REVIEWS_URL, find these three plus a few more, and copy them in
- * with the name Google shows. Until then the section renders the 4.9 and the
- * link to all 70 reviews, which is real, and no cards.
+ * Checked against the public Google listing on 2026-09-20. Longer reviews are
+ * trimmed at sentence boundaries; their wording is not rewritten.
  */
-export const testimonials: Testimonial[] = [];
+export const testimonials: Testimonial[] = [
+  {
+    id: 'maria-galvez',
+    quote: 'La única academia de inglés que ofrece clases reales de preparación al nivel C2 o Proficiency en el área de pedanías del este…',
+    author: 'María Gálvez',
+    rating: 5,
+    dateLabel: { es: 'hace 6 meses', en: '6 months ago' },
+  },
+  {
+    id: 'fran-navarro',
+    quote: 'He estado solamente 1 año estudiando para el B2 y me lo he sacado a la primera gracias a las explicaciones de Ben.',
+    author: 'Fran Navarro',
+    rating: 5,
+    dateLabel: { es: 'hace 7 meses', en: '7 months ago' },
+  },
+  {
+    id: 'eva-ayala',
+    quote: 'Una increíble academia, con buenos profesores y un gran método.',
+    author: 'Eva Del Carmen Ayala',
+    rating: 5,
+    dateLabel: { es: 'hace 7 meses', en: '7 months ago' },
+  },
+  {
+    id: 'tetiana-iavorska',
+    quote: 'Muy buen trato.',
+    author: 'Tetiana Iavorska',
+    rating: 5,
+    dateLabel: { es: 'hace 7 meses', en: '7 months ago' },
+  },
+  {
+    id: 'javier',
+    quote: 'Profesores angloparlantes muy bien preparados para la enseñanza y con un gran trato al alumnado. Muy buena preparación para los exámenes de Cambridge.',
+    author: 'Javier',
+    rating: 5,
+    dateLabel: { es: 'hace 7 meses', en: '7 months ago' },
+  },
+  {
+    id: 'alicia-barba',
+    quote: 'Academia muy recomendable, mi hija desde que va a la academia está súper contenta con todos los profes…',
+    author: 'Alicia Barba',
+    rating: 5,
+    dateLabel: { es: 'hace 1 año', en: '1 year ago' },
+  },
+  {
+    id: 'maria-elena-soro',
+    quote: 'El profesor Ben, además de dominar el idioma, enseña la parte práctica y necesaria del inglés.',
+    author: 'María Elena Soro Ripoll',
+    rating: 5,
+    dateLabel: { es: 'hace 1 año', en: '1 year ago' },
+  },
+  {
+    id: 'hector-costa',
+    quote: 'A great academy if you’re looking for pass the Cambridge exams. 100% recommended.',
+    author: 'hector costa willi',
+    rating: 5,
+    dateLabel: { es: 'hace 1 año', en: '1 year ago' },
+  },
+];

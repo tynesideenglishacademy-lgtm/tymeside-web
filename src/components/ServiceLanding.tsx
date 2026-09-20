@@ -6,6 +6,13 @@ import Footer from './Footer';
 
 export type ServiceSlug = 'colegios' | 'one-to-one' | 'traduccion' | 'newcastle';
 
+const SERVICE_INTEREST: Record<ServiceSlug, string> = {
+  colegios: 'Servicios escolares y extraescolares',
+  'one-to-one': 'Clases particulares One to One',
+  traduccion: 'Traducción e interpretación',
+  newcastle: 'Viajes e inmersión en Newcastle',
+};
+
 type ServiceCopy = {
   eyebrow: string;
   title: string;
@@ -66,7 +73,7 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
   'one-to-one': {
     es: {
       eyebrow: 'Clases particulares',
-      title: 'One2One: inglés diseñado alrededor de ti',
+      title: 'One to One: inglés diseñado alrededor de ti',
       intro: 'Un programa individual para avanzar con más precisión: objetivos claros, horario acordado y una clase construida sobre tu nivel, profesión o examen.',
       image: '/img/speaking-v2-960.webp',
       imageAlt: 'Clase individual de conversación en inglés',
@@ -79,11 +86,11 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Nos cuentas tu objetivo y disponibilidad.', 'Valoramos tu nivel actual.', 'Proponemos profesor, formato y frecuencia.', 'Revisamos el progreso y ajustamos el plan.'],
       ctaTitle: 'Hablemos de tu objetivo',
       ctaText: 'Dinos para qué necesitas el inglés y cuándo puedes estudiar. Te orientaremos sobre el formato más eficaz.',
-      interest: 'Clases Particulares One2One',
+      interest: 'Clases particulares One to One',
     },
     en: {
       eyebrow: 'Private tuition',
-      title: 'One2One: English built around you',
+      title: 'One to One: English built around you',
       intro: 'An individual programme for precise progress: clear goals, an agreed timetable and lessons based on your level, profession or exam.',
       image: '/img/speaking-v2-960.webp',
       imageAlt: 'Individual English speaking lesson',
@@ -96,7 +103,7 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Tell us your goal and availability.', 'We assess your current level.', 'We propose a teacher, format and frequency.', 'We review progress and adjust the plan.'],
       ctaTitle: 'Tell us what you need English for',
       ctaText: 'Share your goal and available times. We will recommend the most effective format.',
-      interest: 'One2One private tuition',
+      interest: 'One to One private tuition',
     },
   },
   traduccion: {
@@ -177,7 +184,7 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
   const { i18n } = useTranslation();
   const language = i18n.language.startsWith('en') ? 'en' : 'es';
   const copy = COPY[slug][language];
-  const contactUrl = `/?interest=${encodeURIComponent(copy.interest)}#contact`;
+  const contactUrl = `/?interest=${encodeURIComponent(SERVICE_INTEREST[slug])}#contact`;
 
   useEffect(() => {
     const previousTitle = document.title;

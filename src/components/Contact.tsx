@@ -248,9 +248,10 @@ const Contact = () => {
                     <option value="Clases de conversación">{t('courses.speaking_title')}</option>
                     <option value="Cursos intensivos">{t('courses.intensive_title')}</option>
                     <option value="FUNDAE / Formación Empresas">{t('contact.courses.fundae')}</option>
-                    <option value="Clases Particulares One2One">{t('contact.courses.one2one')}</option>
+                    <option value="Clases particulares One to One">{t('contact.courses.one2one')}</option>
                     <option value="Servicios escolares y extraescolares">{t('contact.courses.schools')}</option>
                     <option value="Traducción e interpretación">{t('contact.courses.translation')}</option>
+                    <option value="Viajes e inmersión en Newcastle">{t('contact.courses.newcastle')}</option>
                     <option value="Trabaja con nosotros">{t('contact.courses.careers')}</option>
                     <option value="Otro">{t('contact.courses.other')}</option>
                   </select>

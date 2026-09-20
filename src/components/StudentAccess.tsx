@@ -14,7 +14,7 @@ const StudentAccess = () => {
         </div>
         <div className="student-access-actions">
           <Link to="/alumnos" className="btn-editorial-primary">{t('student_area.open')}</Link>
-          <Link to="/alumnos" className="text-link">{t('student_area.exam_bank')}</Link>
+          <Link to="/recursos" className="text-link">{t('resources.material')}</Link>
         </div>
       </div>
     </section>

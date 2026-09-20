@@ -1,55 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
-import { PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
+import { STUDENT_EXAM_BANK_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { useStudentSession } from '../hooks/useStudentSession';
-
-const levels = ['All', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
-
-type Resource = {
-  key: string;
-  level: Exclude<(typeof levels)[number], 'All'>;
-  type: string;
-  title: string;
-  summary: string;
-  points: string[];
-};
-
-const resources: Resource[] = [
-  {
-    key: 'a2-writing-email', level: 'A2', type: 'Writing', title: 'A2 email checklist',
-    summary: 'Una estructura sencilla para responder a todos los puntos de un email de A2 Key.',
-    points: ['Saluda y agradece el mensaje.', 'Responde a los tres puntos de la tarea.', 'Usa conectores básicos: and, but, because, so.', 'Revisa mayúsculas, puntuación y 25 palabras o más.'],
-  },
-  {
-    key: 'b1-speaking-story', level: 'B1', type: 'Speaking', title: 'B1 picture story framework',
-    summary: 'Cómo ordenar una historia visual sin quedarse bloqueado durante el speaking.',
-    points: ['Empieza con: At first / One day.', 'Describe personas, lugar y acción.', 'Conecta las imágenes con then, after that y finally.', 'Termina explicando cómo se sienten los personajes.'],
-  },
-  {
-    key: 'b2-writing-essay', level: 'B2', type: 'Writing', title: 'B2 essay blueprint',
-    summary: 'Plan de cuatro párrafos para desarrollar una opinión clara y equilibrada.',
-    points: ['Introducción: reformula la pregunta.', 'Dos párrafos: idea, explicación y ejemplo.', 'Usa contraste: however, whereas, although.', 'Conclusión: responde directamente a la pregunta.'],
-  },
-  {
-    key: 'b2-collocations', level: 'B2', type: 'Vocabulary', title: 'B2 high-value collocations',
-    summary: 'Combinaciones frecuentes que mejoran writing y Use of English.',
-    points: ['make progress / make an effort', 'take responsibility / take part', 'have an impact / have access', 'raise awareness / meet a deadline'],
-  },
-  {
-    key: 'c1-speaking-comparison', level: 'C1', type: 'Speaking', title: 'C1 comparison language',
-    summary: 'Lenguaje para comparar, especular y evaluar fotografías con precisión.',
-    points: ['Both images convey…', 'Whereas the first…, the second…', 'They might have been…', 'The most significant difference appears to be…'],
-  },
-  {
-    key: 'c2-phrasal-verbs', level: 'C2', type: 'Vocabulary', title: 'C2 phrasal verbs in context',
-    summary: 'Verbos frasales avanzados para lectura, conversación y transformación de frases.',
-    points: ['brush up on: improve an old skill', 'come down to: be essentially about', 'phase out: remove gradually', 'zero in on: focus attention precisely'],
-  },
-];
+import StudentLibrary from './StudentLibrary';
 
 const StudentArea = () => {
   const { t } = useTranslation();
@@ -57,19 +14,12 @@ const StudentArea = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [level, setLevel] = useState<(typeof levels)[number]>('All');
-  const [openResource, setOpenResource] = useState<string | null>(null);
 
   useEffect(() => {
     const previousTitle = document.title;
     document.title = t('student_area.meta_title');
     return () => { document.title = previousTitle; };
   }, [t]);
-
-  const filteredResources = useMemo(
-    () => level === 'All' ? resources : resources.filter((resource) => resource.level === level),
-    [level],
-  );
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,22 +34,8 @@ const StudentArea = () => {
       eventType: 'exam_bank_opened',
       resourceKey: 'exam-bank',
       resourceTitle: 'Tyneside Exam Bank',
-      metadata: { destination: PRACTICE_EXAM_URL },
+      metadata: { destination: STUDENT_EXAM_BANK_URL },
     });
-  };
-
-  const toggleResource = (resource: Resource) => {
-    const willOpen = openResource !== resource.key;
-    setOpenResource(willOpen ? resource.key : null);
-    if (willOpen) {
-      void trackActivity({
-        eventType: 'resource_opened',
-        resourceKey: resource.key,
-        resourceTitle: resource.title,
-        resourceLevel: resource.level,
-        metadata: { type: resource.type },
-      });
-    }
   };
 
   if (loading) {
@@ -166,7 +102,7 @@ const StudentArea = () => {
                       <p>{t('student_area.exam_desc')}</p>
                     </div>
                     {hasPracticeExam() ? (
-                      <a href={PRACTICE_EXAM_URL} target="_blank" rel="noopener noreferrer" onClick={openExamBank} className="btn-editorial-primary">{t('student_area.exam_open')}</a>
+                      <a href={STUDENT_EXAM_BANK_URL} target="_blank" rel="noopener noreferrer" onClick={openExamBank} className="btn-editorial-primary">{t('student_area.exam_open')}</a>
                     ) : <p className="student-module-status">{t('student_area.exam_unavailable')}</p>}
                   </article>
                   <article className="student-module student-module-library">
@@ -181,47 +117,7 @@ const StudentArea = () => {
               </div>
             </section>
 
-            <section id="student-library" className="student-resource-library" aria-labelledby="resource-library-title">
-              <div className="container">
-                <div className="student-library-heading">
-                  <div>
-                    <p className="student-access-kicker">{t('student_area.library_label')}</p>
-                    <h2 id="resource-library-title">{t('student_area.library_map_title')}</h2>
-                    <p>{t('student_area.library_map_desc')}</p>
-                  </div>
-                  <div className="student-level-filter" aria-label={t('student_area.levels_label')}>
-                    {levels.map((item) => (
-                      <button
-                        type="button"
-                        key={item}
-                        className={level === item ? 'is-active' : ''}
-                        aria-pressed={level === item}
-                        onClick={() => {
-                          setLevel(item);
-                          void trackActivity({ eventType: 'level_filter_used', resourceLevel: item });
-                        }}
-                      >{item === 'All' ? t('student_area.all_levels') : item}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="student-resource-grid">
-                  {filteredResources.map((resource) => {
-                    const isOpen = openResource === resource.key;
-                    return (
-                      <article key={resource.key} className={`student-resource-card${isOpen ? ' is-open' : ''}`}>
-                        <div className="student-resource-meta"><span>{resource.level}</span><span>{resource.type}</span></div>
-                        <h3>{resource.title}</h3>
-                        <p>{resource.summary}</p>
-                        <button type="button" aria-expanded={isOpen} onClick={() => toggleResource(resource)}>
-                          {isOpen ? t('student_area.close_resource') : t('student_area.open_resource')}
-                        </button>
-                        {isOpen && <ul>{resource.points.map((point) => <li key={point}>{point}</li>)}</ul>}
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-            </section>
+            <StudentLibrary trackActivity={trackActivity} />
 
             <section className="student-crm-boundary">
               <div className="container student-boundary-note">

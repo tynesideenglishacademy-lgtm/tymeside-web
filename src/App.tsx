@@ -17,6 +17,7 @@ import MobileCta from './components/MobileCta'
 import WhatsAppFab from './components/WhatsAppFab'
 import CookieBanner from './components/CookieBanner'
 import LegalPage from './components/LegalPage'
+import StudentAreaErrorBoundary from './components/StudentAreaErrorBoundary'
 import { initReveal } from './lib/reveal'
 
 // jsPDF + html2canvas are ~380 kB and only the level test ever uses them.
@@ -33,6 +34,7 @@ const Empresas = lazy(() => import('./components/Empresas'))
 const ServiceLanding = lazy(() => import('./components/ServiceLanding'))
 const StudentArea = lazy(() => import('./components/StudentArea'))
 const PracticeExamLanding = lazy(() => import('./components/PracticeExamLanding'))
+const ResourcesHub = lazy(() => import('./components/ResourcesHub'))
 
 function Home() {
   return (
@@ -85,7 +87,8 @@ function App() {
         <Route path="/aviso-legal" element={<LegalPage slug="aviso-legal" />} />
         <Route path="/privacidad" element={<LegalPage slug="privacidad" />} />
         <Route path="/cookies" element={<LegalPage slug="cookies" />} />
-        <Route path="/alumnos" element={<Suspense fallback={<div className="route-loading" />}><StudentArea /></Suspense>} />
+        <Route path="/alumnos" element={<StudentAreaErrorBoundary><Suspense fallback={<div className="route-loading" />}><StudentArea /></Suspense></StudentAreaErrorBoundary>} />
+        <Route path="/recursos" element={<Suspense fallback={<div className="route-loading" />}><ResourcesHub /></Suspense>} />
         <Route path="/examen-prueba-ingles" element={<Suspense fallback={<div className="route-loading" />}><PracticeExamLanding /></Suspense>} />
         <Route
           path="/aptis-oposiciones"

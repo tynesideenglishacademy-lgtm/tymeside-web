@@ -20,9 +20,8 @@ const Services = () => {
         </div>
 
         <div className="service-directory">
-          {servicesList.map((service, index) => (
+          {servicesList.map((service) => (
             <article key={service.titleKey}>
-              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               <div>
                 <h3>{t(service.titleKey)}</h3>
                 <p>{t(service.descKey)}</p>

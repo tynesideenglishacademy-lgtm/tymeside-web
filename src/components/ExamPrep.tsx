@@ -30,7 +30,7 @@ const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string
 
     const run = (now: number) => {
       if (!startedAt) startedAt = now;
-      const progress = Math.min((now - startedAt) / 1800, 1);
+      const progress = Math.min((now - startedAt) / 900, 1);
       // Ease-out, so the number decelerates into its final value instead of
       // stopping dead.
       setCount(Math.round(end * (1 - Math.pow(1 - progress, 3))));

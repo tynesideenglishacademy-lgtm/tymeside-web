@@ -72,18 +72,18 @@ const Careers = () => {
                 <Honeypot value={form.website} onChange={(e) => setForm((current) => ({ ...current, website: e.target.value }))} />
                 {status === 'error' && <p className="form-error" role="alert">{t('careers.error')}</p>}
                 <p className="form-note">{t('contact.form_required_note')}</p>
-                <label>{t('contact.form_name')}<RequiredMark />
+                <label><span>{t('contact.form_name')}<RequiredMark /></span>
                   <input className="premium-input" name="name" autoComplete="name" required maxLength={120} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 </label>
                 <div className="careers-fields-row">
-                  <label>{t('contact.form_email')}<RequiredMark />
+                  <label><span>{t('contact.form_email')}<RequiredMark /></span>
                     <input className="premium-input" type="email" name="email" autoComplete="email" spellCheck={false} inputMode="email" required maxLength={160} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
                   </label>
-                  <label>{t('contact.form_phone')}
+                  <label><span>{t('contact.form_phone')}</span>
                     <input className="premium-input" type="tel" name="phone" autoComplete="tel" inputMode="tel" maxLength={40} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                   </label>
                 </div>
-                <label>{t('careers.message_label')}
+                <label><span>{t('careers.message_label')}</span>
                   <textarea className="premium-input" name="message" autoComplete="off" rows={3} maxLength={1000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                 </label>
                 <label className="cv-upload">

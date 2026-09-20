@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 
 const Navigation = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(() =>
     typeof window !== 'undefined' ? window.scrollY > 28 : false
@@ -62,11 +63,11 @@ const Navigation = () => {
         {/* Desktop Nav Links */}
         <div className="navbar-links">
           <a href="/#courses" className="navbar-link">{t('nav.courses')}</a>
-          <a href="/#methodology" className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" className="navbar-link">{t('nav.exams')}</a>
+          <Link to="/recursos" className={`navbar-link${location.pathname === '/recursos' ? ' is-active' : ''}`} aria-current={location.pathname === '/recursos' ? 'page' : undefined}>{t('nav.resources', { defaultValue: currentLangDisplay === 'EN' ? 'Resources' : 'Recursos' })}</Link>
           <a href="/#services" className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" className="navbar-link">{t('nav.contact')}</a>
-          <Link to="/alumnos" className="navbar-link navbar-student-link">{t('nav.students_short')}</Link>
+          <Link to="/alumnos" className={`navbar-link navbar-student-link${location.pathname === '/alumnos' ? ' is-active' : ''}`} aria-current={location.pathname === '/alumnos' ? 'page' : undefined}>{t('nav.students_short')}</Link>
 
           <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
@@ -113,11 +114,11 @@ const Navigation = () => {
       {mobileMenuOpen && (
         <div className="mobile-nav-drawer">
           <a href="/#courses" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.courses')}</a>
-          <a href="/#methodology" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.exams')}</a>
+          <Link to="/recursos" onClick={() => setMobileMenuOpen(false)} className={`navbar-link${location.pathname === '/recursos' ? ' is-active' : ''}`} aria-current={location.pathname === '/recursos' ? 'page' : undefined}>{t('nav.resources', { defaultValue: currentLangDisplay === 'EN' ? 'Resources' : 'Recursos' })}</Link>
           <a href="/#services" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.contact')}</a>
-          <Link to="/alumnos" onClick={() => setMobileMenuOpen(false)} className="navbar-link navbar-student-link">{t('nav.students')}</Link>
+          <Link to="/alumnos" onClick={() => setMobileMenuOpen(false)} className={`navbar-link navbar-student-link${location.pathname === '/alumnos' ? ' is-active' : ''}`} aria-current={location.pathname === '/alumnos' ? 'page' : undefined}>{t('nav.students')}</Link>
           <a href={PRE_ENROLMENT_URL} onClick={() => setMobileMenuOpen(false)} className="navbar-link" style={{ fontWeight: 700 }}>
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}
           </a>

@@ -55,11 +55,11 @@ const StatCounter = ({ end, suffix = '', label }: { end: number, suffix?: string
   }, [end]);
 
   return (
-    <div ref={ref} style={{ textAlign: 'center' }}>
-      <div className="text-gold" style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
+    <div ref={ref} aria-label={`${end}${suffix} ${label}`} style={{ textAlign: 'center' }}>
+      <div aria-hidden="true" className="text-gold" style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '0.4rem', fontFamily: 'var(--font-heading)' }}>
         {count}{suffix}
       </div>
-      <div style={{ fontSize: '1rem', color: '#E2E8F0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <div aria-hidden="true" style={{ fontSize: '1rem', color: '#E2E8F0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
         {label}
       </div>
     </div>

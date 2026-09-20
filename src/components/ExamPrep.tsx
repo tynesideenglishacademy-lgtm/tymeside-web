@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import SectionHeader from './SectionHeader';
-import { PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 
 /**
@@ -116,13 +115,10 @@ const ExamPrep = () => {
                 of English, Listening and Writing, marked on the CEFR scale.
                 It is a separate app, so the link only appears once that app has
                 a URL (VITE_EXAM_BASE_URL); otherwise nothing renders here. */}
-            {hasPracticeExam() && (
-              <div style={{ marginTop: '2rem' }}>
-                <a
-                  href={PRACTICE_EXAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackEvent('exam_click', { from: 'exam_prep' })}
+            <div style={{ marginTop: '2rem' }}>
+                <Link
+                  to="/alumnos"
+                  onClick={() => trackEvent('exam_click', { from: 'exam_prep_student_login' })}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -137,12 +133,11 @@ const ExamPrep = () => {
                 >
                   {t('examprep.full_exam_cta')}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                </a>
+                </Link>
                 <div style={{ fontSize: '0.9rem', lineHeight: 1.7, color: '#9FB0C0', maxWidth: '34rem' }}>
                   {t('examprep.full_exam_note')}
                 </div>
               </div>
-            )}
           </div>
 
           <div className="glass-card-premium" style={{
@@ -175,6 +170,27 @@ const ExamPrep = () => {
           </div>
 
         </div>
+
+        <aside className="accreditation-strip" aria-label={t('examprep.credentials_label')}>
+          <div className="accreditation-copy">
+            <span>{t('examprep.credentials_label')}</span>
+            <strong>{t('examprep.credentials_title')}</strong>
+          </div>
+          <div className="accreditation-logos">
+            <figure data-brand="cambridge">
+              <img src="/img/cambridge-preparation-centre-2025-26.webp" width="720" height="338" loading="lazy" decoding="async" alt={t('examprep.cambridge_alt')} />
+              <figcaption>{t('examprep.cambridge_caption')}</figcaption>
+            </figure>
+            <figure data-brand="exams-levante">
+              <img src="/img/exams-levante-platinum.webp" width="900" height="456" loading="lazy" decoding="async" alt={t('examprep.exams_levante_alt')} />
+              <figcaption>{t('examprep.exams_levante_caption')}</figcaption>
+            </figure>
+            <figure data-brand="fecei">
+              <img src="/img/fecei-accredited-0279.webp" width="660" height="258" loading="lazy" decoding="async" alt={t('examprep.fecei_alt')} />
+              <figcaption>{t('examprep.fecei_caption')}</figcaption>
+            </figure>
+          </div>
+        </aside>
       </div>
     </section>
   );

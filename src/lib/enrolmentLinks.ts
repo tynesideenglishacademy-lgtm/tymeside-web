@@ -9,7 +9,8 @@
  *                 IBAN, DNI and medical information, which is exactly why it
  *                 must NOT be the link handed out publicly.
  *
- * `tyneside-crm.vercel.app` was claimed on 2026-08-15 and verified the same day:
+ * The public CRM lives on the academy's branded enrolment subdomain; Vercel's
+ * project URL remains an infrastructure fallback rather than a customer link.
  * 200 to plain curl, to a full Chrome User-Agent, and - the part that matters
  * for links shared by WhatsApp - to WhatsApp's link-preview crawler. It serves
  * a byte-identical build to the project domain.
@@ -27,6 +28,8 @@
  * When tynesideacademy.com is live, `crm.tynesideacademy.com` is shorter still
  * and worth moving to. Set VITE_CRM_BASE_URL and everything here follows.
  */
+// Keep the verified Vercel origins active until CDmon publishes the two new
+// DNS records. This prevents a visual release from shipping dead form links.
 const CRM_BASE =
   (import.meta.env.VITE_CRM_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
   'https://tyneside-crm.vercel.app';
@@ -40,20 +43,19 @@ export const FULL_ENROLMENT_URL = `${CRM_BASE}/enroll`;
 /** Family portal, for existing students. */
 export const PARENT_PORTAL_URL = `${CRM_BASE}/parent-portal`;
 
+/** Shared CRM sign-in. Student accounts currently continue into the mobile app. */
+export const CRM_LOGIN_URL = `${CRM_BASE}/login`;
+
 /**
  * The multi-level placement test. It lives on this website rather than in the
  * CRM, so it has its own base URL.
  *
- * `tyneside-web.vercel.app` is the live home for now: `tynesideacademy.com` is
- * out of the academy's control and cannot be pointed at this project until it
- * is recovered. The Vercel host was verified 2026-08-15 to return 200 to plain
- * curl, a Chrome User-Agent and WhatsApp's link crawler. Once the custom
- * domain is back, set VITE_WEB_BASE_URL to it (and update the static canonical
- * / OG / sitemap URLs in index.html, robots.txt and sitemap.xml).
+ * The academy's custom domain is live again. Keep the environment override for
+ * previews, but use the public domain for links shared with families.
  */
 const WEB_BASE =
   (import.meta.env.VITE_WEB_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
-  'https://tyneside-web.vercel.app';
+  'https://www.tynesideacademy.com';
 
 export const LEVEL_TEST_URL = `${WEB_BASE}/level-test`;
 
@@ -94,8 +96,9 @@ export const whatsappShare = (which: keyof typeof WHATSAPP_MESSAGES) =>
  * and every entry point to it stays hidden; setting the variable turns all of
  * them on at once. Check with `hasPracticeExam()` before rendering a link.
  */
-const EXAM_BASE =
-  (import.meta.env.VITE_EXAM_BASE_URL as string | undefined)?.replace(/\/$/, '') || '';
+const EXAM_BASE: string =
+  (import.meta.env.VITE_EXAM_BASE_URL as string | undefined)?.replace(/\/$/, '') ||
+  'https://tyneside-exam.vercel.app';
 
 /** Full CEFR practice exam. Empty string when the exam app has no URL yet. */
 export const PRACTICE_EXAM_URL = EXAM_BASE;

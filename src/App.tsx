@@ -6,8 +6,10 @@ import Hero from './components/Hero'
 import Courses from './components/Courses'
 import About from './components/About'
 import ExamPrep from './components/ExamPrep'
+import StudentAccess from './components/StudentAccess'
 import Testimonials from './components/Testimonials'
 import Services from './components/Services'
+import Careers from './components/Careers'
 import TripsCamps from './components/TripsCamps'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -28,19 +30,23 @@ const AptisOposiciones = lazy(() => import('./components/AptisOposiciones'))
 // Same reasoning: a B2B / FUNDAE landing linked from the Services block, not
 // somewhere a general visitor lands, so it stays out of the main bundle.
 const Empresas = lazy(() => import('./components/Empresas'))
+const ServiceLanding = lazy(() => import('./components/ServiceLanding'))
+const StudentArea = lazy(() => import('./components/StudentArea'))
 
 function Home() {
   return (
     <>
       <a href="#main" className="skip-link">Ir al contenido principal</a>
       <Navigation />
-      <main id="main">
+      <main id="main" className="site-editorial">
         <Hero />
         <Courses />
         <About />
         <ExamPrep />
+        <StudentAccess />
         <Testimonials />
         <Services />
+        <Careers />
         <TripsCamps />
         <Contact />
       </main>
@@ -53,8 +59,23 @@ function Home() {
 function App() {
   const location = useLocation()
 
-  // Re-run per route: the level-test page mounts a different tree.
-  useEffect(() => initReveal(), [location.pathname])
+  // Re-run per route: the level-test page mounts a different tree. When a
+  // section link arrives from a legal or campaign page, React mounts the home
+  // content after the browser's native hash-scroll attempt, so repeat it once
+  // the new route is in the DOM.
+  useEffect(() => {
+    initReveal()
+
+    const frame = window.requestAnimationFrame(() => {
+      if (location.hash) {
+        document.getElementById(location.hash.slice(1))?.scrollIntoView()
+      } else {
+        window.scrollTo({ top: 0 })
+      }
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [location.pathname, location.hash])
 
   return (
     <>
@@ -63,6 +84,7 @@ function App() {
         <Route path="/aviso-legal" element={<LegalPage slug="aviso-legal" />} />
         <Route path="/privacidad" element={<LegalPage slug="privacidad" />} />
         <Route path="/cookies" element={<LegalPage slug="cookies" />} />
+        <Route path="/alumnos" element={<Suspense fallback={<div className="route-loading" />}><StudentArea /></Suspense>} />
         <Route
           path="/aptis-oposiciones"
           element={
@@ -79,6 +101,10 @@ function App() {
             </Suspense>
           }
         />
+        <Route path="/colegios" element={<Suspense fallback={<div className="route-loading" />}><ServiceLanding slug="colegios" /></Suspense>} />
+        <Route path="/one-to-one" element={<Suspense fallback={<div className="route-loading" />}><ServiceLanding slug="one-to-one" /></Suspense>} />
+        <Route path="/traduccion" element={<Suspense fallback={<div className="route-loading" />}><ServiceLanding slug="traduccion" /></Suspense>} />
+        <Route path="/newcastle" element={<Suspense fallback={<div className="route-loading" />}><ServiceLanding slug="newcastle" /></Suspense>} />
         <Route
           path="/level-test"
           element={

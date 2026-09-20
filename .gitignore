@@ -22,6 +22,10 @@ dist-ssr
 
 # Local scratch & one-off working files
 scratch/
+tmp/
+output/
+skill-observations/
+supabase/.temp/
 preview_proposal_2026_2027.html
 
 # graphify knowledge-graph tooling artifacts

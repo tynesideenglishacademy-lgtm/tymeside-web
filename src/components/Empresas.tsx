@@ -61,7 +61,7 @@ const copy = {
   course: [
     'Reunión inicial para entender el sector, los puestos y el punto de partida del equipo.',
     'Prueba de nivel a cada participante para formar grupos homogéneos, desde 5 personas por grupo.',
-    'Propuesta con objetivos, calendario y modalidad —presencial, online en directo o híbrida—, con una estimación de qué parte cubre la bonificación.',
+    'Propuesta con objetivos, calendario y modalidad (presencial, online en directo o híbrida), con una estimación de qué parte cubre la bonificación.',
     'Tramitación de la bonificación ante FUNDAE dentro de plazo, para que la empresa no tenga que hacer el papeleo.',
     'Impartición del curso con seguimiento del progreso de cada participante.',
     'Documentación y certificados de aprovechamiento al finalizar.',
@@ -79,7 +79,7 @@ const copy = {
     },
     {
       q: '¿Tenemos que ocuparnos del papeleo con FUNDAE?',
-      a: 'No. Nos encargamos nosotros de la tramitación de la bonificación —altas, comunicaciones y plazos—, con el apoyo de una gestoría externa cuando el caso lo requiere. La empresa solo facilita los datos necesarios.',
+      a: 'No. Nos encargamos nosotros de la tramitación de la bonificación (altas, comunicaciones y plazos), con el apoyo de una gestoría externa cuando el caso lo requiere. La empresa solo facilita los datos necesarios.',
     },
     {
       q: '¿Dónde se dan las clases?',

@@ -101,9 +101,9 @@ const es: Record<LegalSlug, LegalDoc> = {
       {
         heading: '1. Responsable del tratamiento',
         paragraphs: [
-          'Tyneside English Academy — [PENDIENTE: razón social y NIF/CIF].',
+          'Tyneside English Academy: [PENDIENTE: razón social y NIF/CIF].',
           'Dirección: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia.',
-          'Contacto en materia de protección de datos: info@tynesideacademy.com.',
+          'Contacto en materia de protección de datos: secretaria@tynesideacademy.com.',
           '[PENDIENTE: indicar si se ha designado Delegado de Protección de Datos (DPO) y sus datos de contacto.]',
         ],
       },
@@ -112,6 +112,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Formulario de contacto: nombre, teléfono, correo electrónico y curso de interés, con la finalidad de atender tu solicitud de información.',
           'Prueba de nivel en línea: nombre, correo electrónico, código postal y, opcionalmente, teléfono y dirección, junto con el resultado de la prueba, con la finalidad de enviarte tu certificado y ofrecerte asesoramiento sobre el curso adecuado.',
+          'Candidaturas de empleo: nombre, correo electrónico, teléfono opcional, mensaje y currículum, con la finalidad de valorar tu perfil para necesidades de contratación actuales o futuras.',
           'No se elaboran perfiles ni se toman decisiones automatizadas con efectos jurídicos sobre el usuario.',
         ],
       },
@@ -119,13 +120,14 @@ const es: Record<LegalSlug, LegalDoc> = {
         heading: '3. Base jurídica',
         paragraphs: [
           'El tratamiento se basa en tu consentimiento, que otorgas al marcar la casilla correspondiente y enviar el formulario (art. 6.1.a RGPD).',
-          'Puedes retirar el consentimiento en cualquier momento escribiendo a info@tynesideacademy.com, sin que ello afecte a la licitud del tratamiento previo.',
+          'Puedes retirar el consentimiento en cualquier momento escribiendo a secretaria@tynesideacademy.com, sin que ello afecte a la licitud del tratamiento previo.',
         ],
       },
       {
         heading: '4. Conservación',
         paragraphs: [
           'Conservaremos tus datos mientras exista interés mutuo o hasta que solicites su supresión, y después durante los plazos legalmente exigibles.',
+          'Las candidaturas y currículums se conservarán durante un máximo de 12 meses, salvo que solicites antes su supresión o autorices posteriormente un nuevo plazo.',
           '[PENDIENTE: fijar plazos de conservación concretos con la asesoría.]',
         ],
       },
@@ -141,7 +143,7 @@ const es: Record<LegalSlug, LegalDoc> = {
       {
         heading: '6. Tus derechos',
         paragraphs: [
-          'Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a info@tynesideacademy.com, indicando el derecho que ejercitas y adjuntando copia de un documento identificativo.',
+          'Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a secretaria@tynesideacademy.com, indicando el derecho que ejercitas y adjuntando copia de un documento identificativo.',
           'Si consideras que el tratamiento no se ajusta a la normativa, puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).',
         ],
       },
@@ -171,7 +173,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: si aceptas, cargamos las tipografías desde los servidores de Google (fonts.googleapis.com y fonts.gstatic.com), lo que implica que Google recibe tu dirección IP. Si no aceptas, el sitio usa las tipografías del sistema.',
           'Sentry: si aceptas, activamos una herramienta de monitorización de errores que puede registrar la sesión de navegación para diagnosticar fallos. Si no aceptas, no se carga.',
-          'Google Maps: el mapa de la sección de contacto sigue el mismo consentimiento que las tipografías y Sentry — si aceptas, se carga y puede instalar cookies de Google; si no aceptas, se muestra un aviso con un botón para cargarlo cuando quieras.',
+          'Google Maps: el mapa de la sección de contacto sigue el mismo consentimiento que las tipografías y Sentry. Si aceptas, se carga y puede instalar cookies de Google; si no aceptas, se muestra un aviso con un botón para cargarlo cuando quieras.',
         ],
       },
       {
@@ -249,7 +251,7 @@ const en: Record<LegalSlug, LegalDoc> = {
       {
         heading: '1. Data controller',
         paragraphs: [
-          'Tyneside English Academy — [PENDIENTE: registered name and NIF/CIF].',
+          'Tyneside English Academy: [PENDIENTE: registered name and NIF/CIF].',
           'Address: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia.',
           'Data-protection contact: info@tynesideacademy.com.',
           '[PENDIENTE: state whether a Data Protection Officer (DPO) has been appointed and their contact details.]',
@@ -319,7 +321,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: if you accept, we load the fonts from Google’s servers (fonts.googleapis.com and fonts.gstatic.com), which means Google receives your IP address. If you do not accept, the site uses system fonts.',
           'Sentry: if you accept, we enable an error-monitoring tool that may record the browsing session to diagnose faults. If you do not accept, it is not loaded.',
-          'Google Maps: the map in the contact section follows the same consent choice as the fonts and Sentry — if you accept, it loads and may set Google cookies; if you do not accept, a notice with a button to load it is shown instead.',
+          'Google Maps: the map in the contact section follows the same consent choice as the fonts and Sentry. If you accept, it loads and may set Google cookies; if you do not accept, a notice with a button to load it is shown instead.',
         ],
       },
       {

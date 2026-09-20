@@ -7,14 +7,19 @@
     { "source": "/cookies", "destination": "/index.html" },
     { "source": "/aptis-oposiciones", "destination": "/index.html" },
     { "source": "/empresas", "destination": "/index.html" },
+    { "source": "/colegios", "destination": "/index.html" },
+    { "source": "/one-to-one", "destination": "/index.html" },
+    { "source": "/traduccion", "destination": "/index.html" },
+    { "source": "/newcastle", "destination": "/index.html" },
     { "source": "/level-test", "destination": "/index.html" },
+    { "source": "/alumnos", "destination": "/index.html" },
     { "source": "/test", "destination": "/index.html" }
   ],
   "headers": [
     {
       "source": "/",
       "headers": [
-        { "key": "Link", "value": "</img/hero-bg-new-960.webp>; rel=preload; as=image; fetchpriority=high" }
+        { "key": "Link", "value": "</img/tyne-bridge-hero-960.webp>; rel=preload; as=image; fetchpriority=high" }
       ]
     },
     {

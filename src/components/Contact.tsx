@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
@@ -10,13 +10,16 @@ import { RequiredMark } from './RequiredMark';
 
 const Contact = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: '',
     // Honeypot. Always empty for a real visitor; see Honeypot.tsx.
     website: '',
     phone: '',
     email: '',
-    // Deliberately empty. This used to default to 'Young Learners (3-6 años)',
+    organisation: '',
+    message: '',
+    // Deliberately empty. This used to default to a Young Learners option,
     // which meant every lead who ignored the dropdown was written to the
     // leads table as an under-6 enquiry they never made. The select is now
     // `required` with a disabled placeholder, so the visitor has to choose.
@@ -27,6 +30,11 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const interest = new URLSearchParams(location.search).get('interest');
+    if (interest) setFormData(prev => ({ ...prev, course: interest }));
+  }, [location.search]);
 
   // Embedding the map loads content from google.com, which — like Fonts and
   // Sentry — needs prior consent under Spanish cookie law. It shares the
@@ -40,7 +48,7 @@ const Contact = () => {
     return () => window.removeEventListener(CONSENT_CHANGED_EVENT, onConsentChange);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
     setFormData(prev => ({ ...prev, [name]: val }));
@@ -59,6 +67,8 @@ const Contact = () => {
     const name = formData.name.trim().slice(0, 120);
     const phone = formData.phone.trim().slice(0, 40);
     const email = formData.email.trim().slice(0, 160);
+    const organisation = formData.organisation.trim().slice(0, 160);
+    const message = formData.message.trim().slice(0, 1200);
 
     try {
       // submitLead resolves only once the row is actually stored, and throws
@@ -69,7 +79,11 @@ const Contact = () => {
         name,
         phone,
         email,
-        notes: `Curso de interés: ${formData.course}`,
+        notes: [
+          `Curso o servicio: ${formData.course}`,
+          organisation && `Centro / empresa: ${organisation}`,
+          message && `Mensaje: ${message}`
+        ].filter(Boolean).join('\n'),
         website: formData.website
       });
 
@@ -95,8 +109,8 @@ const Contact = () => {
         <SectionHeader
           section="contact"
           label={t('contact.badge')}
-          title={t('contact.title')}
-          lead={t('contact.desc')}
+          title={formData.course ? t('contact.service_title', { service: formData.course }) : t('contact.title')}
+          lead={formData.course ? t('contact.service_desc') : t('contact.desc')}
           align="center"
         />
 
@@ -120,8 +134,8 @@ const Contact = () => {
                 <div style={{
                   width: '72px',
                   height: '72px',
-                  backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                  color: '#10B981',
+                  backgroundColor: 'var(--color-gold-soft)',
+                  color: 'var(--color-gold-ink)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
@@ -140,7 +154,7 @@ const Contact = () => {
                 <button
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({ name: '', website: '', phone: '', email: '', course: '', gdpr: false });
+                    setFormData({ name: '', website: '', phone: '', email: '', organisation: '', message: '', course: '', gdpr: false });
                   }}
                   className="btn-gold"
                   style={{ padding: '0.8rem 1.8rem', fontSize: '0.95rem' }}
@@ -227,14 +241,49 @@ const Contact = () => {
                   <label htmlFor="contact-course" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_course')}<RequiredMark /></label>
                   <select id="contact-course" name="course" value={formData.course} onChange={handleChange} required className="premium-input">
                     <option value="" disabled>{t('contact.form_course_placeholder')}</option>
-                    <option value="Young Learners (3-6 años)">{t('contact.courses.yl36')}</option>
+                    <option value="Tyneside Explorers (3-5 años)">{t('contact.courses.yl36')}</option>
                     <option value="YLE Primaria (6-12 años)">{t('contact.courses.yle612')}</option>
                     <option value="Cambridge Adolescentes (ESO/Bachillerato)">{t('contact.courses.teens')}</option>
                     <option value="Cambridge Adultos (B1, B2, C1, C2)">{t('contact.courses.adults')}</option>
+                    <option value="Clases de conversación">{t('courses.speaking_title')}</option>
+                    <option value="Cursos intensivos">{t('courses.intensive_title')}</option>
                     <option value="FUNDAE / Formación Empresas">{t('contact.courses.fundae')}</option>
                     <option value="Clases Particulares One2One">{t('contact.courses.one2one')}</option>
+                    <option value="Servicios escolares y extraescolares">{t('contact.courses.schools')}</option>
+                    <option value="Traducción e interpretación">{t('contact.courses.translation')}</option>
+                    <option value="Trabaja con nosotros">{t('contact.courses.careers')}</option>
                     <option value="Otro">{t('contact.courses.other')}</option>
                   </select>
+                </div>
+
+                <div>
+                  <label htmlFor="contact-organisation" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_organisation')}</label>
+                  <input
+                    id="contact-organisation"
+                    type="text"
+                    name="organisation"
+                    value={formData.organisation}
+                    onChange={handleChange}
+                    autoComplete="organization"
+                    maxLength={160}
+                    placeholder={t('contact.form_organisation_placeholder')}
+                    className="premium-input"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="contact-message" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.6rem' }}>{t('contact.form_message')}</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    maxLength={1200}
+                    rows={4}
+                    placeholder={t('contact.form_message_placeholder')}
+                    className="premium-input"
+                    style={{ resize: 'vertical', minHeight: '7rem' }}
+                  />
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', marginTop: '0.5rem' }}>
@@ -286,7 +335,7 @@ const Contact = () => {
             }}>
               {mapConsent ? (
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0xd63821caee2d65d%3A0x8b39868f76bfd419!2sPlaza%20Tom%C3%A1s%20y%20Valiente%2C%2030006%20Puente%20Tocinos%2C%20Murcia%2C%20Spain!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps?q=Plaza+Tom%C3%A1s+y+Valiente+6,+Puente+Tocinos,+Murcia&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -340,7 +389,10 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_phone')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}><a href="tel:+34605661212">{t('contact.phone')}</a></p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)', display: 'flex', flexWrap: 'wrap', gap: '0.35rem 1rem' }}>
+                    <a href="tel:+34605661212">{t('contact.phone')}</a>
+                    <a href="tel:+34868056729">868 056 729</a>
+                  </p>
                 </div>
               </div>
 
@@ -350,7 +402,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>{t('contact.label_email')}</h4>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}><a href="mailto:info@tynesideacademy.com">{t('contact.email')}</a></p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-ink)' }}><a href="mailto:secretaria@tynesideacademy.com">secretaria@tynesideacademy.com</a></p>
                 </div>
               </div>
             </div>

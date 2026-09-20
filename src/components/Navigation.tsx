@@ -7,29 +7,22 @@ const Navigation = () => {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Glass while the bar overlaps the hero photo; solid navy once past it.
-  const [scrolled, setScrolled] = useState(() =>
-    typeof window !== 'undefined' ? window.scrollY > 24 : false
-  );
   useEffect(() => {
-    let frame = 0;
-    let current = window.scrollY > 24;
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        const next = window.scrollY > 24;
-        if (next === current) return;
-        current = next;
-        setScrolled(next);
-      });
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
     };
-  }, []);
+  }, [mobileMenuOpen]);
 
   const toggleLanguage = () => {
     const currentLang = i18n.language || 'es';
@@ -40,10 +33,10 @@ const Navigation = () => {
   const currentLangDisplay = (i18n.language || 'es').startsWith('en') ? 'EN' : 'ES';
 
   return (
-    <nav className={`floating-navbar animate-fade-in delay-100${scrolled || mobileMenuOpen ? ' is-solid' : ''}`}>
+    <nav className={`floating-navbar editorial-navbar${mobileMenuOpen ? ' is-solid' : ''}`}>
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          <img src="/logo-light.png" alt="Tyneside English Academy" width={600} height={600} />
+        <Link to="/" className="navbar-logo" aria-label="Tyneside English Academy, inicio">
+          <img src="/logo-light-nav.png" alt="Tyneside English Academy" width={360} height={209} />
         </Link>
 
         {/* Desktop Nav Links */}
@@ -53,6 +46,7 @@ const Navigation = () => {
           <a href="/#exam-prep" className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" className="navbar-link">{t('nav.contact')}</a>
+          <Link to="/alumnos" className="navbar-link navbar-student-link">{t('nav.students_short')}</Link>
 
           <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
@@ -64,7 +58,7 @@ const Navigation = () => {
           <a href={PRE_ENROLMENT_URL} className="navbar-link" style={{ fontWeight: 700 }}>
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}
           </a>
-          <Link to="/level-test" className="btn-gold" style={{ padding: '0.55rem 1.4rem', fontSize: '0.9rem' }}>
+          <Link to="/level-test" className="btn-editorial-nav">
             {t('nav.enroll')}
           </Link>
         </div>
@@ -97,29 +91,22 @@ const Navigation = () => {
 
       {/* Mobile Drawer (visible when open on small screens) */}
       {mobileMenuOpen && (
-        <div style={{
-          padding: '1.5rem 2rem',
-          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.2rem',
-          backgroundColor: 'rgba(9, 19, 30, 0.95)',
-          borderRadius: '0 0 var(--radius-md) var(--radius-md)'
-        }}>
+        <div className="mobile-nav-drawer">
           <a href="/#courses" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.courses')}</a>
           <a href="/#methodology" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.methodology')}</a>
           <a href="/#exam-prep" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.exams')}</a>
           <a href="/#services" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.services')}</a>
           <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="navbar-link">{t('nav.contact')}</a>
+          <Link to="/alumnos" onClick={() => setMobileMenuOpen(false)} className="navbar-link navbar-student-link">{t('nav.students')}</Link>
           <a href={PRE_ENROLMENT_URL} onClick={() => setMobileMenuOpen(false)} className="navbar-link" style={{ fontWeight: 700 }}>
             {t('nav.preenrol', { defaultValue: 'Matrícula' })}
           </a>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', paddingTop: '0.5rem' }}>
+          <div className="mobile-nav-actions">
             <button onClick={toggleLanguage} className="navbar-lang-btn" aria-label={t('nav.toggle_language')} title={t('nav.toggle_language')}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
               {currentLangDisplay}
             </button>
-            <Link to="/level-test" onClick={() => setMobileMenuOpen(false)} className="btn-gold" style={{ width: '100%', textAlign: 'center' }}>
+            <Link to="/level-test" onClick={() => setMobileMenuOpen(false)} className="btn-editorial-nav" style={{ width: '100%', textAlign: 'center' }}>
               {t('nav.enroll')}
             </Link>
           </div>

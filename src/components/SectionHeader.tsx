@@ -1,5 +1,3 @@
-import { sectionIndex } from '../lib/sections';
-
 interface SectionHeaderProps {
   /**
    * Section id from src/lib/sections.ts. The two-digit marker is derived from
@@ -39,12 +37,7 @@ const SectionHeader = ({
     className={`section-head${align === 'center' ? ' section-head-center' : ''}`}
     style={flush ? { marginBottom: 0 } : undefined}
   >
-    <div className="section-head-label">
-      <span className="section-head-num">{sectionIndex(section)}</span>
-      {/* Decorative: the label text alongside it already carries the meaning. */}
-      <span className="section-head-rule" aria-hidden="true" />
-      <span>{label}</span>
-    </div>
+    <div className="section-head-label" data-section={section}>{label}</div>
 
     <h2>{title}</h2>
 

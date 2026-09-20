@@ -62,31 +62,35 @@ const Testimonials = () => {
         />
 
         {GOOGLE_RATING && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-              gap: '0.75rem',
-              marginBottom: '3rem',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '2.4rem',
-                fontWeight: 800,
-                lineHeight: 1,
-                color: 'var(--color-ink)',
-              }}
-            >
-              {GOOGLE_RATING.score.toLocaleString(locale, { minimumFractionDigits: 1 })}
-            </span>
-            <Stars rating={Math.round(GOOGLE_RATING.score)} onDark={false} />
-            <span style={{ color: 'var(--color-ink-muted)' }}>
-              {t('testimonials.rating_count', { count: GOOGLE_RATING.count })}
-            </span>
+          <div className="reviews-proof-panel">
+            <div className="reviews-score-block">
+              <span className="reviews-score">
+                {GOOGLE_RATING.score.toLocaleString(locale, { minimumFractionDigits: 1 })}
+              </span>
+              <div>
+                <Stars rating={Math.round(GOOGLE_RATING.score)} onDark={false} />
+                <p className="reviews-source">{t('testimonials.public_rating')}</p>
+              </div>
+            </div>
+
+            <div className="reviews-count-block">
+              <strong>{GOOGLE_RATING.count}</strong>
+              <span>{t('testimonials.verified_reviews')}</span>
+            </div>
+
+            {GOOGLE_REVIEWS_URL && (
+              <a
+                href={GOOGLE_REVIEWS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold reviews-proof-cta"
+              >
+                <span>{t('testimonials.cta')}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                  <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                </svg>
+              </a>
+            )}
           </div>
         )}
 
@@ -98,22 +102,6 @@ const Testimonials = () => {
           </div>
         )}
 
-        {GOOGLE_REVIEWS_URL && (
-          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <a
-              href={GOOGLE_REVIEWS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-              style={{ color: 'var(--color-ink)', borderColor: 'rgba(9, 19, 30, 0.2)', backgroundColor: '#FFFFFF' }}
-            >
-              <span>{t('testimonials.cta')}</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                <path d="M7 17 17 7" /><path d="M7 7h10v10" />
-              </svg>
-            </a>
-          </div>
-        )}
       </div>
     </section>
   );

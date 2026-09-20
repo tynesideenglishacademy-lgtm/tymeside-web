@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
-import { PRE_ENROLMENT_URL, PRACTICE_EXAM_URL, hasPracticeExam } from '../lib/enrolmentLinks';
+import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 import { RequiredMark, OptionalMark } from './RequiredMark';
 import './LevelTest.css';
@@ -618,12 +618,9 @@ export default function LevelTest() {
                     Outlined rather than amber: the reserve-a-place button above
                     is still the action the academy wants. Hidden entirely until
                     VITE_EXAM_BASE_URL gives that app a URL. */}
-                {hasPracticeExam() && (
-                  <a
-                    href={PRACTICE_EXAM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('exam_click', { from: 'level_test_result' })}
+                <Link
+                    to="/alumnos"
+                    onClick={() => trackEvent('exam_click', { from: 'level_test_student_login' })}
                     className="lt-btn"
                     style={{
                       marginTop: 0,
@@ -636,14 +633,11 @@ export default function LevelTest() {
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" style={{ width: '1.5rem', height: '1.5rem' }} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
                     {t('levelTest.full_exam_cta')}
-                  </a>
-                )}
+                  </Link>
 
-                {hasPracticeExam() && (
-                  <div style={{ fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--color-ink-muted)', marginTop: '-0.4rem' }}>
+                <div style={{ fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--color-ink-muted)', marginTop: '-0.4rem' }}>
                     {t('levelTest.full_exam_note')}
                   </div>
-                )}
 
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-river-teal)' }}>
                    {emailStatus}

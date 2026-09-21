@@ -26,6 +26,11 @@ const initialState: SessionState = {
 export const useStudentSession = () => {
   const [state, setState] = useState<SessionState>(initialState);
   const lastSessionEvent = useRef<string | null>(null);
+  // signOut() below fires onAuthStateChange (SIGNED_OUT), which schedules its
+  // own resolveStudent(null) and would otherwise wipe the error message we're
+  // setting in the same branch a tick later. Set before signOut() and
+  // consumed once by the listener so that follow-up run is a no-op.
+  const suppressNextAuthEvent = useRef(false);
 
   const resolveStudent = useCallback(async (session: Session | null) => {
     if (!session) {
@@ -35,6 +40,7 @@ export const useStudentSession = () => {
 
     const role = session.user.app_metadata?.role;
     if (role !== 'Student') {
+      suppressNextAuthEvent.current = true;
       await supabase.auth.signOut();
       setState({
         loading: false,
@@ -52,6 +58,7 @@ export const useStudentSession = () => {
       .maybeSingle();
 
     if (error || !data) {
+      suppressNextAuthEvent.current = true;
       await supabase.auth.signOut();
       setState({
         loading: false,
@@ -84,6 +91,10 @@ export const useStudentSession = () => {
     });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (suppressNextAuthEvent.current) {
+        suppressNextAuthEvent.current = false;
+        return;
+      }
       window.setTimeout(() => {
         if (active) void resolveStudent(session);
       }, 0);

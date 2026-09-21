@@ -24,7 +24,6 @@ type ServiceCopy = {
   process: string[];
   ctaTitle: string;
   ctaText: string;
-  interest: string;
   download?: string;
   downloadLabel?: string;
 };
@@ -46,7 +45,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Reunión breve con el centro o AMPA.', 'Propuesta de grupos, horarios y presupuesto.', 'Comunicación y alta de familias.', 'Inicio, seguimiento e informes durante el curso.'],
       ctaTitle: 'Preparamos una propuesta para tu centro',
       ctaText: 'Cuéntanos el número aproximado de alumnos, las edades y el horario disponible. Te responderemos con una propuesta concreta.',
-      interest: 'Servicios escolares y extraescolares',
       download: '/downloads/dossier-colegios-tyneside-2026-27.pdf',
       downloadLabel: 'Descargar dossier 2026/27',
     },
@@ -65,7 +63,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Short planning meeting.', 'Group, timetable and budget proposal.', 'Family communication and enrolment.', 'Teaching, follow-up and reporting.'],
       ctaTitle: 'Request a proposal for your school',
       ctaText: 'Tell us the approximate number and ages of pupils and the available timetable. We will respond with a practical proposal.',
-      interest: 'School and after-school services',
       download: '/downloads/dossier-colegios-tyneside-2026-27.pdf',
       downloadLabel: 'Download the 2026/27 dossier',
     },
@@ -86,7 +83,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Nos cuentas tu objetivo y disponibilidad.', 'Valoramos tu nivel actual.', 'Proponemos profesor, formato y frecuencia.', 'Revisamos el progreso y ajustamos el plan.'],
       ctaTitle: 'Hablemos de tu objetivo',
       ctaText: 'Dinos para qué necesitas el inglés y cuándo puedes estudiar. Te orientaremos sobre el formato más eficaz.',
-      interest: 'Clases particulares One to One',
     },
     en: {
       eyebrow: 'Private tuition',
@@ -103,7 +99,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Tell us your goal and availability.', 'We assess your current level.', 'We propose a teacher, format and frequency.', 'We review progress and adjust the plan.'],
       ctaTitle: 'Tell us what you need English for',
       ctaText: 'Share your goal and available times. We will recommend the most effective format.',
-      interest: 'One to One private tuition',
     },
   },
   traduccion: {
@@ -122,7 +117,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Describe el documento o la reunión.', 'Indica idiomas, extensión y fecha límite.', 'Revisamos el material de forma confidencial.', 'Confirmamos alcance, plazo y presupuesto.'],
       ctaTitle: 'Solicita una valoración',
       ctaText: 'No envíes documentos sensibles en el primer mensaje. Cuéntanos el tipo de trabajo y te indicaremos el canal seguro para revisarlo.',
-      interest: 'Traducción e interpretación',
     },
     en: {
       eyebrow: 'Translation & interpreting',
@@ -139,7 +133,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Describe the document or meeting.', 'Provide languages, length and deadline.', 'We review the material confidentially.', 'We confirm scope, delivery and price.'],
       ctaTitle: 'Request an assessment',
       ctaText: 'Do not send sensitive documents in the first message. Describe the work and we will provide a secure review channel.',
-      interest: 'Translation and interpreting',
     },
   },
   newcastle: {
@@ -158,7 +151,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Consulta de edad, nivel y fechas.', 'Presentación del programa disponible.', 'Reunión informativa para familias.', 'Preparación lingüística y documentación previa.'],
       ctaTitle: 'Solicita información sobre la próxima experiencia',
       ctaText: 'Indícanos la edad y el nivel aproximado del alumno para informarte cuando haya fechas y plazas disponibles.',
-      interest: 'Viajes e inmersión en Newcastle',
     },
     en: {
       eyebrow: 'UK immersion',
@@ -175,7 +167,6 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
       process: ['Tell us the student age, level and dates.', 'Review the available programme.', 'Attend the family information meeting.', 'Complete language and document preparation.'],
       ctaTitle: 'Ask about the next Newcastle experience',
       ctaText: 'Tell us the student age and approximate level and we will contact you when dates and places are available.',
-      interest: 'Newcastle trips and immersion',
     },
   },
 };

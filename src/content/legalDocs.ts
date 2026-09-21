@@ -253,7 +253,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Tyneside English Academy: [PENDIENTE: registered name and NIF/CIF].',
           'Address: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia.',
-          'Data-protection contact: info@tynesideacademy.com.',
+          'Data-protection contact: secretaria@tynesideacademy.com.',
           '[PENDIENTE: state whether a Data Protection Officer (DPO) has been appointed and their contact details.]',
         ],
       },
@@ -269,7 +269,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '3. Legal basis',
         paragraphs: [
           'Processing is based on your consent, given when you tick the relevant box and submit the form (Art. 6(1)(a) GDPR).',
-          'You may withdraw consent at any time by writing to info@tynesideacademy.com, without affecting the lawfulness of earlier processing.',
+          'You may withdraw consent at any time by writing to secretaria@tynesideacademy.com, without affecting the lawfulness of earlier processing.',
         ],
       },
       {
@@ -291,7 +291,7 @@ const en: Record<LegalSlug, LegalDoc> = {
       {
         heading: '6. Your rights',
         paragraphs: [
-          'You may exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to info@tynesideacademy.com, stating the right you wish to exercise and attaching a copy of an identity document.',
+          'You may exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to secretaria@tynesideacademy.com, stating the right you wish to exercise and attaching a copy of an identity document.',
           'If you believe the processing does not comply with the rules, you may complain to the Spanish Data Protection Agency (www.aepd.es).',
         ],
       },

@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 export type ServiceSlug = 'colegios' | 'one-to-one' | 'traduccion' | 'newcastle';
 
@@ -177,11 +177,11 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
   const copy = COPY[slug][language];
   const contactUrl = `/?interest=${encodeURIComponent(SERVICE_INTEREST[slug])}#contact`;
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = `${copy.title} | Tyneside English Academy`;
-    return () => { document.title = previousTitle; };
-  }, [copy.title]);
+  usePageMeta({
+    title: `${copy.title} | Tyneside English Academy`,
+    description: copy.intro,
+    path: `/${slug}`,
+  });
 
   return (
     <>

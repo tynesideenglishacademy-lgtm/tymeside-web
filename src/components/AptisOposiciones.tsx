@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleRatingBadge from './GoogleRatingBadge';
 import Stars from './Stars';
@@ -6,6 +6,7 @@ import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimo
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 /**
  * Landing for the APTIS intensive aimed at the 2027 teaching oposiciones.
@@ -102,19 +103,7 @@ const AptisOposiciones = () => {
   // index.html carries the home page's title and description. Without this the
   // landing shows up in a search result, or in an ad preview, describing a
   // general English academy instead of the thing the visitor clicked on.
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = PAGE_TITLE;
-
-    const meta = document.querySelector('meta[name="description"]');
-    const previousDesc = meta?.getAttribute('content') ?? null;
-    meta?.setAttribute('content', PAGE_DESC);
-
-    return () => {
-      document.title = previousTitle;
-      if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
-    };
-  }, []);
+  usePageMeta({ title: PAGE_TITLE, description: PAGE_DESC, path: '/aptis-oposiciones' });
 
   const [form, setForm] = useState({ name: '', phone: '', email: '', website: '', gdpr: false });
   const [sending, setSending] = useState(false);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import Footer from './Footer';
 import { STUDENT_EXAM_BANK_URL, hasPracticeExam } from '../lib/enrolmentLinks';
 import { useStudentSession } from '../hooks/useStudentSession';
 import StudentLibrary from './StudentLibrary';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const StudentArea = () => {
   const { t } = useTranslation();
@@ -15,11 +16,7 @@ const StudentArea = () => {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = t('student_area.meta_title');
-    return () => { document.title = previousTitle; };
-  }, [t]);
+  usePageMeta({ title: t('student_area.meta_title'), path: '/alumnos' });
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

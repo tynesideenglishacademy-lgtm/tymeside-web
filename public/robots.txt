@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+# middleware.ts rewrites bot requests for real routes (/, /colegios, ...) to
+# these files internally; nothing should ever link to or index this path
+# directly.
+Disallow: /prerendered/
 
 Sitemap: https://www.tynesideacademy.com/sitemap.xml

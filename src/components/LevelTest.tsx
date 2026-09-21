@@ -7,6 +7,7 @@ import { Honeypot } from './Honeypot';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 import { RequiredMark, OptionalMark } from './RequiredMark';
+import { usePageMeta } from '../hooks/usePageMeta';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
@@ -159,7 +160,7 @@ const TOTAL_QUESTIONS = 50;
 const QUESTIONS_PER_STAGE = 5;
 
 export default function LevelTest() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [view, setView] = useState<'registration' | 'test' | 'results'>('registration');
   const [isLoading, setIsLoading] = useState(false);
   const [student, setStudent] = useState<any>({});
@@ -186,19 +187,11 @@ export default function LevelTest() {
 
   // index.html carries the home page's title/description. This route is shared
   // publicly on its own (WhatsApp, the CRM admin header), so it needs its own.
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = t('levelTest.page_title');
-
-    const meta = document.querySelector('meta[name="description"]');
-    const previousDesc = meta?.getAttribute('content') ?? null;
-    meta?.setAttribute('content', t('levelTest.page_desc'));
-
-    return () => {
-      document.title = previousTitle;
-      if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
-    };
-  }, [i18n.resolvedLanguage, t]);
+  usePageMeta({
+    title: t('levelTest.page_title'),
+    description: t('levelTest.page_desc'),
+    path: '/level-test',
+  });
 
   const handleRegistration = (e: React.FormEvent) => {
     e.preventDefault();

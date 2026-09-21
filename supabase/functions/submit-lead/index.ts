@@ -169,10 +169,11 @@ Deno.serve(async (req: Request) => {
   }
 
   const source = clean(payload.source, 40);
-  const tag = SOURCE_TAGS[source];
-  if (!tag) {
+  const isValidSource = Object.prototype.hasOwnProperty.call(SOURCE_TAGS, source);
+  if (!isValidSource) {
     return json({ error: 'unknown_source' }, 400, origin);
   }
+  const tag = SOURCE_TAGS[source];
 
   const name = clean(payload.name, 120);
   const email = clean(payload.email, 160);

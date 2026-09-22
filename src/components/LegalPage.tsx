@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import { LEGAL_DOCS, LEGAL_SLUGS, type LegalSlug } from '../content/legalDocs';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 /**
  * Renders one of the three legal pages (Aviso Legal, Política de Privacidad,
@@ -19,19 +19,11 @@ const LegalPage = ({ slug }: { slug: LegalSlug }) => {
   const lang = (i18n.language || 'es').startsWith('en') ? 'en' : 'es';
   const doc = LEGAL_DOCS[lang][slug];
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = `${doc.title} | Tyneside English Academy`;
-
-    const meta = document.querySelector('meta[name="description"]');
-    const previousDesc = meta?.getAttribute('content') ?? null;
-    meta?.setAttribute('content', doc.intro);
-
-    return () => {
-      document.title = previousTitle;
-      if (previousDesc !== null) meta?.setAttribute('content', previousDesc);
-    };
-  }, [doc.title, doc.intro]);
+  usePageMeta({
+    title: `${doc.title} | Tyneside English Academy`,
+    description: doc.intro,
+    path: `/${slug}`,
+  });
 
   const others = LEGAL_SLUGS.filter((s) => s !== slug);
 

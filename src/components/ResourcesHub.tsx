@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 type LevelResource = {
   level: string;
@@ -24,13 +24,15 @@ const ResourcesHub = () => {
   const { i18n } = useTranslation();
   const english = i18n.resolvedLanguage?.startsWith('en');
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = english
+  usePageMeta({
+    title: english
       ? 'English exam resources A2–C2 | Tyneside English Academy'
-      : 'Recursos de inglés A2–C2 | Tyneside English Academy';
-    return () => { document.title = previousTitle; };
-  }, [english]);
+      : 'Recursos de inglés A2–C2 | Tyneside English Academy',
+    description: english
+      ? 'Official Cambridge preparation links from A2 Key to C2 Proficiency, free Tyneside practice and a private library for our students.'
+      : 'Enlaces oficiales de preparación Cambridge de A2 Key a C2 Proficiency, práctica gratuita Tyneside y una biblioteca privada para nuestros alumnos.',
+    path: '/recursos',
+  });
 
   return (
     <>

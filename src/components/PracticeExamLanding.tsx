@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import { PRACTICE_EXAM_URL } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const copy = {
   es: {
@@ -66,25 +66,13 @@ const PracticeExamLanding = () => {
   const language = i18n.resolvedLanguage?.startsWith('en') ? 'en' : 'es';
   const text = copy[language];
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    const previousDescription = description?.content;
-    const previousCanonical = canonical?.href;
-
-    document.title = language === 'es'
+  usePageMeta({
+    title: language === 'es'
       ? 'Examen completo de inglés gratis | Tyneside English Academy'
-      : 'Free full English practice exam | Tyneside English Academy';
-    if (description) description.content = text.lead;
-    if (canonical) canonical.href = 'https://www.tynesideacademy.com/examen-prueba-ingles';
-
-    return () => {
-      document.title = previousTitle;
-      if (description && previousDescription) description.content = previousDescription;
-      if (canonical && previousCanonical) canonical.href = previousCanonical;
-    };
-  }, [language, text.lead]);
+      : 'Free full English practice exam | Tyneside English Academy',
+    description: text.lead,
+    path: '/examen-prueba-ingles',
+  });
 
   const registerLaunch = () => trackEvent('exam_click', { from: 'public_landing' });
 

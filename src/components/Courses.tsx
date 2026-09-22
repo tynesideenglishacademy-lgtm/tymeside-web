@@ -35,7 +35,7 @@ const Courses = () => {
                 <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                 <h3>{t(course.titleKey)}</h3>
                 <p>{t(course.descKey)}</p>
-                <Link to={`/?interest=${encodeURIComponent(course.interest)}#contact`} className="text-link">{t('courses.more')}</Link>
+                <Link to={`/?interest=${encodeURIComponent(course.interest)}#contact`} className="text-link" rel="nofollow">{t('courses.more')}</Link>
               </div>
             </article>
           ))}

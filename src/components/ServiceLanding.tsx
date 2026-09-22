@@ -196,7 +196,7 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
             <h1>{copy.title}</h1>
             <p>{copy.intro}</p>
             <div className="service-page-actions">
-              <Link className="btn-gold" to={contactUrl}>{language === 'es' ? 'Solicitar información' : 'Request information'}</Link>
+              <Link className="btn-gold" to={contactUrl} rel="nofollow">{language === 'es' ? 'Solicitar información' : 'Request information'}</Link>
               <Link className="service-page-back" to="/#services">{language === 'es' ? 'Ver todos los servicios' : 'View all services'}</Link>
             </div>
           </div>
@@ -228,7 +228,7 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
                 <p>{copy.ctaText}</p>
               </div>
               <div className="service-page-actions">
-                <Link className="btn-gold" to={contactUrl}>{language === 'es' ? 'Hablar con secretaría' : 'Contact reception'}</Link>
+                <Link className="btn-gold" to={contactUrl} rel="nofollow">{language === 'es' ? 'Hablar con secretaría' : 'Contact reception'}</Link>
                 {copy.download && copy.downloadLabel && <a className="btn-secondary" href={copy.download} download>{copy.downloadLabel}</a>}
               </div>
             </aside>

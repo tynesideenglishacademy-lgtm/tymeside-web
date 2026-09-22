@@ -154,10 +154,32 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'rate_limited' }, 429, origin);
   }
 
+  // Security: Enforce a strict byte limit on the incoming request body stream
+  // before parsing it into memory. Trusting the client's Content-Length header
+  // is unsafe as it can be easily spoofed to bypass checks and cause OOM DoS.
+  const MAX_PAYLOAD_BYTES = 10 * 1024; // 10KB
+  let bytesRead = 0;
+  const limitedStream = req.body?.pipeThrough(
+    new TransformStream({
+      transform(chunk, controller) {
+        bytesRead += chunk.byteLength;
+        if (bytesRead > MAX_PAYLOAD_BYTES) {
+          controller.error(new Error('payload_too_large'));
+        } else {
+          controller.enqueue(chunk);
+        }
+      },
+    })
+  );
+
   let payload: Record<string, unknown>;
   try {
-    payload = await req.json();
-  } catch {
+    if (!limitedStream) throw new Error('missing_body');
+    payload = await new Response(limitedStream).json();
+  } catch (err) {
+    if (err instanceof Error && err.message === 'payload_too_large') {
+      return json({ error: 'payload_too_large' }, 413, origin);
+    }
     return json({ error: 'invalid_json' }, 400, origin);
   }
 

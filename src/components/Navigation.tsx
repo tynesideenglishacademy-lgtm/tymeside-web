@@ -12,19 +12,43 @@ const Navigation = () => {
   );
 
   useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        setScrolled(window.scrollY > 28);
-      });
-    };
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
 
-    window.addEventListener('scroll', update, { passive: true });
+    // ⚡ Bolt: Replaced global window.addEventListener('scroll') with an IntersectionObserver.
+    // Instead of querying window.scrollY repeatedly (causing layout thrashing on the main thread),
+    // we observe a sentinel element at the top of the body. When it leaves the viewport, we know
+    // the user has scrolled past it. This removes synchronous layout reads during scrolling.
+    const sentinelId = 'nav-scroll-sentinel';
+    let sentinel = document.getElementById(sentinelId);
+    let created = false;
+
+    if (!sentinel) {
+      sentinel = document.createElement('div');
+      sentinel.id = sentinelId;
+      sentinel.style.position = 'absolute';
+      sentinel.style.top = '0';
+      sentinel.style.height = '28px';
+      sentinel.style.width = '1px';
+      sentinel.style.pointerEvents = 'none';
+      sentinel.style.visibility = 'hidden';
+      document.body.appendChild(sentinel);
+      created = true;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener('scroll', update);
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      if (created && sentinel?.parentNode) {
+        sentinel.parentNode.removeChild(sentinel);
+      }
     };
   }, []);
 

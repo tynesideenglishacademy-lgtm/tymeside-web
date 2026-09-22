@@ -46,18 +46,15 @@ const PLAN = {
 const UNUSED = ['trips.png', 'hero-bg.jpg'];
 
 /**
- * The Open Graph card, built separately because it has fixed requirements:
- * 1200x630 is the size Facebook and WhatsApp crop to, and their scrapers are
- * unreliable with WebP, so this one stays JPEG.
+ * public/img/og-banner.jpg (the Open Graph / share-preview card) is NOT
+ * built here. It used to be cropped from design-source/banner1.png, a
+ * mockup from an earlier design pass that drifted out of sync with the
+ * live site (English nav copy, an "Apply Now" button, a "Learn More" CTA
+ * that no longer exist) while the real homepage moved on underneath it,
+ * so every link share kept showing a stale hero. It's now generated
+ * straight from the live hero via `node scripts/generate-og-image.mjs`
+ * (see that file), which can't go stale the same way.
  */
-async function buildOgImage() {
-  const dest = join(OUT, 'og-banner.jpg');
-  const info = await sharp(join(SRC, 'banner1.png'))
-    .resize(1200, 630, { fit: 'cover', position: 'centre' })
-    .jpeg({ quality: 82, mozjpeg: true })
-    .toFile(dest);
-  console.log(`${dest}  ${kb(info.size)}  (Open Graph card)\n`);
-}
 
 const kb = (n) => `${Math.round(n / 1024)} KB`;
 
@@ -95,8 +92,6 @@ async function main() {
 
     console.log(`${file}: ${kb(size)} -> ${PLAN[file].length} webp variants\n`);
   }
-
-  await buildOgImage();
 
   console.log(`Sources: ${kb(before)}  ->  derivatives: ${kb(after)}`);
   console.log(`\nUnused originals (excluded from the build): ${UNUSED.join(', ')}`);

@@ -29,8 +29,27 @@ const ROUTE_TO_SNAPSHOT: Record<string, string> = {
   '/examen-prueba-ingles': 'examen-prueba-ingles',
 };
 
+// Vercel statically parses this export at build time to build its edge
+// routing manifest — it can only evaluate literal expressions, not
+// `Object.keys(...)` or any other computed value (that failed the build
+// with "Unhandled type: CallExpression"). Keep this array's routes in sync
+// with ROUTE_TO_SNAPSHOT above and with ROUTES in scripts/prerender.mjs.
 export const config = {
-  matcher: Object.keys(ROUTE_TO_SNAPSHOT),
+  matcher: [
+    '/',
+    '/aviso-legal',
+    '/privacidad',
+    '/cookies',
+    '/aptis-oposiciones',
+    '/empresas',
+    '/colegios',
+    '/one-to-one',
+    '/traduccion',
+    '/newcastle',
+    '/level-test',
+    '/recursos',
+    '/examen-prueba-ingles',
+  ],
 };
 
 export default function middleware(request: Request) {

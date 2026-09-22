@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
-import { STUDENT_EXAM_BANK_URL, hasPracticeExam } from '../lib/enrolmentLinks';
+import { STUDENT_EXAM_BANK_URL } from '../lib/enrolmentLinks';
 import { useStudentSession } from '../hooks/useStudentSession';
 import StudentLibrary from './StudentLibrary';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -98,9 +98,7 @@ const StudentArea = () => {
                       <h3>{t('student_area.exam_bank')}</h3>
                       <p>{t('student_area.exam_desc')}</p>
                     </div>
-                    {hasPracticeExam() ? (
-                      <a href={STUDENT_EXAM_BANK_URL} target="_blank" rel="noopener noreferrer" onClick={openExamBank} className="btn-editorial-primary">{t('student_area.exam_open')}</a>
-                    ) : <p className="student-module-status">{t('student_area.exam_unavailable')}</p>}
+                    <a href={STUDENT_EXAM_BANK_URL} target="_blank" rel="noopener noreferrer" onClick={openExamBank} className="btn-editorial-primary">{t('student_area.exam_open')}</a>
                   </article>
                   <article className="student-module student-module-library">
                     <div>

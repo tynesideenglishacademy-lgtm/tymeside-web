@@ -103,6 +103,3 @@ export const PRACTICE_EXAM_URL = `${EXAM_BASE}/exam-demo`;
 
 /** Student-facing entrance to the exam engine, reached from authenticated access. */
 export const STUDENT_EXAM_BANK_URL = `${EXAM_BASE}/student`;
-
-/** True once the exam app has a URL, i.e. once it is safe to link to it. */
-export const hasPracticeExam = () => EXAM_BASE !== '';

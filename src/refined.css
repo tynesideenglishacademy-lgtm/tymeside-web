@@ -225,6 +225,20 @@ body {
   color: var(--refined-gold);
 }
 
+/* Adds a real-copy keyword line under the tagline so the H1 isn't just
+   three isolated marketing words with no relation to the page's body
+   text (an SEO flag: search engines weight H1 heavily and expect it to
+   echo the page's actual subject). Kept visually subordinate to the
+   tagline via size/letter-spacing rather than the display-scale type. */
+.site-refined .editorial-hero h1 .hero-subtitle {
+  margin-top: 0.5rem;
+  color: #d7e1e7;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
 .site-refined .editorial-hero-lead {
   max-width: 34rem;
   color: #d7e1e7;

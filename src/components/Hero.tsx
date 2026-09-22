@@ -13,6 +13,7 @@ const Hero = () => {
           <span>Learn.</span>
           <span>Grow.</span>
           <span className="hero-gold">Connect.</span>
+          <span className="hero-subtitle">{t('hero.h1_subtitle')}</span>
         </h1>
         <p className="editorial-hero-lead">{t('hero.h1')}</p>
 

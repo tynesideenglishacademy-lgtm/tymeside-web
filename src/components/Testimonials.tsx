@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
-import { hasSocialProof } from '../lib/sections';
+import { hasSocialProof } from '../lib/socialProof';
 import type { Testimonial } from '../data/testimonials';
 
 const ReviewCard = ({ review, english }: { review: Testimonial; english: boolean }) => (

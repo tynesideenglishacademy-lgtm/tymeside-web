@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { jsPDF } from 'jspdf';
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
@@ -345,8 +344,9 @@ export default function LevelTest() {
     }, 2000);
   };
 
-  const downloadCertificate = () => {
+  const downloadCertificate = async () => {
     try {
+      const { jsPDF } = await import('jspdf');
       const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
       const width = doc.internal.pageSize.getWidth();
       const height = doc.internal.pageSize.getHeight();

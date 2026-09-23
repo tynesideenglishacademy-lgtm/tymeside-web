@@ -1,9 +1,5 @@
 interface SectionHeaderProps {
-  /**
-   * Section id from src/lib/sections.ts. The two-digit marker is derived from
-   * its position there rather than passed in, so a section that is hidden or
-   * reordered can never leave a hole in the sequence.
-   */
+  /** Stable section id exposed as a data attribute for styling and testing. */
   section: string;
   label: string;
   title: string;

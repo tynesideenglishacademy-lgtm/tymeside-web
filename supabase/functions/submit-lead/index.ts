@@ -14,6 +14,7 @@
 // everything below is the validation that boundary exists to enforce.
 
 import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2';
+import { readJsonCapped } from './body.ts';
 
 /**
  * Where the lead came from. The tag is written into `notes` here rather than by
@@ -154,12 +155,17 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'rate_limited' }, 429, origin);
   }
 
-  let payload: Record<string, unknown>;
-  try {
-    payload = await req.json();
-  } catch {
+  const body = await readJsonCapped(req);
+  if (!body.ok) {
+    return body.reason === 'too_large'
+      ? json({ error: 'payload_too_large' }, 413, origin)
+      : json({ error: 'invalid_json' }, 400, origin);
+  }
+  // null, arrays and scalar JSON values are valid JSON, but not lead payloads.
+  if (body.value === null || typeof body.value !== 'object' || Array.isArray(body.value)) {
     return json({ error: 'invalid_json' }, 400, origin);
   }
+  const payload = body.value as Record<string, unknown>;
 
   // Honeypot. The forms render a field no human ever sees; a bot that fills
   // every input trips it. Answer 200 so the bot has nothing to tune against,
@@ -169,7 +175,7 @@ Deno.serve(async (req: Request) => {
   }
 
   const source = clean(payload.source, 40);
-  const tag = SOURCE_TAGS[source];
+  const tag = Object.hasOwn(SOURCE_TAGS, source) ? SOURCE_TAGS[source] : undefined;
   if (!tag) {
     return json({ error: 'unknown_source' }, 400, origin);
   }

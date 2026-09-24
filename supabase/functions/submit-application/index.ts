@@ -2,6 +2,7 @@ import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2';
 
 const BUCKET = 'career-applications';
 const MAX_FILE_BYTES = 6 * 1024 * 1024;
+const MAX_PAYLOAD_BYTES = MAX_FILE_BYTES + 1024 * 1024; // Allow 1MB for form overhead
 const RATE_LIMIT = 3;
 const RATE_WINDOW_MS = 30 * 60 * 1000;
 const ALLOWED_TYPES = new Set([
@@ -96,7 +97,33 @@ Deno.serve(async (req) => {
   if (await isRateLimited(admin, ip)) return json({ error: 'rate_limited' }, 429, origin);
 
   let form: FormData;
-  try { form = await req.formData(); } catch { return json({ error: 'invalid_form' }, 400, origin); }
+  try {
+    if (!req.body) throw new Error('empty_body');
+    let readBytes = 0;
+    const bodyLimiter = new TransformStream({
+      transform(chunk, controller) {
+        readBytes += chunk.byteLength;
+        if (readBytes > MAX_PAYLOAD_BYTES) {
+          controller.error(new Error('payload_too_large'));
+        } else {
+          controller.enqueue(chunk);
+        }
+      },
+    });
+    const limitedReq = new Request(req.url, {
+      method: req.method,
+      headers: req.headers,
+      body: req.body.pipeThrough(bodyLimiter),
+      duplex: 'half'
+    });
+    form = await limitedReq.formData();
+  } catch (error) {
+    if (error instanceof Error && error.message === 'payload_too_large') {
+      return json({ error: 'payload_too_large' }, 413, origin);
+    }
+    return json({ error: 'invalid_form' }, 400, origin);
+  }
+
   if (clean(form.get('website'), 200)) return json({ ok: true }, 200, origin);
 
   const name = clean(form.get('name'), 120);

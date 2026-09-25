@@ -15,31 +15,34 @@ export async function readJsonCapped(req: Request, maxBytes = MAX_BODY_BYTES): P
 
   if (!req.body) return { ok: false, reason: 'invalid_json' };
 
-  const reader = req.body.getReader();
-  const chunks: Uint8Array[] = [];
+  // Security Enhancement: Protect against OOM DoS vulnerabilities.
+  // Use a TransformStream instead of buffering the entire payload into a Uint8Array.
   let received = 0;
+  const bodyLimiter = new TransformStream({
+    transform(chunk, controller) {
+      received += chunk.byteLength;
+      if (received > maxBytes) {
+        controller.error(new Error('too_large'));
+      } else {
+        controller.enqueue(chunk);
+      }
+    },
+  });
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    received += value.byteLength;
-    if (received > maxBytes) {
-      await reader.cancel().catch(() => {});
-      return { ok: false, reason: 'too_large' };
-    }
-    chunks.push(value);
-  }
-
-  const bytes = new Uint8Array(received);
-  let offset = 0;
-  for (const chunk of chunks) {
-    bytes.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
+  const limitedReq = new Request(req.url, {
+    method: req.method,
+    headers: req.headers,
+    body: req.body.pipeThrough(bodyLimiter),
+    duplex: 'half',
+  });
 
   try {
-    return { ok: true, value: JSON.parse(new TextDecoder().decode(bytes)) };
-  } catch {
+    const value = await limitedReq.json();
+    return { ok: true, value };
+  } catch (error) {
+    if (error instanceof Error && error.message === 'too_large') {
+      return { ok: false, reason: 'too_large' };
+    }
     return { ok: false, reason: 'invalid_json' };
   }
 }

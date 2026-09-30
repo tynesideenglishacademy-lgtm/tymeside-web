@@ -11,28 +11,30 @@ import { RequiredMark } from './RequiredMark';
 const Contact = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const [formData, setFormData] = useState(() => {
-    const interest = new URLSearchParams(location.search).get('interest');
-    return {
-      name: '',
-      // Honeypot. Always empty for a real visitor; see Honeypot.tsx.
-      website: '',
-      phone: '',
-      email: '',
-      organisation: '',
-      message: '',
-      // Deliberately empty. This used to default to a Young Learners option,
-      // which meant every lead who ignored the dropdown was written to the
-      // leads table as an under-6 enquiry they never made. The select is now
-      // `required` with a disabled placeholder, so the visitor has to choose.
-      course: interest || '',
-      gdpr: false
-    };
+  const [formData, setFormData] = useState({
+    name: '',
+    // Honeypot. Always empty for a real visitor; see Honeypot.tsx.
+    website: '',
+    phone: '',
+    email: '',
+    organisation: '',
+    message: '',
+    // Deliberately empty. This used to default to a Young Learners option,
+    // which meant every lead who ignored the dropdown was written to the
+    // leads table as an under-6 enquiry they never made. The select is now
+    // `required` with a disabled placeholder, so the visitor has to choose.
+    course: '',
+    gdpr: false
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const interest = new URLSearchParams(location.search).get('interest');
+    if (interest) setFormData(prev => ({ ...prev, course: interest }));
+  }, [location.search]);
 
   // Embedding the map loads content from google.com, which — like Fonts and
   // Sentry — needs prior consent under Spanish cookie law. It shares the

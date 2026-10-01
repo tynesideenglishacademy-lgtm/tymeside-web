@@ -116,7 +116,7 @@ const Testimonials = () => {
               <i />
               <span>{String(testimonials.length).padStart(2, '0')}</span>
             </div>
-            <div className="reviews-carousel-stage">
+            <div className="reviews-carousel-stage" aria-live="polite">
               <ReviewCard key={testimonials[activeReview].id} review={testimonials[activeReview]} english={locale === 'en-GB'} />
             </div>
             <div className="reviews-carousel-controls">

@@ -1,4 +1,14 @@
-/** Five stars, filled to `rating`. Shared by the hero badge and the reviews grid. */
+import { memo } from 'react';
+
+/**
+ * Five stars, filled to `rating`. Shared by the hero badge and the reviews grid.
+ *
+ * ⚡ Bolt Performance Optimization:
+ * Wrapped in React.memo() to prevent unnecessary re-renders.
+ * This component is heavily used in the Testimonials carousel, which triggers
+ * state updates every 6.5s. Memoization avoids re-rendering the 5 SVG elements
+ * on every tick when the props (rating, size, onDark) haven't changed.
+ */
 const Stars = ({ rating, size = 17, onDark = true }: { rating: number; size?: number; onDark?: boolean }) => (
   <div
     style={{ display: 'inline-flex', gap: '0.1rem', color: onDark ? 'var(--color-gold)' : 'var(--color-gold-ink)' }}
@@ -23,4 +33,4 @@ const Stars = ({ rating, size = 17, onDark = true }: { rating: number; size?: nu
   </div>
 );
 
-export default Stars;
+export default memo(Stars);

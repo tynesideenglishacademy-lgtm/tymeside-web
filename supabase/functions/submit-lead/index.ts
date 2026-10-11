@@ -132,6 +132,9 @@ Deno.serve(async (req: Request) => {
   if (req.method !== 'POST') {
     return json({ error: 'method_not_allowed' }, 405, origin);
   }
+  if (!isAllowedOrigin(origin)) {
+    return json({ error: 'origin_not_allowed' }, 403, origin);
+  }
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL');
   const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');

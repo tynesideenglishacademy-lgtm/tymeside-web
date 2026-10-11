@@ -314,6 +314,9 @@ const Contact = () => {
                   className="btn-gold"
                   style={{ width: '100%', padding: '1.1rem', marginTop: '0.5rem', opacity: isSubmitting ? 0.7 : 1 }}
                 >
+                  {isSubmitting && (
+                    <div style={{ width: '1.1rem', height: '1.1rem', border: '2px solid rgba(0,0,0,0.15)', borderTopColor: 'currentColor', borderRadius: '50%', animation: 'spin 1s linear infinite' }} aria-hidden="true"></div>
+                  )}
                   {isSubmitting ? t('contact.sending') : failed ? t('contact.retry') : t('contact.submit')}
                 </button>
 

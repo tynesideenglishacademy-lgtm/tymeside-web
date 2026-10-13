@@ -13,7 +13,8 @@
     "build": "tsc -b && vite build",
     "prerender": "vite build && node scripts/prerender.mjs",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "export:review": "node scripts/export-review-sheet.mjs"
   },
   "dependencies": {
     "@sentry/react": "^10.70.0",

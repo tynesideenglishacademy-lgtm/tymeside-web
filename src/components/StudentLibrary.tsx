@@ -7,6 +7,9 @@ import {
   type StudentResource,
   type StudentWorksheet,
 } from '../data/studentResources';
+import { studyUnits } from '../data/library';
+import { isVisible } from '../data/library/publication';
+import StudyUnits from './StudyUnits';
 
 type ActivityEvent = {
   eventType: string;
@@ -21,7 +24,11 @@ type Props = {
   previewDownloads?: boolean;
 };
 
-const levels = ['All', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
+// True when at least one study unit is visible to students (drafts are hidden
+// in production until a teacher marks them reviewed).
+const libraryHasUnits = studyUnits.some(isVisible);
+
+const levels = ['All', 'A2', 'Pre-B1', 'B1', 'B2', 'C1', 'C2'] as const;
 type LevelFilter = (typeof levels)[number];
 
 function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWorksheet; trackActivity: Props['trackActivity']; english: boolean }) {
@@ -63,7 +70,11 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
   return (
     <article className={`student-worksheet${started ? ' is-started' : ''}`}>
       <header>
-        <div className="student-resource-meta"><span>{worksheet.level}</span><span>{worksheet.topic ?? (english ? 'Online practice' : 'Práctica online')}</span></div>
+        <div className="student-resource-meta">
+          <span>{worksheet.level}</span>
+          <span>{worksheet.topic ?? (english ? 'Online practice' : 'Práctica online')}</span>
+          {worksheet.status === 'draft' && <span className="student-draft-tag">{english ? 'Draft' : 'Borrador'}</span>}
+        </div>
         <h3>{worksheet.title}</h3>
         <p>{worksheet.focus}</p>
         <small>{worksheet.duration} · {worksheet.questions.length} {english ? 'questions · instant feedback' : 'preguntas · corrección inmediata'}</small>
@@ -95,7 +106,14 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
                   );
                 })}
               </div>
-              {submitted && <p className="student-answer-explanation">{question.explanation}</p>}
+              {submitted && (
+                <p className="student-answer-explanation">
+                  {answers[questionIndex] === question.answer
+                    ? <strong>{english ? 'Correct. ' : 'Correcto. '}</strong>
+                    : <strong>{english ? 'Not quite. ' : 'No exactamente. '}{english ? 'Correct answer: ' : 'Respuesta correcta: '}{question.options[question.answer]}. </strong>}
+                  {question.explanation}
+                </p>
+              )}
             </fieldset>
           ))}
           {submitted ? (
@@ -129,9 +147,16 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
     [level],
   );
   const filteredWorksheets = useMemo(
-    () => level === 'All' ? studentWorksheets : studentWorksheets.filter((worksheet) => worksheet.level === level),
+    () => studentWorksheets.filter(isVisible).filter((worksheet) => level === 'All' || worksheet.level === level),
     [level],
   );
+  const filteredUnits = useMemo(
+    () => studyUnits.filter(isVisible).filter((unit) => level === 'All' || unit.level === level),
+    [level],
+  );
+  const hasGuides = filteredResources.length > 0;
+  const unitsChapter = String(hasGuides ? 2 : 1).padStart(2, '0');
+  const worksheetsChapter = String((hasGuides ? 1 : 0) + (libraryHasUnits ? 1 : 0) + 1).padStart(2, '0');
 
   const toggleResource = (resource: StudentResource) => {
     const willOpen = openResource !== resource.key;
@@ -196,7 +221,7 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
           </div>
         </div>
 
-        {filteredResources.length > 0 && (
+        {hasGuides && (
         <div className="student-library-chapter">
           <div className="student-chapter-title"><span>01</span><div><p>{english ? 'Downloadable guides' : 'Guías descargables'}</p><h3>{english ? 'Your exam toolkit' : 'Tu kit de preparación'}</h3></div></div>
           <div className="student-resource-grid">
@@ -221,11 +246,22 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
         </div>
         )}
 
+        {libraryHasUnits && (
+        <div className="student-library-chapter student-units-chapter">
+          <div className="student-chapter-title"><span>{unitsChapter}</span><div><p>{english ? 'Study units' : 'Unidades de estudio'}</p><h3>{english ? 'Learn it, try it, use it' : 'Aprende, prueba y utiliza'}</h3></div></div>
+          <StudyUnits key={level} units={filteredUnits} trackActivity={trackActivity} english={english} />
+        </div>
+        )}
+
         <div className="student-library-chapter student-worksheet-chapter">
-          <div className="student-chapter-title"><span>{filteredResources.length > 0 ? '02' : '01'}</span><div><p>{english ? 'Practice online' : 'Práctica online'}</p><h3>{english ? 'Short, useful, self-marking' : 'Breve, útil y con autocorrección'}</h3></div></div>
-          <div className="student-worksheet-list">
-            {filteredWorksheets.map((worksheet) => <Worksheet key={worksheet.key} worksheet={worksheet} trackActivity={trackActivity} english={english} />)}
-          </div>
+          <div className="student-chapter-title"><span>{worksheetsChapter}</span><div><p>{english ? 'Practice online' : 'Práctica online'}</p><h3>{english ? 'Short, useful, self-marking' : 'Breve, útil y con autocorrección'}</h3></div></div>
+          {filteredWorksheets.length > 0 ? (
+            <div className="student-worksheet-list">
+              {filteredWorksheets.map((worksheet) => <Worksheet key={worksheet.key} worksheet={worksheet} trackActivity={trackActivity} english={english} />)}
+            </div>
+          ) : (
+            <p className="student-empty-note">{english ? 'New practice sets for this level are on their way.' : 'Pronto habrá nuevas actividades para este nivel.'}</p>
+          )}
         </div>
       </div>
     </section>

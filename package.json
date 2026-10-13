@@ -8,6 +8,7 @@
     "images": "node scripts/optimize-images.mjs",
     "og-image": "node scripts/generate-og-image.mjs",
     "upload:student-resources": "node scripts/upload-student-resources.mjs",
+    "validate:library": "node scripts/validate-student-library.mjs",
     "verify:connections": "node scripts/verify-live-connections.mjs",
     "build": "tsc -b && vite build",
     "prerender": "vite build && node scripts/prerender.mjs",

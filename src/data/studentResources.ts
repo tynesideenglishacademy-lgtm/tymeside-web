@@ -4,7 +4,21 @@ import { b2Worksheets } from './worksheets/b2';
 import { c1Worksheets } from './worksheets/c1';
 import { c2Worksheets } from './worksheets/c2';
 
-export type StudentLevel = 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+/**
+ * Levels follow the academy's class pathway (A2 Key, Pre-B1, B1 Preliminary,
+ * B2 First, C1 Advanced, C2 Proficiency). Pre-B1 is a Tyneside class level,
+ * not an official CEFR band. Labels on new material are provisional until a
+ * teacher has reviewed them (see ContentStatus).
+ */
+export type StudentLevel = 'A2' | 'Pre-B1' | 'B1' | 'B2' | 'C1' | 'C2';
+
+/**
+ * 'draft' = written but not yet checked by a teacher. Draft material is hidden
+ * from the live student area unless VITE_SHOW_DRAFT_RESOURCES is 'true' (or
+ * the app is running in dev). Set to 'reviewed' only after teacher sign-off.
+ * Items without a status predate this field and are treated as published.
+ */
+export type ContentStatus = 'draft' | 'reviewed';
 
 export type WorksheetTopic = 'Phrasal verbs' | 'Collocations' | 'Word formation' | 'Grammar';
 
@@ -32,6 +46,7 @@ export type StudentWorksheet = {
   level: StudentLevel;
   /** Language area practised. Optional so older worksheets keep working. */
   topic?: WorksheetTopic;
+  status?: ContentStatus;
   title: string;
   focus: string;
   duration: string;
@@ -209,7 +224,7 @@ const legacyWorksheets: StudentWorksheet[] = [
   },
 ];
 
-const levelOrder: StudentLevel[] = ['A2', 'B1', 'B2', 'C1', 'C2'];
+export const levelOrder: StudentLevel[] = ['A2', 'Pre-B1', 'B1', 'B2', 'C1', 'C2'];
 
 // Sort is stable, so within a level the earlier worksheets stay first.
 export const studentWorksheets: StudentWorksheet[] = [

@@ -5,10 +5,11 @@ import { preB1Units } from './pre-b1';
 import { b1Units } from './b1';
 import { b2Units } from './b2';
 import { c1Units } from './c1';
+import { c2Units } from './c2';
 
 export type { StudyUnit, UnitCategory } from './types';
 
 /** Sort is stable, so the authoring order within a level is preserved. */
-export const studyUnits: StudyUnit[] = [...a2Units, ...preB1Units, ...b1Units, ...b2Units, ...c1Units].sort(
+export const studyUnits: StudyUnit[] = [...a2Units, ...preB1Units, ...b1Units, ...b2Units, ...c1Units, ...c2Units].sort(
   (a, b) => levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level),
 );

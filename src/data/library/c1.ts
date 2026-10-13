@@ -374,9 +374,9 @@ export const c1Units: StudyUnit[] = [
           ),
           choice(
             "There has been a ___ decline in sales since January.",
-            ["strong", "sharp", "wide"],
+            ["tight", "sharp", "wide"],
             1,
-            "A sharp decline is a very rapid fall. Strong and wide do not combine with decline.",
+            "A sharp decline is a very rapid fall. Tight and wide do not combine with decline.",
           ),
           gap(
             "We must ___ the challenge of an ageing population. (f _ _ _)",
@@ -506,7 +506,7 @@ export const c1Units: StudyUnit[] = [
             "After The we need a noun. The noun from implement is implementation.",
           ),
           choice(
-            "This is a more ___ way of heating the house.",
+            "This boiler is a more ___ way of heating the house because it uses much less gas.",
             ["economical", "economic", "economist"],
             0,
             "Economical means saving money or resources. Economic relates to economics.",

@@ -379,9 +379,9 @@ export const b1Units: StudyUnit[] = [
         questions: [
           choice(
             "I have to ___ an important decision before Friday.",
-            ["do", "take", "make"],
+            ["do", "have", "make"],
             2,
-            "The collocation is make a decision.",
+            "The collocation is make a decision. In British English you may also hear take a decision, but make is the safe, universal choice.",
           ),
           choice(
             "Could you ___ me a favour and carry this bag?",

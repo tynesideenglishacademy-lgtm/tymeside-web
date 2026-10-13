@@ -686,7 +686,7 @@ export const preB1Units: StudyUnit[] = [
       {
         type: "writing",
         task: "Your English teacher has asked you to write a short story. The story must begin with this sentence: 'It was a normal morning until I heard a strange noise.' Write your story.",
-        wordGuide: "A class guide: about 100 to 120 words. This is not an exam rule.",
+        wordGuide: "A class guide: about 100 to 130 words. This is not an exam rule.",
         planning: [
           "Decide what the noise was and who is in the story.",
           "Beginning: set the scene (where, when, who). Use the past continuous for background.",

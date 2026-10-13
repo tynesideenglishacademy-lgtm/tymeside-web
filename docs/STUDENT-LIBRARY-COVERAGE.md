@@ -121,7 +121,7 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 
 | Gap | Why | Next step |
 | --- | --- | --- |
-| **Listening** | No real audio is available, so no listening unit exists. Reading texts are never labelled as listening. | Record or license audio with transcripts, host it on a Supabase bucket or Cloudflare and add a `listening` block. |
+| **Listening in the library** | The study-unit library has no listening unit. Real recorded audio does exist, but only inside the Evaluation Suite exam papers (A2, B1, B2, C1 listening, one recording each). Reading texts are never labelled as listening. | Either link students to those listening papers, or host short recordings with transcripts and add a `listening` block. |
 | Infants, Primary (YLE) and A2 Key Y1-Y2 pathways | Not covered by this library. These pupils need picture-based tasks. | Plan a separate young-learner design with images. |
 | Second reading, writing and speaking unit at each level | One of each per level only. | Reading with matching headings or gapped sentences. Writing: email, report, letter, review variations. |
 | B1 and Pre-B1 depth | Pre-B1 and B1 each have two grammar units only. | Add present perfect continuous, relative clauses, used to and would, gerunds and infinitives. |
@@ -139,3 +139,19 @@ All levels on new units are provisional. Pre-B1 is a new filter in the student a
 ## Brand note
 
 The brand rules list a six-colour palette that differs from the website's editorial tokens in `src/index.css`. The new units use the website's tokens so that they match the rest of the student area. Decide which palette is canonical before a visual redesign.
+
+## Exam material (Tyneside Evaluation Suite) — corrected 13 October 2026
+
+An earlier version of this tracker said there was no exam material at some levels and no real audio. That was wrong: it was written before the Evaluation Suite repo was inspected. The exam papers live in the separate Evaluation Suite (`exam.tynesideacademy.com`, linked from `/alumnos` as the practice exam and the Exam Bank). They are not part of this library.
+
+Per level, Practice Test 1 (full length, original content to spec, practice-only pending IP counsel sign-off):
+
+| Level | Reading / Use of English | Listening (recorded) | Writing (AI-marked) | Speaking sittings in the item bank |
+| --- | --- | --- | --- | --- |
+| A2 Key | Parts 1-5, 30 marks, auto-marked | 5 parts, 25 marks, auto-marked | Parts 6-7 | 3 |
+| B1 Preliminary | 6 parts, 32 marks, auto-marked | 4 parts, 25 marks, auto-marked | Part 1 email (+ article or story in the bank) | 4 |
+| B2 First | 7 parts, 70 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
+| C1 Advanced | 8 parts, 78 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
+| Pre-B1, C2 | none | none | none | none |
+
+Notes: the public catalogue offers only Practice Test 1 per level and offers only compulsory single-task writing parts. Speaking sittings 2-4 exist in the item bank but the catalogue serves sitting 1 only. Writing and speaking are not auto-marked by the objective marker. Picture tasks (A2/B1 listening Part 1, A2 Part 7, speaking photos) are authored as descriptions, not images. Student identity is not yet passed into the Exam Bank (see `STUDENT-AREA-AUTH-PLAN.md`).

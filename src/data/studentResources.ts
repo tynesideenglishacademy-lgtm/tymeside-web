@@ -1,4 +1,12 @@
-export type StudentLevel = 'B1' | 'B2' | 'C1';
+import { a2Worksheets } from './worksheets/a2';
+import { b1Worksheets } from './worksheets/b1';
+import { b2Worksheets } from './worksheets/b2';
+import { c1Worksheets } from './worksheets/c1';
+import { c2Worksheets } from './worksheets/c2';
+
+export type StudentLevel = 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+
+export type WorksheetTopic = 'Phrasal verbs' | 'Collocations' | 'Word formation' | 'Grammar';
 
 export type StudentResource = {
   key: string;
@@ -22,6 +30,8 @@ export type WorksheetQuestion = {
 export type StudentWorksheet = {
   key: string;
   level: StudentLevel;
+  /** Language area practised. Optional so older worksheets keep working. */
+  topic?: WorksheetTopic;
   title: string;
   focus: string;
   duration: string;
@@ -79,7 +89,7 @@ export const studentResources: StudentResource[] = [
   },
 ];
 
-export const studentWorksheets: StudentWorksheet[] = [
+const legacyWorksheets: StudentWorksheet[] = [
   {
     key: 'b1-accuracy-sprint',
     level: 'B1',
@@ -198,3 +208,15 @@ export const studentWorksheets: StudentWorksheet[] = [
     ],
   },
 ];
+
+const levelOrder: StudentLevel[] = ['A2', 'B1', 'B2', 'C1', 'C2'];
+
+// Sort is stable, so within a level the earlier worksheets stay first.
+export const studentWorksheets: StudentWorksheet[] = [
+  ...legacyWorksheets,
+  ...a2Worksheets,
+  ...b1Worksheets,
+  ...b2Worksheets,
+  ...c1Worksheets,
+  ...c2Worksheets,
+].sort((a, b) => levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level));

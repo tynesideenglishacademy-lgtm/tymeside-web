@@ -21,7 +21,7 @@ type Props = {
   previewDownloads?: boolean;
 };
 
-const levels = ['All', 'B1', 'B2', 'C1'] as const;
+const levels = ['All', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
 type LevelFilter = (typeof levels)[number];
 
 function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWorksheet; trackActivity: Props['trackActivity']; english: boolean }) {
@@ -51,7 +51,7 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
       resourceKey: worksheet.key,
       resourceTitle: worksheet.title,
       resourceLevel: worksheet.level,
-      metadata: { score, total: worksheet.questions.length },
+      metadata: { score, total: worksheet.questions.length, topic: worksheet.topic ?? null },
     });
   };
 
@@ -63,7 +63,7 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
   return (
     <article className={`student-worksheet${started ? ' is-started' : ''}`}>
       <header>
-        <div className="student-resource-meta"><span>{worksheet.level}</span><span>{english ? 'Online practice' : 'Práctica online'}</span></div>
+        <div className="student-resource-meta"><span>{worksheet.level}</span><span>{worksheet.topic ?? (english ? 'Online practice' : 'Práctica online')}</span></div>
         <h3>{worksheet.title}</h3>
         <p>{worksheet.focus}</p>
         <small>{worksheet.duration} · {worksheet.questions.length} {english ? 'questions · instant feedback' : 'preguntas · corrección inmediata'}</small>
@@ -178,7 +178,7 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
           <div>
             <p className="student-access-kicker">{english ? 'Cambridge exam library' : 'Biblioteca de exámenes Cambridge'}</p>
             <h2 id="resource-library-title">{english ? 'Study with a clear purpose.' : 'Estudia con un objetivo claro.'}</h2>
-            <p>{english ? 'Focused preparation for B1 Preliminary, B2 First and C1 Advanced. Download a level toolkit or complete a short self-marking practice session.' : 'Preparación enfocada para B1 Preliminary, B2 First y C1 Advanced. Descarga una guía de tu nivel o completa una actividad breve con corrección inmediata.'}</p>
+            <p>{english ? 'Focused preparation from A2 Key to C2 Proficiency. Download a level toolkit or complete a short self-marking practice session.' : 'Preparación enfocada de A2 Key a C2 Proficiency. Descarga una guía de tu nivel o completa una actividad breve con corrección inmediata.'}</p>
           </div>
           <div className="student-level-filter" aria-label="Filter resources by exam level">
             {levels.map((item) => (
@@ -196,6 +196,7 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
           </div>
         </div>
 
+        {filteredResources.length > 0 && (
         <div className="student-library-chapter">
           <div className="student-chapter-title"><span>01</span><div><p>{english ? 'Downloadable guides' : 'Guías descargables'}</p><h3>{english ? 'Your exam toolkit' : 'Tu kit de preparación'}</h3></div></div>
           <div className="student-resource-grid">
@@ -218,9 +219,10 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
             })}
           </div>
         </div>
+        )}
 
         <div className="student-library-chapter student-worksheet-chapter">
-          <div className="student-chapter-title"><span>02</span><div><p>{english ? 'Practice online' : 'Práctica online'}</p><h3>{english ? 'Short, useful, self-marking' : 'Breve, útil y con autocorrección'}</h3></div></div>
+          <div className="student-chapter-title"><span>{filteredResources.length > 0 ? '02' : '01'}</span><div><p>{english ? 'Practice online' : 'Práctica online'}</p><h3>{english ? 'Short, useful, self-marking' : 'Breve, útil y con autocorrección'}</h3></div></div>
           <div className="student-worksheet-list">
             {filteredWorksheets.map((worksheet) => <Worksheet key={worksheet.key} worksheet={worksheet} trackActivity={trackActivity} english={english} />)}
           </div>

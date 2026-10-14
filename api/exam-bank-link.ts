@@ -11,7 +11,7 @@
  */
 import { randomUUID } from 'node:crypto';
 import { createClient } from '@supabase/supabase-js';
-import { buildTokenRequest, isExamLevel, paperKeysFor, type CatalogEntry } from './_lib/examLink.ts';
+import { buildTokenRequest, isExamLevel, paperKeysFor, type CatalogEntry } from './_lib/examLink.js';
 
 interface Req {
   method?: string;

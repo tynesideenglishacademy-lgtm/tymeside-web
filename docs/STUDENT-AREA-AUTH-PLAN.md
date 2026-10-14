@@ -30,5 +30,16 @@ The private storage migration is live and the three approved toolkits are upload
 ## Later phases
 
 1. Add A2 Key and C2 Proficiency private packs after the B1-C1 core has been reviewed by a teacher.
-2. Pass the authenticated student identity into the Exam Bank so completed attempts can be attached to the same CRM student record, not just record the launch.
+2. ~~Pass the authenticated student identity into the Exam Bank~~ Built locally, not deployed: see "Exam Bank sign-in link" below.
 3. Add staff-facing content publishing if the resource collection becomes too large for release-managed files.
+
+## Exam Bank sign-in link (built locally, not deployed)
+
+Flow: the student picks a level in `/alumnos` (A2 Key, B1, B2, C1) and the page calls `POST /api/exam-bank-link` with their Supabase access token. `api/exam-bank-link.ts` checks the session and the `Student` role, reads the student's own `students` row under row-level security, fetches the public paper catalogue, and asks the Exam Bank (`/api/assignments/token`) for a signed link. The link lasts two hours, is marked `practice`, and carries the CRM student id as `candidateRef`. The page opens it in the same tab, so it also works on a phone. If the endpoint fails, the student sees a clear error and an "open without saving results" link.
+
+Needed before it can work (nothing here has been set up):
+1. Vercel env on this site: `ASSIGNMENT_ISSUER_KEY` (same value as on the Exam Bank server). `VITE_SUPABASE_*` are reused; optionally `EXAM_BASE_URL`.
+2. Exam Bank server: `ASSIGNMENT_ISSUER_KEY`, `ASSIGNMENT_TOKEN_SECRET`, `CRM_ASSESSMENT_WEBHOOK_URL`, `CRM_ASSESSMENT_WEBHOOK_SECRET`.
+3. **CRM webhook change (not done):** self-directed attempts arrive with `assessmentId` like `self-practice:b2_first` and no teacher-set assessment behind them. The CRM must store them as practice attempts for that student, kept apart from formal grades. Writing and speaking arrive as needing review, with no score.
+4. **Parent/student phone app (not done):** the app needs a button that calls the same endpoint (with the student's session) and opens the returned URL. Parent accounts are not handled: the endpoint accepts `Student` accounts only.
+5. Tests: `node --test tests/examLink.test.ts`.

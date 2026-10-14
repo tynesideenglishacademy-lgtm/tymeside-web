@@ -5,9 +5,17 @@ import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import { STUDENT_EXAM_BANK_URL } from '../lib/enrolmentLinks';
+import { supabase } from '../lib/supabaseClient';
 import { useStudentSession } from '../hooks/useStudentSession';
 import StudentLibrary from './StudentLibrary';
 import { usePageMeta } from '../hooks/usePageMeta';
+
+const EXAM_LEVEL_OPTIONS = [
+  { id: 'a2_key', label: 'A2 Key' },
+  { id: 'b1_preliminary', label: 'B1 Preliminary' },
+  { id: 'b2_first', label: 'B2 First' },
+  { id: 'c1_advanced', label: 'C1 Advanced' },
+] as const;
 
 const StudentArea = () => {
   const { t } = useTranslation();
@@ -26,13 +34,41 @@ const StudentArea = () => {
     setPassword('');
   };
 
-  const openExamBank = () => {
+  const [examOpening, setExamOpening] = useState<string | null>(null);
+  const [examError, setExamError] = useState(false);
+
+  const trackExamLaunch = (level: string) => {
     void trackActivity({
       eventType: 'exam_bank_opened',
       resourceKey: 'exam-bank',
       resourceTitle: 'Tyneside Exam Bank',
+      resourceLevel: level,
       metadata: { destination: STUDENT_EXAM_BANK_URL },
     });
+  };
+
+  // Asks our server for a short-lived signed link tied to this student, then
+  // opens it in the same tab (phones block pop-ups opened after a fetch).
+  const openExamBank = async (examId: string) => {
+    setExamError(false);
+    setExamOpening(examId);
+    trackExamLaunch(examId);
+    try {
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+      if (!token) throw new Error('no session');
+      const response = await fetch('/api/exam-bank-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ examId }),
+      });
+      const body = (await response.json()) as { url?: string };
+      if (!response.ok || !body.url) throw new Error('no link');
+      window.location.assign(body.url);
+    } catch {
+      setExamError(true);
+      setExamOpening(null);
+    }
   };
 
   if (loading) {
@@ -98,7 +134,27 @@ const StudentArea = () => {
                       <h3>{t('student_area.exam_bank')}</h3>
                       <p>{t('student_area.exam_desc')}</p>
                     </div>
-                    <a href={STUDENT_EXAM_BANK_URL} target="_blank" rel="noopener noreferrer" onClick={openExamBank} className="btn-editorial-primary">{t('student_area.exam_open')}</a>
+                    <div className="student-exam-levels" role="group" aria-label={t('student_area.exam_pick')}>
+                      <p>{t('student_area.exam_pick')}</p>
+                      {EXAM_LEVEL_OPTIONS.map((option) => (
+                        <button
+                          key={option.id}
+                          type="button"
+                          className="btn-editorial-primary"
+                          disabled={examOpening !== null}
+                          onClick={() => void openExamBank(option.id)}
+                        >
+                          {examOpening === option.id ? t('student_area.exam_opening') : option.label}
+                        </button>
+                      ))}
+                      <small>{t('student_area.exam_saved_note')}</small>
+                      {examError && (
+                        <p className="student-login-error" role="alert">
+                          {t('student_area.exam_error')}{' '}
+                          <a href={STUDENT_EXAM_BANK_URL} onClick={() => trackExamLaunch('anonymous')}>{t('student_area.exam_open_anon')}</a>
+                        </p>
+                      )}
+                    </div>
                   </article>
                   <article className="student-module student-module-library">
                     <div>

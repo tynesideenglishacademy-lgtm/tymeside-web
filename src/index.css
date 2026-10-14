@@ -4146,3 +4146,9 @@ body {
     transition: none;
   }
 }
+
+/* Exam Bank level picker */
+.student-exam-levels { display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+.student-exam-levels > p, .student-exam-levels > small, .student-exam-levels > .student-login-error { grid-column: 1 / -1; margin: 0; }
+.student-exam-levels button { min-height: 44px; }
+@media (min-width: 720px) { .student-exam-levels { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

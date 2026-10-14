@@ -118,6 +118,7 @@ const resources = {
       },
       student_area: {
         meta_title: "Área de alumnos | Tyneside English Academy",
+        meta_description: "Acceso privado para alumnos de Tyneside: banco de exámenes, recursos Cambridge por nivel y seguimiento de actividad.",
         checking_session: "Comprobando acceso…",
         skip: "Ir al contenido del área de alumnos",
         label: "Área de alumnos",
@@ -489,6 +490,7 @@ const resources = {
       },
       student_area: {
         meta_title: "Student area | Tyneside English Academy",
+        meta_description: "Private access for Tyneside students: exam bank, Cambridge resources by level and activity tracking.",
         checking_session: "Checking access…",
         skip: "Skip to student area content",
         label: "Student area",

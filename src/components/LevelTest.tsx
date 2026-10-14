@@ -422,6 +422,7 @@ export default function LevelTest() {
 
   return (
     <div className="lt-main" style={{ backgroundColor: 'var(--color-bg-base)', fontFamily: 'var(--font-body)', minHeight: '100vh', flexDirection: 'column', padding: 0 }}>
+      <a href="#level-test-main" className="skip-link">{t('levelTest.skip', { defaultValue: 'Ir al test de nivel' })}</a>
       {/* Header */}
       <header style={{ backgroundColor: 'var(--color-deep-navy)', borderBottom: '4px solid var(--color-gold)', padding: '1.25rem 2rem', width: '100%' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -435,7 +436,7 @@ export default function LevelTest() {
       </header>
 
       {/* Main Container */}
-      <main className="lt-main" style={{ width: '100%' }}>
+      <main id="level-test-main" className="lt-main" style={{ width: '100%' }}>
         <div className="lt-card">
           
           {isLoading && (

@@ -673,6 +673,14 @@ body {
   font-size: 0.78rem;
 }
 
+html.cookie-notice-visible body {
+  padding-bottom: var(--cookie-banner-space, 7rem);
+}
+
+html.cookie-notice-visible {
+  scroll-padding-bottom: var(--cookie-banner-space, 7rem);
+}
+
 /* Public full-practice-exam campaign page. */
 .practice-exam-page {
   background: var(--refined-paper);

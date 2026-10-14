@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { readConsent, setConsent } from '../lib/consent';
@@ -11,9 +11,31 @@ import { readConsent, setConsent } from '../lib/consent';
  */
 const CookieBanner = () => {
   const { t } = useTranslation();
+  const bannerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(() =>
     typeof window !== 'undefined' && readConsent() === null
   );
+
+  useEffect(() => {
+    if (!visible || !bannerRef.current) return;
+
+    const root = document.documentElement;
+    const banner = bannerRef.current;
+    const updateReservedSpace = () => {
+      root.style.setProperty('--cookie-banner-space', `${Math.ceil(banner.getBoundingClientRect().height + 24)}px`);
+      root.classList.add('cookie-notice-visible');
+    };
+    const observer = new ResizeObserver(updateReservedSpace);
+
+    updateReservedSpace();
+    observer.observe(banner);
+
+    return () => {
+      observer.disconnect();
+      root.classList.remove('cookie-notice-visible');
+      root.style.removeProperty('--cookie-banner-space');
+    };
+  }, [visible]);
 
   if (!visible) return null;
 
@@ -24,6 +46,7 @@ const CookieBanner = () => {
 
   return (
     <div
+      ref={bannerRef}
       className="cookie-banner"
       role="dialog"
       aria-live="polite"

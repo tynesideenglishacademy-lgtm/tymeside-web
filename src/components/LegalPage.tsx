@@ -29,6 +29,7 @@ const LegalPage = ({ slug }: { slug: LegalSlug }) => {
 
   return (
     <>
+      <a href="#main" className="skip-link">{lang === 'en' ? 'Skip to legal content' : 'Ir al contenido legal'}</a>
       <Navigation />
       <main id="main" className="legal-page">
         <div className="legal-page-inner">

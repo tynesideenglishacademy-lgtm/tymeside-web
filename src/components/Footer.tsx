@@ -29,7 +29,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('nav.contact')}</h4>
+            <h2 className="footer-heading">{t('nav.contact')}</h2>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
               <li>Plaza Tomás y Valiente 6, Puente Tocinos</li>
               <li><a className="footer-link" href="tel:+34605661212">605 661 212</a></li>
@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('resources.title')}</h4>
+            <h2 className="footer-heading">{t('resources.title')}</h2>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#C3D0DC', fontSize: '0.95rem', lineHeight: 2.1 }}>
               <li><Link to="/recursos" className="footer-link">{t('nav.resources', { defaultValue: 'Recursos A2–C2' })}</Link></li>
               <li><Link to="/level-test" className="footer-link">{t('resources.test')}</Link></li>
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: '1rem', color: 'var(--color-gold)', marginBottom: '1.25rem', fontWeight: 700 }}>{t('footer.virtual_title')}</h4>
+            <h2 className="footer-heading">{t('footer.virtual_title')}</h2>
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.9rem', marginBottom: '1.2rem', lineHeight: 1.6 }}>
               {t('footer.virtual_desc')}
             </p>

@@ -24,7 +24,11 @@ const StudentArea = () => {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  usePageMeta({ title: t('student_area.meta_title'), path: '/alumnos' });
+  usePageMeta({
+    title: t('student_area.meta_title'),
+    description: t('student_area.meta_description'),
+    path: '/alumnos',
+  });
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,11 +106,11 @@ const StudentArea = () => {
                 <form onSubmit={handleLogin} className="student-login-form">
                   <label>
                     <span>{t('student_area.email')}</span>
-                    <input type="email" autoComplete="username" value={email} onChange={(event) => setEmail(event.target.value)} required />
+                    <input type="email" name="email" autoComplete="username" spellCheck={false} inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
                   </label>
                   <label>
                     <span>{t('student_area.password')}</span>
-                    <input type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+                    <input type="password" name="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required />
                   </label>
                   {error && <p className="student-login-error" role="alert">{error}</p>}
                   <button className="btn-editorial-primary" type="submit" disabled={submitting}>

@@ -60,6 +60,17 @@ create policy "Admin reads all practice attempts"
   on public.exam_practice_attempts for select
   using (get_my_role() = 'Admin');
 
--- Teachers: CHECK before applying. Simplest safe default is Admin-only above; if teachers should see
--- practice results for students in their courses, add a policy using my_taught_course_ids() and the
--- enrolment table you already use in assessment_grades policies (I could not see that join from here).
+-- Teachers: see practice attempts of students enrolled in courses they teach
+-- (same pattern as the existing helpers: my_taught_course_ids() -> courses.teacher_id; enrollments links students to courses).
+create policy "Teachers read practice attempts of their students"
+  on public.exam_practice_attempts for select
+  using (
+    get_my_role() = 'Teacher'
+    and student_id in (
+      select e.student_id from public.enrollments e
+      where e.course_id in (select my_taught_course_ids())
+    )
+  );
+
+-- Parents: not included. get_my_role() also returns 'Parent' (payers). If parents should see their
+-- children's results in the parent app, add a policy using the same helper the parent views use.

@@ -14,7 +14,7 @@ Status: **drafts for Ben's review. Nothing has been applied to Supabase or the C
 - `002_webhook_handler_sketch.ts` — new branch for the existing webhook; idempotent on `submission_id`.
 
 ## Before applying (your side)
-- Teacher visibility: Admin-only by default; add a course-based policy if teachers should see it.
+- Teacher visibility: Admin sees all; Teachers see students enrolled in courses they teach (via `enrollments`). Parents not included yet.
 - Reuse your existing signature verifier in the handler.
 - Writing/speaking rows are `needs_review` until marked — no invented score.
 - Settings still needed: `ASSIGNMENT_ISSUER_KEY` (Vercel + Exam Bank), token secret and webhook URL/secret on the Exam Bank server.

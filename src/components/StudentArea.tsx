@@ -62,6 +62,12 @@ const StudentArea = () => {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ examId }),
       });
+      // 503/404 means personalised links are not set up on this deployment yet:
+      // open the ordinary Exam Bank so students are never blocked.
+      if (response.status === 503 || response.status === 404) {
+        window.location.assign(STUDENT_EXAM_BANK_URL);
+        return;
+      }
       const body = (await response.json()) as { url?: string };
       if (!response.ok || !body.url) throw new Error('no link');
       window.location.assign(body.url);

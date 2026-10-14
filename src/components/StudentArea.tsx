@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,8 +7,9 @@ import Footer from './Footer';
 import { STUDENT_EXAM_BANK_URL } from '../lib/enrolmentLinks';
 import { supabase } from '../lib/supabaseClient';
 import { useStudentSession } from '../hooks/useStudentSession';
-import StudentLibrary from './StudentLibrary';
 import { usePageMeta } from '../hooks/usePageMeta';
+
+const StudentLibrary = lazy(() => import('./StudentLibrary'));
 
 const EXAM_LEVEL_OPTIONS = [
   { id: 'a2_key', label: 'A2 Key' },
@@ -178,7 +179,9 @@ const StudentArea = () => {
               </div>
             </section>
 
-            <StudentLibrary trackActivity={trackActivity} />
+            <Suspense fallback={<div className="student-library-loading" aria-live="polite">{t('student_area.loading_library')}</div>}>
+              <StudentLibrary trackActivity={trackActivity} />
+            </Suspense>
 
             <section className="student-crm-boundary">
               <div className="container student-boundary-note">

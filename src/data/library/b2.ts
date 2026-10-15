@@ -602,7 +602,7 @@ export const b2Units: StudyUnit[] = [
             "Absences through illness fell by almost a third. The text does not mention test results or complaints.",
           ),
           gap(
-            "By how much did illness absences fall? Write the fraction in words.",
+            "Illness absences fell by ___. Write the fraction in words.",
             ["a third", "one third", "almost a third"],
             "The text says the number of days absent through illness fell by almost a third.",
           ),

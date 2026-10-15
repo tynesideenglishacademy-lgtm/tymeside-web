@@ -29,6 +29,7 @@ const StudentArea = () => {
     title: t('student_area.meta_title'),
     description: t('student_area.meta_description'),
     path: '/alumnos',
+    noIndex: true,
   });
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {

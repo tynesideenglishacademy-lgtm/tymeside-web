@@ -631,7 +631,7 @@ export const b1Units: StudyUnit[] = [
             "The text says: 'we promised to keep it clean, and we invited the mayor to our first harvest.'",
           ),
           gap(
-            "How many small plots does the garden have today? (number)",
+            "The garden has ___ small plots today. (number)",
             ["thirty-two", "thirty two", "32"],
             "The third paragraph says the garden has thirty-two small plots.",
           ),

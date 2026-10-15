@@ -16,10 +16,11 @@
  * Known, verifiable facts used below:
  *   - Trading name: Tyneside English Academy
  *   - Teaching premises: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia
- *   - Contact: info@tynesideacademy.com · 605 661 212
+ *   - Contact: secretaria@tynesideacademy.com · 605 661 212 · 868 056 729
  *   - Operating since 2015
- *   - Third parties the site loads: Supabase (database), FormSubmit (delivers
- *     the level-test result by email), Vercel (hosting), Google Maps (embedded
+ *   - Third parties the site loads: Supabase (database, authentication and
+ *     private storage), FormSubmit (careers notification), Vercel (hosting and
+ *     cookieless analytics), Google Maps (embedded
  *     map on the contact section), Google Fonts + Sentry (only after cookie
  *     consent).
  */
@@ -35,12 +36,13 @@ export type LegalDoc = {
 
 export type LegalSlug = 'aviso-legal' | 'privacidad' | 'cookies';
 
-const DRAFT_DATE = '[PENDIENTE: fecha de publicación]';
+const DRAFT_DATE_ES = '15 de octubre de 2026 (borrador pendiente de revisión profesional)';
+const DRAFT_DATE_EN = '15 October 2026 (draft pending professional review)';
 
 const es: Record<LegalSlug, LegalDoc> = {
   'aviso-legal': {
     title: 'Aviso Legal',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_ES,
     intro:
       'Condiciones de uso del sitio web de Tyneside English Academy e información del titular exigida por la Ley 34/2002 (LSSI-CE).',
     sections: [
@@ -52,7 +54,7 @@ const es: Record<LegalSlug, LegalDoc> = {
           'NIF/CIF: [PENDIENTE: NIF/CIF].',
           'Domicilio fiscal: [PENDIENTE: confirmar dirección fiscal completa].',
           'Centro docente: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia.',
-          'Correo electrónico: info@tynesideacademy.com. Teléfono: 605 661 212.',
+          'Correo electrónico: secretaria@tynesideacademy.com. Teléfonos: 605 661 212 y 868 056 729.',
           'Datos registrales: [PENDIENTE: registro mercantil / número de registro de centro educativo, si procede].',
         ],
       },
@@ -74,7 +76,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         heading: '4. Propiedad intelectual e industrial',
         paragraphs: [
           'Los textos, el logotipo, el diseño y demás elementos del sitio pertenecen a Tyneside English Academy o a terceros que han autorizado su uso, y no pueden reproducirse sin autorización.',
-          '[PENDIENTE: confirmar titularidad de las imágenes actuales; a la fecha son ilustraciones provisionales.]',
+          '[PENDIENTE: conservar la documentación que acredita la titularidad o licencia de las fotografías, logotipos y demás recursos gráficos publicados.]',
         ],
       },
       {
@@ -94,7 +96,7 @@ const es: Record<LegalSlug, LegalDoc> = {
   },
   privacidad: {
     title: 'Política de Privacidad',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_ES,
     intro:
       'Cómo trata Tyneside English Academy los datos personales que se recogen a través de este sitio web, conforme al RGPD (UE) 2016/679 y la LOPDGDD 3/2018.',
     sections: [
@@ -113,13 +115,14 @@ const es: Record<LegalSlug, LegalDoc> = {
           'Formulario de contacto: nombre, teléfono, correo electrónico y curso de interés, con la finalidad de atender tu solicitud de información.',
           'Prueba de nivel en línea: nombre, correo electrónico, código postal y, opcionalmente, teléfono y dirección, junto con el resultado de la prueba, con la finalidad de enviarte tu certificado y ofrecerte asesoramiento sobre el curso adecuado.',
           'Candidaturas de empleo: nombre, correo electrónico, teléfono opcional, mensaje y currículum, con la finalidad de valorar tu perfil para necesidades de contratación actuales o futuras.',
+          'Área de alumnos: credenciales de acceso, ficha de alumno y registro de acceso, apertura de recursos y actividad formativa, con la finalidad de prestar el servicio contratado, proteger el material privado y realizar el seguimiento académico.',
           'No se elaboran perfiles ni se toman decisiones automatizadas con efectos jurídicos sobre el usuario.',
         ],
       },
       {
         heading: '3. Base jurídica',
         paragraphs: [
-          'El tratamiento se basa en tu consentimiento, que otorgas al marcar la casilla correspondiente y enviar el formulario (art. 6.1.a RGPD).',
+          'Las solicitudes de información, la prueba de nivel y las candidaturas se tratan sobre la base del consentimiento otorgado mediante la casilla correspondiente (art. 6.1.a RGPD). El área de alumnos se gestiona para ejecutar la relación académica o contractual existente (art. 6.1.b RGPD) y proteger el acceso a los recursos.',
           'Puedes retirar el consentimiento en cualquier momento escribiendo a secretaria@tynesideacademy.com, sin que ello afecte a la licitud del tratamiento previo.',
         ],
       },
@@ -135,7 +138,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         heading: '5. Destinatarios y encargados del tratamiento',
         paragraphs: [
           'No cedemos tus datos a terceros salvo obligación legal.',
-          'Utilizamos proveedores que actúan como encargados del tratamiento: Supabase (alojamiento de la base de datos), FormSubmit (envío por correo del resultado de la prueba de nivel) y Vercel (alojamiento del sitio web).',
+          'Utilizamos proveedores que actúan como encargados del tratamiento: Supabase (base de datos, autenticación y almacenamiento privado), Vercel (alojamiento y analítica web sin cookies) y, para la notificación de candidaturas, FormSubmit o Resend según la configuración activa. El CV permanece en almacenamiento privado y la notificación incluye únicamente su referencia privada.',
           'Algunos de estos proveedores pueden tratar datos fuera del Espacio Económico Europeo con las garantías previstas en el RGPD (cláusulas contractuales tipo).',
           '[PENDIENTE: confirmar la relación completa de encargados y la firma de los contratos del art. 28 RGPD.]',
         ],
@@ -144,6 +147,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         heading: '6. Tus derechos',
         paragraphs: [
           'Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a secretaria@tynesideacademy.com, indicando el derecho que ejercitas y adjuntando copia de un documento identificativo.',
+          'Responderemos en el plazo legal aplicable; con carácter general, un mes desde la recepción de la solicitud.',
           'Si consideras que el tratamiento no se ajusta a la normativa, puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).',
         ],
       },
@@ -157,7 +161,7 @@ const es: Record<LegalSlug, LegalDoc> = {
   },
   cookies: {
     title: 'Política de Cookies',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_ES,
     intro:
       'Qué se almacena en tu navegador cuando visitas este sitio y cómo controlarlo, conforme al art. 22.2 de la LSSI-CE.',
     sections: [
@@ -165,7 +169,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         heading: '1. Qué usamos',
         paragraphs: [
           'Almacenamiento técnico imprescindible: guardamos en el almacenamiento local de tu navegador únicamente tu decisión sobre este aviso, para no volver a preguntártelo. No requiere consentimiento.',
-          'No utilizamos cookies de analítica ni de publicidad propias.',
+          'Vercel Web Analytics funciona sin cookies y se utiliza para obtener métricas agregadas del sitio. No utilizamos cookies publicitarias ni identificadores de seguimiento entre sitios.',
         ],
       },
       {
@@ -173,7 +177,7 @@ const es: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: si aceptas, cargamos las tipografías desde los servidores de Google (fonts.googleapis.com y fonts.gstatic.com), lo que implica que Google recibe tu dirección IP. Si no aceptas, el sitio usa las tipografías del sistema.',
           'Sentry: si aceptas, activamos una herramienta de monitorización de errores que puede registrar la sesión de navegación para diagnosticar fallos. Si no aceptas, no se carga.',
-          'Google Maps: el mapa de la sección de contacto sigue el mismo consentimiento que las tipografías y Sentry. Si aceptas, se carga y puede instalar cookies de Google; si no aceptas, se muestra un aviso con un botón para cargarlo cuando quieras.',
+          'Google Maps: el mapa de la sección de contacto solo se carga tras una acción afirmativa. Al cargarlo, Google puede recibir datos técnicos e instalar sus propias cookies; si no lo cargas, el sitio muestra la dirección y los datos de contacto sin el mapa.',
         ],
       },
       {
@@ -190,7 +194,7 @@ const es: Record<LegalSlug, LegalDoc> = {
 const en: Record<LegalSlug, LegalDoc> = {
   'aviso-legal': {
     title: 'Legal Notice',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_EN,
     intro:
       'Terms of use for the Tyneside English Academy website and the site-owner information required by Spanish Law 34/2002 (LSSI-CE).',
     sections: [
@@ -202,7 +206,7 @@ const en: Record<LegalSlug, LegalDoc> = {
           'Tax ID (NIF/CIF): [PENDIENTE: NIF/CIF].',
           'Registered address: [PENDIENTE: confirm full registered address].',
           'Teaching premises: Plaza Tomás y Valiente 6, 30006 Puente Tocinos, Murcia.',
-          'Email: info@tynesideacademy.com. Phone: 605 661 212.',
+          'Email: secretaria@tynesideacademy.com. Phone: 605 661 212 and 868 056 729.',
           'Registry details: [PENDIENTE: commercial registry / education-centre registration number, if applicable].',
         ],
       },
@@ -224,7 +228,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '4. Intellectual and industrial property',
         paragraphs: [
           'The text, logo, design and other elements of the site belong to Tyneside English Academy or to third parties who have authorised their use, and may not be reproduced without permission.',
-          '[PENDIENTE: confirm ownership of the current images; at this date they are placeholder illustrations.]',
+          '[PENDIENTE: retain records proving ownership of, or licences for, the photographs, logos and other graphic resources published on the site.]',
         ],
       },
       {
@@ -244,7 +248,7 @@ const en: Record<LegalSlug, LegalDoc> = {
   },
   privacidad: {
     title: 'Privacy Policy',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_EN,
     intro:
       'How Tyneside English Academy processes the personal data collected through this website, under the GDPR (EU) 2016/679 and Spanish Law LOPDGDD 3/2018.',
     sections: [
@@ -262,13 +266,15 @@ const en: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Contact form: name, phone, email and course of interest, in order to respond to your enquiry.',
           'Online level test: name, email, postal code and, optionally, phone and address, together with your test result, in order to send you your certificate and advise you on the right course.',
+          'Job applications: name, email, optional phone number, message and CV, in order to assess your profile for current or future recruitment needs.',
+          'Student area: login credentials, student record and logs of access, resource opening and learning activity, in order to provide the contracted service, protect private material and support academic follow-up.',
           'No profiling or automated decisions with legal effects are carried out.',
         ],
       },
       {
         heading: '3. Legal basis',
         paragraphs: [
-          'Processing is based on your consent, given when you tick the relevant box and submit the form (Art. 6(1)(a) GDPR).',
+          'Enquiries, level tests and job applications are processed on the basis of the consent given through the relevant checkbox (Art. 6(1)(a) GDPR). The student area is managed to perform the existing academic or contractual relationship (Art. 6(1)(b) GDPR) and protect access to resources.',
           'You may withdraw consent at any time by writing to secretaria@tynesideacademy.com, without affecting the lawfulness of earlier processing.',
         ],
       },
@@ -276,6 +282,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '4. Retention',
         paragraphs: [
           'We keep your data for as long as there is mutual interest or until you ask us to delete it, and afterwards for the periods required by law.',
+          'Applications and CVs are kept for no more than 12 months unless you request earlier deletion or later authorise a new period.',
           '[PENDIENTE: set specific retention periods with the adviser.]',
         ],
       },
@@ -283,7 +290,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '5. Recipients and processors',
         paragraphs: [
           'We do not share your data with third parties except where required by law.',
-          'We use providers acting as data processors: Supabase (database hosting), FormSubmit (emailing the level-test result) and Vercel (website hosting).',
+          'We use providers acting as data processors: Supabase (database, authentication and private storage), Vercel (hosting and cookieless web analytics) and, for application notifications, FormSubmit or Resend depending on the active configuration. The CV stays in private storage and only its private reference is included in the notification.',
           'Some of these providers may process data outside the European Economic Area under the safeguards set out in the GDPR (standard contractual clauses).',
           '[PENDIENTE: confirm the full list of processors and that Art. 28 GDPR contracts are signed.]',
         ],
@@ -292,6 +299,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '6. Your rights',
         paragraphs: [
           'You may exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to secretaria@tynesideacademy.com, stating the right you wish to exercise and attaching a copy of an identity document.',
+          'We will respond within the applicable legal period, generally one month from receipt of the request.',
           'If you believe the processing does not comply with the rules, you may complain to the Spanish Data Protection Agency (www.aepd.es).',
         ],
       },
@@ -305,7 +313,7 @@ const en: Record<LegalSlug, LegalDoc> = {
   },
   cookies: {
     title: 'Cookie Policy',
-    updated: DRAFT_DATE,
+    updated: DRAFT_DATE_EN,
     intro:
       'What is stored in your browser when you visit this site and how to control it, under Art. 22.2 of the Spanish LSSI-CE.',
     sections: [
@@ -313,7 +321,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         heading: '1. What we use',
         paragraphs: [
           'Essential technical storage: we save only your decision about this notice in your browser’s local storage, so we do not ask again. No consent is required.',
-          'We do not use our own analytics or advertising cookies.',
+          'Vercel Web Analytics operates without cookies and is used for aggregate site metrics. We do not use advertising cookies or cross-site tracking identifiers.',
         ],
       },
       {
@@ -321,7 +329,7 @@ const en: Record<LegalSlug, LegalDoc> = {
         paragraphs: [
           'Google Fonts: if you accept, we load the fonts from Google’s servers (fonts.googleapis.com and fonts.gstatic.com), which means Google receives your IP address. If you do not accept, the site uses system fonts.',
           'Sentry: if you accept, we enable an error-monitoring tool that may record the browsing session to diagnose faults. If you do not accept, it is not loaded.',
-          'Google Maps: the map in the contact section follows the same consent choice as the fonts and Sentry. If you accept, it loads and may set Google cookies; if you do not accept, a notice with a button to load it is shown instead.',
+          'Google Maps: the contact map loads only after an affirmative action. When loaded, Google may receive technical data and set its own cookies; if you do not load it, the address and contact details remain available without the map.',
         ],
       },
       {

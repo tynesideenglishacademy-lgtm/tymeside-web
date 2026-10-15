@@ -105,10 +105,19 @@ async function main() {
   });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   const { port } = server.address();
-  const base = `http://127.0.0.1:${port}`;
+  const base = `http://localhost:${port}`;
 
-  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_PATH || '/opt/pw-browsers/chromium';
-  const browser = await chromium.launch({ executablePath });
+  const platformDefault = process.platform === 'win32'
+    ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+    : '/opt/pw-browsers/chromium';
+  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_PATH || platformDefault;
+  const browser = await chromium.launch({
+    executablePath,
+    args: [
+      '--disable-web-security',
+      '--disable-features=LocalNetworkAccessChecks,PrivateNetworkAccessChecks,BlockInsecurePrivateNetworkRequests',
+    ],
+  });
 
   await mkdir(outDir, { recursive: true });
 
@@ -134,7 +143,7 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);

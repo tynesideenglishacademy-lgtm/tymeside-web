@@ -678,7 +678,7 @@ export const a2Units: StudyUnit[] = [
             "Hannah is still asking: 'Would you like to come with us?' Marta has not agreed yet.",
           ),
           gap(
-            "What is Jack to Hannah? Write one word.",
+            "Jack is Hannah's ___. Write one word.",
             ["cousin", "her cousin", "a cousin"],
             "Hannah says: 'My cousin Jack is coming too.'",
           ),

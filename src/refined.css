@@ -651,8 +651,9 @@ body {
 }
 
 .cookie-banner-inner {
-  max-width: 920px;
-  margin-inline: auto;
+  max-width: 470px;
+  margin-left: auto;
+  margin-right: 0;
   padding: 0.85rem 0.9rem 0.85rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.17);
   border-radius: 6px;
@@ -1040,6 +1041,8 @@ html.cookie-notice-visible {
   }
 
   .cookie-banner-inner {
+    max-width: none;
+    margin-inline: auto;
     align-items: stretch;
     padding: 0.8rem;
   }
@@ -1154,6 +1157,9 @@ html.cookie-notice-visible {
 }
 
 .resources-inline-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: #fff;
   font-weight: 800;
   text-decoration: underline;
@@ -1220,6 +1226,9 @@ html.cookie-notice-visible {
 
 .resources-level-list article > a,
 .resources-tool-grid a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: inherit;
   font-weight: 800;
   text-decoration: underline;

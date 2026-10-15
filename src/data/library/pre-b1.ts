@@ -602,11 +602,11 @@ export const preB1Units: StudyUnit[] = [
           choice(
             "What was the experiment?",
             [
+              "Teenagers did not use their phones for a weekend.",
               "Teachers collected phones for a month.",
               "Teenagers used their phones to play board games.",
-              "Teenagers did not use their phones for a weekend.",
             ],
-            2,
+            0,
             "The first paragraph says they switched off their phones for one weekend and gave them to teachers.",
           ),
           choice(
@@ -642,7 +642,7 @@ export const preB1Units: StudyUnit[] = [
             "She says: 'I actually felt calmer.' She expected to be desperate, but she wasn't.",
           ),
           gap(
-            "Why did Sam miss his phone? Write one thing he mentions.",
+            "Sam missed his phone because he wanted to ___. Write one thing he mentions.",
             ["music", "listening to music", "listen to music", "contacting his parents", "contact his parents", "contacting parents", "contact my parents"],
             "Sam missed listening to music and he could not contact his parents when they were late. Either answer is correct.",
           ),

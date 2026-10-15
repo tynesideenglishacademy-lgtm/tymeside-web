@@ -122,14 +122,14 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 | Gap | Why | Next step |
 | --- | --- | --- |
 | **Listening in the library** | The study-unit library has no listening unit. Real recorded audio does exist, but only inside the Evaluation Suite exam papers (A2, B1, B2, C1 listening, one recording each). Reading texts are never labelled as listening. | Either link students to those listening papers, or host short recordings with transcripts and add a `listening` block. |
-| Infants, Primary (YLE) and A2 Key Y1-Y2 pathways | Not covered by this library. These pupils need picture-based tasks. | Plan a separate young-learner design with images. |
+| Infants and Primary (YLE) | Out of scope for now. Current focus is A2 and above (A2 is a single year). Infants and Primary start once the A2+ resources are finished, and are tied to the Tyneside Explorers programme, which is not yet developed. These pupils need picture-based tasks. | Plan a young-learner design with images alongside Tyneside Explorers. |
 | Second reading, writing and speaking unit at each level | One of each per level only. | Reading with matching headings or gapped sentences. Writing: email, report, letter, review variations. |
 | B1 and Pre-B1 depth | Pre-B1 and B1 each have two grammar units only. | Add present perfect continuous, relative clauses, used to and would, gerunds and infinitives. |
 | Pronunciation | Not covered. | Word stress, sentence stress and intonation with audio. |
 | Reported speech beyond statements and questions | Orders, requests and reporting verbs are missing. | Add a B1/B2 unit on reporting verbs. |
 | Mixed revision | One quiz per level. | Add quiz 2 and 3 for each level that draw on all units. |
 | Exam task types | Key word transformation, multiple-choice cloze and open cloze are not yet in the format. | Add a gap-fill block type with multiple blanks in one text. |
-| Teacher review | All 54 units and 20 worksheets are still drafts. | Review, edit, then mark as reviewed unit by unit. |
+| Teacher review | All 54 units and 20 worksheets are still drafts. Ben is part-way through his review (15 Oct 2026): A2, B1 and C2 looked correct so far, B2, C1 and Pre-B1 not yet checked, and one student is testing. Nothing is marked reviewed. | Finish review, then mark reviewed level by level, only on Ben's say-so. |
 | CRM display | `unit_opened` and `unit_practice_completed` are new event types in `student_resource_activity`. | Check the CRM `/student-activity` page for how it shows unknown event types. |
 
 ## Provisional level labels
@@ -152,6 +152,7 @@ Per level, Practice Test 1 (full length, original content to spec, practice-only
 | B1 Preliminary | 6 parts, 32 marks, auto-marked | 4 parts, 25 marks, auto-marked | Part 1 email (+ article or story in the bank) | 4 |
 | B2 First | 7 parts, 70 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
 | C1 Advanced | 8 parts, 78 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
-| Pre-B1, C2 | none | none | none | none |
+| Pre-B1 | No exam: Pre-B1 is a class pathway only (study units exist, no Cambridge-style paper is needed) | none | none | none |
+| C2 Proficiency | **Gap: exam still to be built** | none | none | none |
 
-Notes: the public catalogue offers only Practice Test 1 per level and offers only compulsory single-task writing parts. Speaking sittings 2-4 exist in the item bank but the catalogue serves sitting 1 only. Writing and speaking are not auto-marked by the objective marker. Picture tasks (A2/B1 listening Part 1, A2 Part 7, speaking photos) are authored as descriptions, not images. Student identity is not yet passed into the Exam Bank (see `STUDENT-AREA-AUTH-PLAN.md`).
+Notes: the public catalogue offers only Practice Test 1 per level and offers only compulsory single-task writing parts. Speaking sittings 2-4 exist in the item bank but the catalogue serves sitting 1 only. Writing and speaking are not auto-marked by the objective marker. Picture tasks (A2/B1 listening Part 1, A2 Part 7, speaking photos) are authored as descriptions, not images. Student identity: personalised links are built and deployed but inactive until `ASSIGNMENT_ISSUER_KEY` is set on the website project. Saving results to the student's CRM profile (with attempt numbers per paper) is drafted in `docs/crm-exam-practice-attempts/` and not yet applied. See `STUDENT-AREA-AUTH-PLAN.md`.

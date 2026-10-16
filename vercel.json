@@ -19,6 +19,12 @@
   ],
   "headers": [
     {
+      "source": "/alumnos",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+      ]
+    },
+    {
       "source": "/",
       "headers": [
         { "key": "Link", "value": "</img/tyne-bridge-hero-960.webp>; rel=preload; as=image; fetchpriority=high" }

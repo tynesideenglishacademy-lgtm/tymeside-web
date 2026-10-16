@@ -37,9 +37,15 @@ const Hero = () => {
 
       <figure className="editorial-hero-image">
         <picture>
-          <source media="(max-width: 720px)" srcSet="/img/tyne-bridge-hero-960.webp" />
+          <source
+            media="(max-width: 720px)"
+            srcSet="/img/tyne-bridge-hero-720.webp 720w, /img/tyne-bridge-hero-960.webp 960w"
+            sizes="100vw"
+          />
           <img
             src="/img/tyne-bridge-hero-1920.webp"
+            srcSet="/img/tyne-bridge-hero-960.webp 960w, /img/tyne-bridge-hero-1920.webp 1920w"
+            sizes="(max-width: 900px) 100vw, 50vw"
             alt="El Tyne Bridge sobre el río Tyne en Newcastle"
             width={1920}
             height={1280}

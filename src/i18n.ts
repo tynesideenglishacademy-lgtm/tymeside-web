@@ -70,7 +70,7 @@ const resources = {
         badge_adults: "Adultos y Cambridge",
         badge_speaking: "Conversación fluida",
         badge_intensive: "Cursos intensivos",
-        more: "Más información sobre las cookies",
+        more: "Más información",
         contact: "Contáctanos"
       },
       about: {
@@ -369,7 +369,7 @@ const resources = {
       cookie: {
         aria: "Aviso de cookies",
         message: "Usamos almacenamiento local para recordar tu elección. Con tu permiso, también cargamos tipografías de Google y monitorización de errores. Nada de esto se activa hasta que aceptas.",
-        more: "Más información",
+        more: "Más información sobre las cookies",
         accept: "Aceptar todo",
         essential: "Solo lo imprescindible"
       }

@@ -22,7 +22,7 @@ const Footer = () => {
         }}>
           
           <div>
-            <img src="/logo-light-nav.png" alt="Tyneside English Academy" width={360} height={209} style={{ width: '132px', height: 'auto', marginBottom: '1.5rem' }} />
+            <img src="/logo-light-nav-160.webp" alt="Tyneside English Academy" width={160} height={93} style={{ width: '132px', height: 'auto', marginBottom: '1.5rem' }} />
             <p style={{ color: 'var(--color-slate-muted)', fontSize: '0.95rem', lineHeight: 1.7, maxWidth: '320px' }}>
               {t('footer.description')}
             </p>

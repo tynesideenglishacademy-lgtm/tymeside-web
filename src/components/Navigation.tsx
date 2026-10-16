@@ -57,7 +57,7 @@ const Navigation = () => {
     <nav className={`floating-navbar editorial-navbar refined-navbar${scrolled || mobileMenuOpen ? ' is-solid' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" aria-label="Tyneside English Academy, inicio">
-          <img src="/logo-light-nav.png" alt="Tyneside English Academy" width={360} height={209} />
+          <img src="/logo-light-nav-160.webp" alt="Tyneside English Academy" width={160} height={93} />
         </Link>
 
         {/* Desktop Nav Links */}

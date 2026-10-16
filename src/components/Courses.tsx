@@ -23,7 +23,7 @@ const Courses = () => {
             <article key={course.id} className={`programme-item programme-item-${index + 1}`}>
               <img
                 src={`/img/${course.image}-480.webp`}
-                srcSet={`/img/${course.image}-480.webp 480w, /img/${course.image}-960.webp 960w`}
+                srcSet={`/img/${course.image}-480.webp 480w, /img/${course.image}-720.webp 720w, /img/${course.image}-960.webp 960w`}
                 sizes="(max-width: 720px) 100vw, 50vw"
                 alt={t(course.titleKey)}
                 width={960}

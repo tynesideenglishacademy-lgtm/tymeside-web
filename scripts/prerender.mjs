@@ -130,6 +130,17 @@ async function main() {
       await page.waitForSelector('h1', { timeout: 5000 }).catch(() => {});
       await page.waitForTimeout(300);
 
+      // The snapshot already contains the rendered page, so it must not boot
+      // the SPA again. Asset hashes can legitimately differ between the local
+      // snapshot build and Vercel's production build (production environment
+      // variables are compiled into the bundle). Keeping those local script
+      // references would therefore give crawlers avoidable 404 responses.
+      // Preserve JSON-LD, which is page content rather than executable app JS.
+      await page.evaluate(() => {
+        document.querySelectorAll('script:not([type="application/ld+json"])').forEach((node) => node.remove());
+        document.querySelectorAll('link[rel="modulepreload"], link[rel="preload"][as="script"]').forEach((node) => node.remove());
+      });
+
       // Chromium resolves modulepreload and stylesheet URLs against the local
       // preview origin. Do not persist that temporary localhost origin into
       // the committed crawler snapshots: bots must load assets from whichever

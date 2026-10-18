@@ -130,7 +130,11 @@ async function main() {
       await page.waitForSelector('h1', { timeout: 5000 }).catch(() => {});
       await page.waitForTimeout(300);
 
-      const html = await page.content();
+      // Chromium resolves modulepreload and stylesheet URLs against the local
+      // preview origin. Do not persist that temporary localhost origin into
+      // the committed crawler snapshots: bots must load assets from whichever
+      // production host served the snapshot.
+      const html = (await page.content()).replaceAll(base, '');
       await page.close();
 
       const outFile = path.join(outDir, `${routeSlug(route)}.html`);

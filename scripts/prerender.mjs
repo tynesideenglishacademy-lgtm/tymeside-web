@@ -145,7 +145,9 @@ async function main() {
       // preview origin. Do not persist that temporary localhost origin into
       // the committed crawler snapshots: bots must load assets from whichever
       // production host served the snapshot.
-      const html = (await page.content()).replaceAll(base, '');
+      const html = (await page.content())
+        .replaceAll(base, '')
+        .replace(/^[\t ]+$/gm, '');
       await page.close();
 
       const outFile = path.join(outDir, `${routeSlug(route)}.html`);

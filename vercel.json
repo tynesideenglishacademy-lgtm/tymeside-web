@@ -6,6 +6,7 @@
     { "source": "/politica-de-cookies", "destination": "/cookies", "permanent": true },
     { "source": "/politica-de-cookies/", "destination": "/cookies", "permanent": true },
     { "source": "/blog", "destination": "/recursos", "permanent": true },
+    { "source": "/blog/", "destination": "/recursos", "permanent": true },
     { "source": "/blog/:path*", "destination": "/recursos", "permanent": true }
   ],
   "rewrites": [

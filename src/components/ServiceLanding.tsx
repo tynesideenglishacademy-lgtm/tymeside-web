@@ -17,6 +17,8 @@ type ServiceCopy = {
   eyebrow: string;
   title: string;
   intro: string;
+  metaTitle?: string;
+  metaDescription?: string;
   image: string;
   imageAlt: string;
   highlights: Array<{ title: string; text: string }>;
@@ -69,9 +71,11 @@ const COPY: Record<ServiceSlug, { es: ServiceCopy; en: ServiceCopy }> = {
   },
   'one-to-one': {
     es: {
-      eyebrow: 'Clases particulares',
-      title: 'One to One: inglés diseñado alrededor de ti',
-      intro: 'Un programa individual para avanzar con más precisión: objetivos claros, horario acordado y una clase construida sobre tu nivel, profesión o examen.',
+      eyebrow: 'Clases particulares de inglés',
+      title: 'Clases de inglés One to One en Murcia',
+      intro: 'Un programa individual en Murcia para avanzar con más precisión: objetivos claros, horario acordado y clases presenciales u online construidas sobre tu nivel, profesión o examen.',
+      metaTitle: 'Clases de inglés One to One en Murcia | Tyneside',
+      metaDescription: 'Clases particulares de inglés One to One en Murcia, presenciales u online. Profesor, horario y contenidos adaptados a tu nivel, examen u objetivo profesional.',
       image: '/img/speaking-v2-960.webp',
       imageAlt: 'Clase individual de conversación en inglés',
       highlights: [
@@ -178,8 +182,8 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
   const contactUrl = `/?interest=${encodeURIComponent(SERVICE_INTEREST[slug])}#contact`;
 
   usePageMeta({
-    title: `${copy.title} | Tyneside English Academy`,
-    description: copy.intro,
+    title: copy.metaTitle ?? `${copy.title} | Tyneside English Academy`,
+    description: copy.metaDescription ?? copy.intro,
     path: `/${slug}`,
   });
 

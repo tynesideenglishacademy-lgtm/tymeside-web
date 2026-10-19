@@ -27,7 +27,7 @@ const ResourcesHub = () => {
   usePageMeta({
     title: english
       ? 'English exam resources A2–C2 | Tyneside English Academy'
-      : 'Recursos de inglés A2–C2 | Tyneside English Academy',
+      : 'Recursos Cambridge y ejercicios de inglés A2–C2 | Tyneside',
     description: english
       ? 'Official Cambridge preparation links from A2 Key to C2 Proficiency, free Tyneside practice and a private library for our students.'
       : 'Enlaces oficiales de preparación Cambridge de A2 Key a C2 Proficiency, práctica gratuita Tyneside y una biblioteca privada para nuestros alumnos.',
@@ -43,7 +43,7 @@ const ResourcesHub = () => {
           <div className="container resources-hero-grid">
             <div>
               <p className="resources-eyebrow">{english ? 'Tyneside Resources' : 'Recursos Tyneside'}</p>
-              <h1>{english ? 'Prepare with a clear route.' : 'Prepárate con una ruta clara.'}</h1>
+              <h1>{english ? 'Cambridge English resources from A2 to C2' : 'Recursos de inglés Cambridge de A2 a C2'}</h1>
             </div>
             <div className="resources-hero-copy">
               <p>{english ? 'Official Cambridge preparation links, free Tyneside practice and a private library for our students—all without mixing in CRM homework.' : 'Enlaces oficiales de preparación Cambridge, práctica gratuita Tyneside y una biblioteca privada para nuestros alumnos, sin mezclar aquí las tareas del CRM.'}</p>

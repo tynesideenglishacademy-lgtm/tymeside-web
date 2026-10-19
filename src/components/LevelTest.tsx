@@ -192,6 +192,35 @@ export default function LevelTest() {
     path: '/level-test',
   });
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.id = 'level-test-jsonld';
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Prueba de inglés gratis: test de nivel A1-C2',
+      description: 'Test de nivel de inglés online, adaptativo y gratuito para orientar el nivel CEFR de A1 a C2.',
+      url: 'https://www.tynesideacademy.com/level-test',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web',
+      inLanguage: ['es', 'en'],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'EUR',
+      },
+      provider: {
+        '@type': 'EducationalOrganization',
+        name: 'Tyneside English Academy',
+        url: 'https://www.tynesideacademy.com/',
+      },
+    });
+    document.head.appendChild(script);
+
+    return () => script.remove();
+  }, []);
+
   const handleRegistration = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;

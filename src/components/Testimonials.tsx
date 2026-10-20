@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 import Stars from './Stars';
@@ -42,15 +42,37 @@ const Testimonials = () => {
   const locale = i18n.resolvedLanguage?.startsWith('en') ? 'en-GB' : 'es-ES';
   const [activeReview, setActiveReview] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // ⚡ Bolt Performance Optimization:
+  // Use IntersectionObserver to pause the carousel interval when the component
+  // is out of the viewport. This reduces unnecessary React re-renders and CPU
+  // usage by skipping state updates when the user cannot see the carousel.
+  useEffect(() => {
+    const node = carouselRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (paused || !isVisible || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const interval = window.setInterval(
       () => setActiveReview((current) => (current + 1) % testimonials.length),
       6500,
     );
     return () => window.clearInterval(interval);
-  }, [paused]);
+  }, [paused, isVisible]);
 
   const moveReview = (direction: number) => {
     setActiveReview((current) => (current + direction + testimonials.length) % testimonials.length);
@@ -103,6 +125,7 @@ const Testimonials = () => {
 
         {testimonials.length > 0 && (
           <div
+            ref={carouselRef}
             className="reviews-carousel"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}

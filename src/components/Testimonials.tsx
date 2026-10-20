@@ -42,15 +42,34 @@ const Testimonials = () => {
   const locale = i18n.resolvedLanguage?.startsWith('en') ? 'en-GB' : 'es-ES';
   const [activeReview, setActiveReview] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (testimonials.length < 2 || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    const section = document.getElementById('testimonials');
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // ⚡ BOLT OPTIMIZATION:
+    // Only run the setInterval carousel when the component is actually visible on screen.
+    // This prevents background CPU usage, unnecessary React state updates, and DOM re-renders
+    // when the user is scrolled away from the testimonials section or on another tab.
+    if (!isVisible || paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const interval = window.setInterval(
       () => setActiveReview((current) => (current + 1) % testimonials.length),
       6500,
     );
     return () => window.clearInterval(interval);
-  }, [paused]);
+  }, [paused, isVisible]);
 
   const moveReview = (direction: number) => {
     setActiveReview((current) => (current + direction + testimonials.length) % testimonials.length);

@@ -9,8 +9,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const copy = {
   es: {
     eyebrow: 'Examen de práctica gratuito',
-    title: 'Pon a prueba tu inglés con un examen completo.',
-    lead: 'Una práctica extensa para conocer cómo respondes en Reading & Use of English, Listening y Writing, con una estimación de tu nivel CEFR al finalizar.',
+    title: 'Examen de inglés gratis online de A2 a C1',
+    lead: 'Un examen completo de aproximadamente 60 minutos con Reading & Use of English, Listening y Writing, más una estimación de tu nivel CEFR al finalizar.',
     primary: 'Comenzar el examen completo',
     secondary: 'Prefiero la prueba rápida',
     time: 'Aproximadamente 60 minutos',
@@ -35,8 +35,8 @@ const copy = {
   },
   en: {
     eyebrow: 'Free full practice exam',
-    title: 'Test your English with a complete practice paper.',
-    lead: 'A longer assessment covering Reading & Use of English, Listening and Writing, with an estimated CEFR level when you finish.',
+    title: 'Free online English exam from A2 to C1',
+    lead: 'A complete exam lasting approximately 60 minutes, covering Reading & Use of English, Listening and Writing, with an estimated CEFR level when you finish.',
     primary: 'Start the full practice exam',
     secondary: 'Take the quick level test instead',
     time: 'Approximately 60 minutes',
@@ -68,8 +68,8 @@ const PracticeExamLanding = () => {
 
   usePageMeta({
     title: language === 'es'
-      ? 'Examen completo de inglés gratis | Tyneside English Academy'
-      : 'Free full English practice exam | Tyneside English Academy',
+      ? 'Examen de inglés gratis online A2–C1 | Tyneside'
+      : 'Free online English exam A2–C1 | Tyneside',
     description: text.lead,
     path: '/examen-prueba-ingles',
   });

@@ -35,7 +35,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 
 const copy = {
   eyebrow: 'Oposiciones 2027 · Región de Murcia',
-  h1: 'Intensivo APTIS para tus oposiciones',
+  h1: 'Preparación APTIS para oposiciones 2027 en Murcia',
   sub: 'Preparación centrada en el examen, en grupos reducidos y con la fecha de la convocatoria marcada en el calendario. Sin relleno: solo lo que puntúa.',
   ctaPrimary: 'Reserva tu plaza',
   ctaSecondary: 'Hablar con nosotros',
@@ -95,9 +95,9 @@ const copy = {
   formError: 'No hemos podido enviar tus datos. Vuelve a intentarlo o llámanos al 605 661 212.',
 };
 
-const PAGE_TITLE = 'Intensivo APTIS para oposiciones 2027 | Tyneside English Academy';
+const PAGE_TITLE = 'APTIS para oposiciones 2027 en Murcia | Tyneside';
 const PAGE_DESC =
-  'Preparación intensiva de APTIS en Murcia para las oposiciones de 2027. Grupos reducidos, simulacros y corrección individual de Writing.';
+  'Preparación APTIS para oposiciones 2027 en Murcia. Curso intensivo con grupos reducidos, simulacros y corrección individual de Writing.';
 
 const AptisOposiciones = () => {
   // index.html carries the home page's title and description. Without this the

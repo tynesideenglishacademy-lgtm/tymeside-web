@@ -13,6 +13,7 @@ type SessionState = {
   loading: boolean;
   session: Session | null;
   student: StudentProfile | null;
+  accessRole: 'Student' | 'Teacher' | null;
   error: string;
 };
 
@@ -20,6 +21,7 @@ const initialState: SessionState = {
   loading: true,
   session: null,
   student: null,
+  accessRole: null,
   error: '',
 };
 
@@ -34,20 +36,26 @@ export const useStudentSession = () => {
 
   const resolveStudent = useCallback(async (session: Session | null) => {
     if (!session) {
-      setState({ loading: false, session: null, student: null, error: '' });
+      setState({ loading: false, session: null, student: null, accessRole: null, error: '' });
       return;
     }
 
     const role = session.user.app_metadata?.role;
-    if (role !== 'Student') {
+    if (role !== 'Student' && role !== 'Teacher') {
       suppressNextAuthEvent.current = true;
       await supabase.auth.signOut();
       setState({
         loading: false,
         session: null,
         student: null,
-        error: 'Esta área está reservada al alumnado. Las cuentas de familias y personal acceden desde el CRM.',
+        accessRole: null,
+        error: 'Esta área está reservada al alumnado y al profesorado. Las familias acceden desde el CRM.',
       });
+      return;
+    }
+
+    if (role === 'Teacher') {
+      setState({ loading: false, session, student: null, accessRole: 'Teacher', error: '' });
       return;
     }
 
@@ -64,12 +72,13 @@ export const useStudentSession = () => {
         loading: false,
         session: null,
         student: null,
+        accessRole: null,
         error: 'La cuenta es válida, pero todavía no está vinculada a una ficha de alumno. Contacta con secretaría.',
       });
       return;
     }
 
-    setState({ loading: false, session, student: data as StudentProfile, error: '' });
+    setState({ loading: false, session, student: data as StudentProfile, accessRole: 'Student', error: '' });
 
     if (lastSessionEvent.current !== session.user.id) {
       lastSessionEvent.current = session.user.id;
@@ -118,19 +127,20 @@ export const useStudentSession = () => {
         loading: false,
         session: null,
         student: null,
+        accessRole: null,
         error: 'No hemos podido iniciar sesión. Comprueba el correo y la contraseña.',
       });
       return false;
     }
 
     await resolveStudent(data.session);
-    return data.user.app_metadata?.role === 'Student';
+    return ['Student', 'Teacher'].includes(data.user.app_metadata?.role);
   }, [resolveStudent]);
 
   const signOut = useCallback(async () => {
     lastSessionEvent.current = null;
     await supabase.auth.signOut();
-    setState({ loading: false, session: null, student: null, error: '' });
+    setState({ loading: false, session: null, student: null, accessRole: null, error: '' });
   }, []);
 
   const trackActivity = useCallback(async (event: {

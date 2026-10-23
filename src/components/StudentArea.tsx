@@ -20,7 +20,7 @@ const EXAM_LEVEL_OPTIONS = [
 
 const StudentArea = () => {
   const { t } = useTranslation();
-  const { loading, session, student, error, signIn, signOut, trackActivity } = useStudentSession();
+  const { loading, session, student, accessRole, error, signIn, signOut, trackActivity } = useStudentSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -58,6 +58,10 @@ const StudentArea = () => {
   const openExamBank = async (examId: string) => {
     setExamError(false);
     setExamOpening(examId);
+    if (accessRole === 'Teacher') {
+      window.location.assign(STUDENT_EXAM_BANK_URL);
+      return;
+    }
     trackExamLaunch(examId);
     try {
       const { data } = await supabase.auth.getSession();
@@ -92,7 +96,7 @@ const StudentArea = () => {
       <a href="#student-main" className="skip-link">{t('student_area.skip')}</a>
       <Navigation />
       <main id="student-main" className="student-area-page">
-        {!session || !student ? (
+        {!session || (!student && accessRole !== 'Teacher') ? (
           <header className="student-area-hero student-login-hero">
             <div className="container student-area-hero-grid">
               <div>
@@ -129,7 +133,7 @@ const StudentArea = () => {
               <div className="container student-dashboard-heading">
                 <div>
                   <p className="student-access-kicker">{t('student_area.label')}</p>
-                  <h1>{t('student_area.welcome', { name: student.name })}</h1>
+                  <h1>{accessRole === 'Teacher' ? (t('student_area.teacher_welcome', { defaultValue: 'Teacher resource view' })) : t('student_area.welcome', { name: student?.name })}</h1>
                   <p>{t('student_area.dashboard_desc')}</p>
                 </div>
                 <button type="button" className="student-signout" onClick={() => void signOut()}>{t('student_area.sign_out')}</button>

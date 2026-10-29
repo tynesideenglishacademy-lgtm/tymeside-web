@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
-import { CONSENT_CHANGED_EVENT, readConsent, setConsent } from '../lib/consent';
+import { CONSENT_CHANGED_EVENT, readPreferences, allowMap } from '../lib/consent';
 import SectionHeader from './SectionHeader';
 import { RequiredMark } from './RequiredMark';
+import { enquiryContext, selectedInterest } from '../lib/enquiryContext';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -32,18 +33,15 @@ const Contact = () => {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    const interest = new URLSearchParams(location.search).get('interest');
+    const interest = selectedInterest(location.search);
     if (interest) setFormData(prev => ({ ...prev, course: interest }));
   }, [location.search]);
 
-  // Embedding the map loads content from google.com, which — like Fonts and
-  // Sentry — needs prior consent under Spanish cookie law. It shares the
-  // same accept/deny choice as those (src/lib/consent.ts) rather than having
-  // its own toggle.
-  const [mapConsent, setMapConsent] = useState(() => readConsent() === 'granted');
+  // Map consent is independent of fonts and error monitoring.
+  const [mapConsent, setMapConsent] = useState(() => readPreferences()?.maps === true);
 
   useEffect(() => {
-    const onConsentChange = () => setMapConsent(readConsent() === 'granted');
+    const onConsentChange = () => setMapConsent(readPreferences()?.maps === true);
     window.addEventListener(CONSENT_CHANGED_EVENT, onConsentChange);
     return () => window.removeEventListener(CONSENT_CHANGED_EVENT, onConsentChange);
   }, []);
@@ -56,7 +54,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.email || !formData.gdpr) return;
+    if (isSubmitting || !formData.name || !formData.phone || !formData.email || !formData.course || !formData.gdpr) return;
 
     setIsSubmitting(true);
     setFailed(false);
@@ -80,6 +78,7 @@ const Contact = () => {
         phone,
         email,
         notes: [
+          ...enquiryContext(location.search).notes,
           `Curso o servicio: ${formData.course}`,
           organisation && `Centro / empresa: ${organisation}`,
           message && `Mensaje: ${message}`
@@ -88,7 +87,7 @@ const Contact = () => {
       });
 
       setSubmitted(true);
-      trackEvent('lead_submitted', { form: 'contact', course: formData.course });
+      trackEvent('lead_submitted', { form: 'contact', course: formData.course, landing: enquiryContext(location.search).landing });
     } catch (err) {
       console.error('Lead capture failed:', err);
       setFailed(true);
@@ -364,7 +363,7 @@ const Contact = () => {
                     type="button"
                     className="btn-secondary"
                     style={{ padding: '0.65rem 1.4rem', fontSize: '0.88rem' }}
-                    onClick={() => setConsent('granted')}
+                    onClick={allowMap}
                   >
                     {t('contact.map_consent_button')}
                   </button>

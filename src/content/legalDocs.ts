@@ -175,15 +175,15 @@ const es: Record<LegalSlug, LegalDoc> = {
       {
         heading: '2. Servicios de terceros sujetos a consentimiento',
         paragraphs: [
-          'Google Fonts: si aceptas, cargamos las tipografías desde los servidores de Google (fonts.googleapis.com y fonts.gstatic.com), lo que implica que Google recibe tu dirección IP. Si no aceptas, el sitio usa las tipografías del sistema.',
-          'Sentry: si aceptas, activamos una herramienta de monitorización de errores que puede registrar la sesión de navegación para diagnosticar fallos. Si no aceptas, no se carga.',
+          'Google Fonts: si autorizas las tipografías, cargamos las tipografías desde los servidores de Google (fonts.googleapis.com y fonts.gstatic.com), lo que implica que Google recibe tu dirección IP. Si no aceptas, el sitio usa las tipografías del sistema.',
+          'Sentry: solo si autorizas la monitorización, activamos informes de errores, sin grabación de sesión ni trazado de rendimiento. Si no lo autorizas, no se carga.',
           'Google Maps: el mapa de la sección de contacto solo se carga tras una acción afirmativa. Al cargarlo, Google puede recibir datos técnicos e instalar sus propias cookies; si no lo cargas, el sitio muestra la dirección y los datos de contacto sin el mapa.',
         ],
       },
       {
         heading: '3. Cómo cambiar tu decisión',
         paragraphs: [
-          'Puedes borrar el almacenamiento local del sitio desde la configuración de tu navegador; al volver a entrar, el aviso aparecerá de nuevo.',
+          'Puedes abrir «Configurar privacidad» en el pie de cualquier página para aceptar, rechazar o cambiar cada servicio opcional. Al retirar la monitorización, la página se recarga para detenerla.',
           'También puedes configurar tu navegador para bloquear o eliminar cookies de terceros.',
         ],
       },
@@ -327,15 +327,15 @@ const en: Record<LegalSlug, LegalDoc> = {
       {
         heading: '2. Third-party services subject to consent',
         paragraphs: [
-          'Google Fonts: if you accept, we load the fonts from Google’s servers (fonts.googleapis.com and fonts.gstatic.com), which means Google receives your IP address. If you do not accept, the site uses system fonts.',
-          'Sentry: if you accept, we enable an error-monitoring tool that may record the browsing session to diagnose faults. If you do not accept, it is not loaded.',
+          'Google Fonts: if you allow fonts, we load the fonts from Google’s servers (fonts.googleapis.com and fonts.gstatic.com), which means Google receives your IP address. If you do not accept, the site uses system fonts.',
+          'Sentry: only if you allow monitoring, we enable error reports without session recording or performance tracing. Otherwise, it is not loaded.',
           'Google Maps: the contact map loads only after an affirmative action. When loaded, Google may receive technical data and set its own cookies; if you do not load it, the address and contact details remain available without the map.',
         ],
       },
       {
         heading: '3. How to change your decision',
         paragraphs: [
-          'You can clear the site’s local storage from your browser settings; the notice will appear again on your next visit.',
+          'Open “Privacy settings” in the footer of any page to accept, reject or change each optional service. Withdrawing monitoring permission reloads the page to stop it.',
           'You can also configure your browser to block or delete third-party cookies.',
         ],
       },

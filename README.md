@@ -54,3 +54,17 @@ No `.env.example` is committed yet; the variables the app reads via
 Deployed on Vercel (`vercel.json`): `npm run build` outputs `dist/`, with
 SPA rewrites for the marketing/app routes and a CSP restricting
 `connect-src` to Supabase and Sentry.
+
+## Public snapshot freshness
+
+`npm run build` rejects missing, stale or modified crawler snapshots. After a
+source change, run `npm run prerender` using an installed Chromium browser
+(`PLAYWRIGHT_CHROMIUM_PATH` can override its path), then commit the generated
+`public/prerendered/` files, including `manifest.json`. Source fingerprints
+normalise Windows/Unix line endings. This guard is conservative: changes
+anywhere in `src/` require regeneration.
+
+`npm run test:presence` checks service enquiry attribution. Run
+`node scripts/verify-presence.mjs` for local browser checks using synthetic
+public configuration and intercepted external requests. No live lead is sent.
+See `docs/DIGITAL-PRESENCE-FIXES-2026-10-29.md` for scope and remaining inputs.

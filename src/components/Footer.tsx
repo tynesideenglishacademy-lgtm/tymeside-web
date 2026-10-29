@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
+import { openConsentSettings } from '../lib/consent';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -76,6 +77,7 @@ const Footer = () => {
             <Link to="/aviso-legal" className="footer-link">{t('legal.aviso_title')}</Link>
             <Link to="/privacidad" className="footer-link">{t('legal.privacidad_title')}</Link>
             <Link to="/cookies" className="footer-link">{t('legal.cookies_title')}</Link>
+            <button type="button" className="footer-link privacy-settings-button" onClick={openConsentSettings}>{t('cookie.settings')}</button>
           </nav>
           <div style={{ textAlign: 'center' }}>
             © {new Date().getFullYear()} Tyneside English Academy. {t('footer.rights')}

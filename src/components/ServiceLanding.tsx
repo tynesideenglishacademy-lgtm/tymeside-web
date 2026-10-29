@@ -1,17 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { serviceContactUrl } from '../lib/enquiryContext';
 
 export type ServiceSlug = 'colegios' | 'one-to-one' | 'traduccion' | 'newcastle';
-
-const SERVICE_INTEREST: Record<ServiceSlug, string> = {
-  colegios: 'Servicios escolares y extraescolares',
-  'one-to-one': 'Clases particulares One to One',
-  traduccion: 'Traducción e interpretación',
-  newcastle: 'Viajes e inmersión en Newcastle',
-};
 
 type ServiceCopy = {
   eyebrow: string;
@@ -179,7 +173,8 @@ const ServiceLanding = ({ slug }: { slug: ServiceSlug }) => {
   const { i18n } = useTranslation();
   const language = i18n.language.startsWith('en') ? 'en' : 'es';
   const copy = COPY[slug][language];
-  const contactUrl = `/?interest=${encodeURIComponent(SERVICE_INTEREST[slug])}#contact`;
+  const location = useLocation();
+  const contactUrl = serviceContactUrl(slug, location.search);
 
   usePageMeta({
     title: copy.metaTitle ?? `${copy.title} | Tyneside English Academy`,

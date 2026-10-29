@@ -2818,6 +2818,8 @@ h3[id] {
 
 /* --- Cookie notice --- */
 .cookie-banner {
+  max-height: 80svh;
+  overflow-y: auto;
   position: fixed;
   left: 0;
   right: 0;
@@ -2845,6 +2847,12 @@ h3[id] {
   line-height: 1.5;
   color: var(--color-slate-muted);
 }
+
+.cookie-preferences { flex: 1 1 100%; border: 0; padding: 0; margin: 0; color: var(--color-soft-cream); }
+.cookie-preferences legend { margin-bottom: 0.5rem; font-weight: 600; }
+.cookie-preferences label { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; margin-right: 1.5rem; }
+.cookie-preferences input { width: 20px; height: 20px; accent-color: var(--color-gold); }
+.privacy-settings-button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; min-height: 44px; }
 
 .cookie-banner-link {
   display: inline-flex;

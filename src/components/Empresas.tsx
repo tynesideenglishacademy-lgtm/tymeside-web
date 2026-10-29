@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import GoogleRatingBadge from './GoogleRatingBadge';
 import Stars from './Stars';
 import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, testimonials } from '../data/testimonials';
@@ -7,6 +7,7 @@ import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { trackEvent } from '../lib/analytics';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { enquiryContext } from '../lib/enquiryContext';
 
 /**
  * Landing for company / FUNDAE-bonificado English training.
@@ -46,7 +47,7 @@ const copy = {
   why: [
     {
       title: 'Hasta 100% bonificable',
-      body: 'Cada empresa que cotiza por formación profesional dispone de un crédito anual de FUNDAE. Un curso de inglés para la plantilla puede quedar cubierto en su totalidad con ese crédito, y de la tramitación nos encargamos nosotros.',
+      body: 'Cada empresa que cotiza por formación profesional dispone de un crédito anual de FUNDAE. La bonificación puede alcanzar el 100% del coste elegible, según el crédito disponible, los límites financiables y los requisitos aplicables, incluida la cofinanciación. Estudiamos cada caso antes de confirmar la propuesta.',
     },
     {
       title: 'Inglés del puesto, no de libro',
@@ -76,7 +77,7 @@ const copy = {
     },
     {
       q: '¿Cuánto se puede bonificar?',
-      a: 'Depende del crédito disponible de la empresa y del número de participantes. En muchos casos el curso queda cubierto al 100%. Lo revisamos contigo antes de empezar y te decimos con claridad qué parte no cubre.',
+      a: 'Depende del crédito disponible, los costes elegibles, los límites financiables y los requisitos de ejecución y cofinanciación aplicables. Revisamos cada caso antes de empezar y explicamos qué parte del coste puede bonificarse.',
     },
     {
       q: '¿Tenemos que ocuparnos del papeleo con FUNDAE?',
@@ -103,7 +104,7 @@ const copy = {
 
 const PAGE_TITLE = 'Inglés para empresas bonificable con FUNDAE en Murcia | Tyneside English Academy';
 const PAGE_DESC =
-  'Formación de inglés técnico y comercial para empresas de Murcia, bonificable hasta el 100% con FUNDAE. Grupos por nivel, profesorado británico titulado y tramitación incluida.';
+  'Formación de inglés técnico y comercial para empresas de Murcia. Bonificación FUNDAE sujeta a crédito disponible y requisitos. Grupos por nivel y propuesta individual.';
 
 const Empresas = () => {
   // index.html carries the home page's title and description. Without this the
@@ -111,6 +112,7 @@ const Empresas = () => {
   // general English academy instead of the company-training offer.
   usePageMeta({ title: PAGE_TITLE, description: PAGE_DESC, path: '/empresas' });
 
+  const location = useLocation();
   const [form, setForm] = useState({ name: '', company: '', phone: '', email: '', website: '', gdpr: false });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -131,7 +133,7 @@ const Empresas = () => {
         name: form.company ? `${form.name} (${form.company})` : form.name,
         phone: form.phone,
         email: form.email,
-        notes: `Formación para empresas.${form.company ? ` Empresa: ${form.company}.` : ''}`,
+        notes: [...enquiryContext(location.search, '/empresas').notes, `Formación para empresas.${form.company ? ` Empresa: ${form.company}.` : ''}`].join('\n'),
         website: form.website
       });
 

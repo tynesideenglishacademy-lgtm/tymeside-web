@@ -26,6 +26,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
+import { snapshotState } from './snapshot-state.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -123,7 +124,8 @@ async function main() {
 
   try {
     for (const route of ROUTES) {
-      const page = await browser.newPage();
+      // Capture settled content rather than zero-valued animated counters.
+      const page = await browser.newPage({ reducedMotion: 'reduce' });
       await page.goto(base + route, { waitUntil: 'networkidle' });
       // Route chunks (lazy-loaded via React.lazy) and the reveal-on-scroll
       // animation both settle shortly after networkidle; give them a beat.
@@ -158,6 +160,7 @@ async function main() {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));
   }
+  await writeFile(path.join(outDir, 'manifest.json'), JSON.stringify(await snapshotState(root), null, 2) + '\n');
 }
 
 if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {

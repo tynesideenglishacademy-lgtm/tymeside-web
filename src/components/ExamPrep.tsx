@@ -149,12 +149,8 @@ const ExamPrep = () => {
               flexDirection: 'column',
               gap: '3rem'
             }}>
-              {/* Was 98%. The old five-year sample spanned Hello Academy
-                  (Ben was there 2022–2024) and Tyneside, so it can't back a
-                  Tyneside claim. One failed candidate since founding Tyneside,
-                  and Ben confirms it was in 2024 — so the last two years are
-                  clean and that is what publishes. */}
-              <StatCounter end={100} suffix="%" label={t('examprep.stat_pass')} />
+              {/* Publish a pass-rate statistic only after the cohort and results are verified. */}
+              <div style={{ textAlign: 'center' }}><strong className="text-gold" style={{ fontSize: '2rem' }}>Cambridge</strong><p>{t('examprep.stat_pass')}</p></div>
               <div style={{ height: '1px', backgroundColor: 'var(--color-border-glass)', width: '100%' }}></div>
               {/* Was "15+" as academy history (false — Tyneside is ~2 years
                   old). Now Ben's own teaching record: teaching English since

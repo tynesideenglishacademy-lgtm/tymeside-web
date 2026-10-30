@@ -10,9 +10,9 @@ const Hero = () => {
       <div className="editorial-hero-copy">
         <p className="editorial-kicker">{t('hero.eyebrow')}</p>
         <h1 id="hero-title">
-          <span>Learn.</span>
-          <span>Grow.</span>
-          <span className="hero-gold">Connect.</span>
+          <span>Learn.</span>{' '}
+          <span>Grow.</span>{' '}
+          <span className="hero-gold">Connect.</span>{' '}
           <span className="hero-subtitle">{t('hero.h1_subtitle')}</span>
         </h1>
         <p className="editorial-hero-lead">{t('hero.h1')}</p>
@@ -24,7 +24,7 @@ const Hero = () => {
 
         <div className="editorial-proof" aria-label="Datos de la academia">
           <div>
-            <strong>100%</strong>
+            <strong>Cambridge</strong>
             <span>{t('hero.stat_pass')}</span>
           </div>
           <div>

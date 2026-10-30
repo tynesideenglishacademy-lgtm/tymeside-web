@@ -35,7 +35,7 @@ const resources = {
         cta: "Prueba de Nivel Gratuita",
         courses_link: "Ver nuestros cursos",
         eyebrow: "Centro preparador Cambridge · Murcia",
-        stat_pass: "Aprobados · convocatorias 2024-2026",
+        stat_pass: "Preparación Cambridge",
         stat_since: "Desde",
         stat_teaching: "Enseñando inglés",
         test_title: "Test de Nivel Online",
@@ -103,7 +103,7 @@ const resources = {
         details: "Más detalles",
         full_exam_cta: "O haz el examen completo de nivel CEFR",
         full_exam_note: "Un examen de práctica entero: Reading & Use of English, Listening y Writing. Alrededor de una hora, gratuito, con tu nivel CEFR al terminar.",
-        stat_pass: "Aprobados · convocatorias 2024-2026",
+        stat_pass: "Preparación Cambridge",
         stat_years: "Años enseñando inglés",
         stat_students: "Alumnos certificados",
         label: "Centro preparador oficial",
@@ -182,9 +182,9 @@ const resources = {
       services: {
         title: "Servicios para Empresas y Colegios",
         f_title: "Cursos FUNDAE (Para Empresas)",
-        f_desc1: "Impulsa tu competitividad a coste cero.",
+        f_desc1: "Formación de inglés adaptada a tu empresa.",
         f_desc2: "Diseñamos e impartimos formación en inglés técnico y comercial para empresas de Murcia. Ideal para los sectores de exportación, logística y tecnología.",
-        f_desc3: "Cursos hasta 100% bonificables a través de FUNDAE.",
+        f_desc3: "Bonificación de hasta el 100%, sujeta a crédito disponible y requisitos FUNDAE, incluida la cofinanciación aplicable.",
         f_cta: "Más información sobre FUNDAE",
         s_title: "Servicios Escolares y Extraescolares",
         s_desc: "Colaboramos con colegios y AMPAS locales para llevar la calidad Tyneside a las aulas de educación pública y concertada, enriqueciendo la jornada escolar de los alumnos.",
@@ -368,10 +368,16 @@ const resources = {
       },
       cookie: {
         aria: "Aviso de cookies",
-        message: "Usamos almacenamiento local para recordar tu elección. Con tu permiso, también cargamos tipografías de Google y monitorización de errores. Nada de esto se activa hasta que aceptas.",
+        message: "Puedes elegir por separado las tipografías de Google, la monitorización de errores y Google Maps. Los servicios opcionales permanecen desactivados hasta que los autorizas. Guardamos tu elección en este navegador.",
         more: "Más información sobre las cookies",
         accept: "Aceptar todo",
-        essential: "Solo lo imprescindible"
+        essential: "Solo lo imprescindible",
+        settings: "Configurar privacidad",
+        preferences: "Servicios opcionales",
+        fonts: "Tipografías de Google",
+        monitoring: "Monitorización de errores (sin grabación de sesión)",
+        maps: "Google Maps",
+        save: "Guardar selección"
       }
     }
   },
@@ -408,7 +414,7 @@ const resources = {
         cta: "Free Level Test",
         courses_link: "See our courses",
         eyebrow: "Cambridge preparation centre · Murcia",
-        stat_pass: "Pass rate · 2024-2026 exam sessions",
+        stat_pass: "Cambridge preparation",
         stat_since: "Since",
         stat_teaching: "Teaching English",
         test_title: "Online Level Test",
@@ -476,7 +482,7 @@ const resources = {
         details: "More details",
         full_exam_cta: "Or sit the full CEFR level exam",
         full_exam_note: "A complete practice exam: Reading & Use of English, Listening and Writing. About an hour, free, with your CEFR level at the end.",
-        stat_pass: "Pass rate · 2024-2026 exam sessions",
+        stat_pass: "Cambridge preparation",
         stat_years: "Years teaching English",
         stat_students: "Certified students",
         label: "Official preparation centre",
@@ -555,9 +561,9 @@ const resources = {
       services: {
         title: "Services for Businesses & Schools",
         f_title: "FUNDAE Courses (For Companies)",
-        f_desc1: "Boost your competitiveness at zero cost.",
+        f_desc1: "English training tailored to your business.",
         f_desc2: "We design and deliver technical and commercial English training for companies in Murcia. Ideal for the export, logistics, and technology sectors.",
-        f_desc3: "Courses up to 100% subsidized through FUNDAE.",
+        f_desc3: "Up to 100% eligible for FUNDAE funding, subject to available credit and requirements, including applicable cofinancing.",
         f_cta: "More about FUNDAE training",
         s_title: "School and Extracurricular Services",
         s_desc: "We collaborate with local schools and PTAs to bring Tyneside quality to public and charter school classrooms, enriching the students' school day.",
@@ -741,10 +747,16 @@ const resources = {
       },
       cookie: {
         aria: "Cookie notice",
-        message: "We use local storage to remember your choice. With your permission we also load Google Fonts and error monitoring. None of this runs until you accept.",
+        message: "Choose Google Fonts, error monitoring and Google Maps separately. Optional services stay off until you allow them. We save your choice in this browser.",
         more: "Learn more about cookies",
         accept: "Accept all",
-        essential: "Essential only"
+        essential: "Essential only",
+        settings: "Privacy settings",
+        preferences: "Optional services",
+        fonts: "Google Fonts",
+        monitoring: "Error monitoring (no session recording)",
+        maps: "Google Maps",
+        save: "Save selection"
       }
     }
   }

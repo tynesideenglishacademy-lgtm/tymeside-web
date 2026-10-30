@@ -49,6 +49,8 @@ export async function submitLead(input: LeadInput): Promise<void> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(input),
+    // Bound a stalled request; never automatically retry a possibly stored lead.
+    signal: AbortSignal.timeout(20_000),
   });
 
   const data = (await response.json().catch(() => null)) as {

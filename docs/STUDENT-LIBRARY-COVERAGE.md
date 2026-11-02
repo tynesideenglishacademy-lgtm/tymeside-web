@@ -101,7 +101,7 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 
 ## Batch 2 (added 2 November 2026)
 
-33 new draft units, all `status: "draft"`, in `src/data/library/*-batch2.ts`. A2, Pre-B1 and C2 gain one grammar unit and B1, B2 and C1 gain two. Every level also gains Every level also gains a second reading, writing and speaking unit, and mixed revision 2. Nothing is marked reviewed.
+33 new draft units, all `status: "draft"`, in `src/data/library/*-batch2.ts`. A2, Pre-B1 and C2 gain one grammar unit and B1, B2 and C1 gain two. Every level also gains a second reading, writing and speaking unit, and mixed revision 2. Nothing is marked reviewed.
 
 | Level | Unit key | Title |
 | --- | --- | --- |

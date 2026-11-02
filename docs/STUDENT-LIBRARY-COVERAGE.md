@@ -99,6 +99,54 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 | C2 | `c2-everyday-diplomacy-feedback-declining` | Everyday English: tact and diplomacy |
 | C2 | `c2-revision-mixed-1` | Mixed revision quiz 1 |
 
+## Batch 2 (added 2 November 2026)
+
+33 new draft units, all `status: "draft"`, in `src/data/library/*-batch2.ts`. A2, Pre-B1 and C2 gain one grammar unit and B1, B2 and C1 gain two. Every level also gains a second reading, writing and speaking unit, and mixed revision 2. Nothing is marked reviewed.
+
+| Level | Unit key | Title |
+| --- | --- | --- |
+| A2 | `a2-grammar-future-plans-predictions` | The future: going to, will and the present continuous |
+| A2 | `a2-reading-library-cafe` | Reading: a new café at the library |
+| A2 | `a2-writing-message-postcard` | Writing: a short message and a postcard |
+| A2 | `a2-speaking-describe-home-town` | Speaking: your home and your town |
+| A2 | `a2-revision-mixed-2` | A2 mixed revision 2 |
+| Pre-B1 | `preb1-grammar-used-to-for-since` | Used to, for and since |
+| Pre-B1 | `preb1-reading-bike-to-school` | Reading: cycling to school |
+| Pre-B1 | `preb1-writing-informal-email-reply` | Writing: replying to a friend's email |
+| Pre-B1 | `preb1-speaking-past-experience-plans` | Speaking: experiences and plans |
+| Pre-B1 | `preb1-revision-mixed-2` | Pre-B1 mixed revision 2 |
+| B1 | `b1-grammar-relative-clauses` | Relative clauses: who, which, that, where and whose |
+| B1 | `b1-grammar-gerunds-infinitives` | Gerunds and infinitives |
+| B1 | `b1-reading-plastic-free-town` | Reading: the town that said no to plastic bags |
+| B1 | `b1-writing-article` | Writing: an article for a school magazine |
+| B1 | `b1-speaking-describe-photo` | Speaking: describing a photograph |
+| B1 | `b1-revision-mixed-2` | B1 mixed revision 2 |
+| B2 | `b2-grammar-reporting-verbs` | Reporting verbs: suggest, admit, deny, refuse and more |
+| B2 | `b2-grammar-future-continuous-perfect` | Future continuous and future perfect |
+| B2 | `b2-reading-silent-cities` | Reading: what happens to a city when it falls silent? |
+| B2 | `b2-writing-report` | Writing: a report with recommendations |
+| B2 | `b2-speaking-collaborative-decision` | Speaking: discuss options and reach a decision |
+| B2 | `b2-revision-mixed-2` | B2 mixed revision 2 |
+| C1 | `c1-grammar-participle-clauses` | Participle clauses: -ing, -ed and perfect participles |
+| C1 | `c1-grammar-nominalisation-passive-formal` | Formal style: nominalisation and impersonal passives |
+| C1 | `c1-reading-slow-travel` | Reading: the case for travelling slowly |
+| C1 | `c1-writing-review-article` | Writing: a review that balances description and evaluation |
+| C1 | `c1-speaking-long-turn-compare` | Speaking: a long turn, comparing and speculating |
+| C1 | `c1-revision-mixed-2` | C1 mixed revision 2 |
+| C2 | `c2-grammar-ellipsis-substitution-cohesion` | Ellipsis, substitution and cohesion |
+| C2 | `c2-reading-memory-and-places` | Reading: do places remember us? |
+| C2 | `c2-writing-letter-to-editor` | Writing: a letter responding to an article |
+| C2 | `c2-speaking-abstract-discussion` | Speaking: sustained discussion of abstract ideas |
+| C2 | `c2-revision-mixed-2` | C2 mixed revision 2 |
+
+Totals after batch 2: 87 study units, 645 questions checked. The level mix is A2 14, Pre-B1 14, B1 15, B2 15, C1 15, C2 14.
+
+Points for the teacher review of batch 2:
+
+- Grammar placement is my proposal, not taken from the coursebooks: A2 future forms; Pre-B1 used to, for and since; B1 relative clauses and gerunds/infinitives; B2 reporting verbs and future continuous/perfect; C1 participle clauses and formal style (nominalisation, impersonal passives); C2 ellipsis, substitution and cohesion. [VERIFY — academy fact] against what each class has actually covered.
+- Reading texts and writing models are original. The C2 reading is a reflective essay, so check that the implied-meaning answers are defensible.
+- Typed answers list the forms I expect. Add any valid variant a student might type to `accepted`.
+
 ## Review notes for the teacher
 
 - **Repeated target:** *uncomfortable* is the answer in three batch-1 questions (A2 word formation Q5, B1 word formation Q2, B2 word formation Q1). The review flagged repetition. Replace one if you want more variety.
@@ -107,6 +155,11 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 - **Answer position:** each level's correct options are spread across a, b and c (and d where there are four options). `scripts/rebalance-answers.mjs` rebalances a new file.
 - **Spelling:** the validator warns about common American spellings. All other British English checks are by eye.
 - **Accepted regional alternatives:** examples include *have / take a break*, *were / was* after *as if*, and *refund / money back*.
+
+## Build notes
+
+- `npm run build` runs `check:prerender`, which hashes everything under `src/`. After any change to `src/`, run `npm run prerender` and commit `public/prerendered/`, or the build stops with "Public snapshots are stale".
+- Draft units are hidden at run time by `isVisible`, but their data (including answers) is still bundled into the production `StudentLibrary` chunk. This applies to batch 1 too. The earlier statement that drafts are removed from the production bundle is not accurate. Decide whether that matters before the student area has paying or exam-sensitive content.
 
 ## Validation each batch must pass
 
@@ -122,14 +175,14 @@ Every level has the same nine-unit pattern: two grammar, two vocabulary, one rea
 | Gap | Why | Next step |
 | --- | --- | --- |
 | **Listening in the library** | The study-unit library has no listening unit. Real recorded audio does exist, but only inside the Evaluation Suite exam papers (A2, B1, B2, C1 listening, one recording each). Reading texts are never labelled as listening. | Either link students to those listening papers, or host short recordings with transcripts and add a `listening` block. |
-| Infants, Primary (YLE) and A2 Key Y1-Y2 pathways | Not covered by this library. These pupils need picture-based tasks. | Plan a separate young-learner design with images. |
-| Second reading, writing and speaking unit at each level | One of each per level only. | Reading with matching headings or gapped sentences. Writing: email, report, letter, review variations. |
-| B1 and Pre-B1 depth | Pre-B1 and B1 each have two grammar units only. | Add present perfect continuous, relative clauses, used to and would, gerunds and infinitives. |
+| Infants and Primary (YLE) | Out of scope for now. Current focus is A2 and above (A2 is a single year). Infants and Primary start once the A2+ resources are finished, and are tied to the Tyneside Explorers programme, which is not yet developed. These pupils need picture-based tasks. | Plan a young-learner design with images alongside Tyneside Explorers. |
+| Third reading, writing and speaking unit at each level | Batch 2 added a second of each per level (A2 message and postcard; Pre-B1 email reply; B1 article; B2 report; C1 review; C2 letter to the editor). | Matching headings or gapped sentences; further writing types (story, proposal, essay variations). |
+| B1 and Pre-B1 depth | Batch 2 added used to / for / since (Pre-B1) and relative clauses and gerunds/infinitives (B1). | Still to add: present perfect continuous, would for past habits. |
 | Pronunciation | Not covered. | Word stress, sentence stress and intonation with audio. |
-| Reported speech beyond statements and questions | Orders, requests and reporting verbs are missing. | Add a B1/B2 unit on reporting verbs. |
-| Mixed revision | One quiz per level. | Add quiz 2 and 3 for each level that draw on all units. |
+| Reported speech beyond statements and questions | Batch 2 added B2 reporting verbs. | Orders and requests at B1 remain. |
+| Mixed revision | Two quizzes per level after batch 2. | Add quiz 3 for each level. |
 | Exam task types | Key word transformation, multiple-choice cloze and open cloze are not yet in the format. | Add a gap-fill block type with multiple blanks in one text. |
-| Teacher review | All 54 units and 20 worksheets are still drafts. | Review, edit, then mark as reviewed unit by unit. |
+| Teacher review | All 54 batch 1 units, the 33 batch 2 units and 20 worksheets are still drafts. Ben is part-way through his review (15 Oct 2026): A2, B1 and C2 looked correct so far, B2, C1 and Pre-B1 not yet checked, and one student is testing. Nothing is marked reviewed. | Finish review, then mark reviewed level by level, only on Ben's say-so. |
 | CRM display | `unit_opened` and `unit_practice_completed` are new event types in `student_resource_activity`. | Check the CRM `/student-activity` page for how it shows unknown event types. |
 
 ## Provisional level labels
@@ -152,6 +205,7 @@ Per level, Practice Test 1 (full length, original content to spec, practice-only
 | B1 Preliminary | 6 parts, 32 marks, auto-marked | 4 parts, 25 marks, auto-marked | Part 1 email (+ article or story in the bank) | 4 |
 | B2 First | 7 parts, 70 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
 | C1 Advanced | 8 parts, 78 marks, auto-marked | 4 parts, 30 marks, auto-marked | Part 1 essay | 4 |
-| Pre-B1, C2 | none | none | none | none |
+| Pre-B1 | No exam: Pre-B1 is a class pathway only (study units exist, no Cambridge-style paper is needed) | none | none | none |
+| C2 Proficiency | **Gap: exam still to be built** | none | none | none |
 
-Notes: the public catalogue offers only Practice Test 1 per level and offers only compulsory single-task writing parts. Speaking sittings 2-4 exist in the item bank but the catalogue serves sitting 1 only. Writing and speaking are not auto-marked by the objective marker. Picture tasks (A2/B1 listening Part 1, A2 Part 7, speaking photos) are authored as descriptions, not images. Student identity is not yet passed into the Exam Bank (see `STUDENT-AREA-AUTH-PLAN.md`).
+Notes: the public catalogue offers only Practice Test 1 per level and offers only compulsory single-task writing parts. Speaking sittings 2-4 exist in the item bank but the catalogue serves sitting 1 only. Writing and speaking are not auto-marked by the objective marker. Picture tasks (A2/B1 listening Part 1, A2 Part 7, speaking photos) are authored as descriptions, not images. Student identity: personalised links are built and deployed but inactive until `ASSIGNMENT_ISSUER_KEY` is set on the website project. Saving results to the student's CRM profile (with attempt numbers per paper) is drafted in `docs/crm-exam-practice-attempts/` and not yet applied. See `STUDENT-AREA-AUTH-PLAN.md`.

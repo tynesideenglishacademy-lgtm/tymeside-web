@@ -7,6 +7,7 @@ import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
 import { trackEvent } from '../lib/analytics';
 import { RequiredMark, OptionalMark } from './RequiredMark';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { startQuestionCountdown } from '../lib/levelTestTimer';
 import './LevelTest.css';
 
 const ACADEMY_CONFIG = {
@@ -176,11 +177,17 @@ export default function LevelTest() {
   const [finalResults, setFinalResults] = useState<any>(null);
   const [emailStatus, setEmailStatus] = useState('');
 
-  const timerRef = useRef<any>(null);
+  // The countdown invokes the latest committed answer handler, not the one
+  // captured when the registration screen still had currentQuestion = null.
+  const timerRef = useRef<(() => void) | null>(null);
+  const answerHandlerRef = useRef<(selectedIndex: number) => void>(() => {});
+  const answerHandledRef = useRef(false);
+  const nextQuestionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current?.();
+      if (nextQuestionTimerRef.current !== null) clearTimeout(nextQuestionTimerRef.current);
     };
   }, []);
 
@@ -283,6 +290,7 @@ export default function LevelTest() {
     const newUsed = { ...used };
     newUsed[actualLevel] = [...newUsed[actualLevel], qIndex];
 
+    answerHandledRef.current = false;
     setCurrentLevel(nextLvl);
     setCorrectInStage(nextCStage);
     setTotalCorrect(tCorrect);
@@ -294,28 +302,28 @@ export default function LevelTest() {
   };
 
   const startTimer = () => {
+    timerRef.current?.();
     setTimeLeft(ACADEMY_CONFIG.testTimePerQuestion);
-    if (timerRef.current) clearInterval(timerRef.current);
-    
-    timerRef.current = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          if (timerRef.current) clearInterval(timerRef.current);
-          handleAnswer(-1); // Timeout
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    timerRef.current = startQuestionCountdown(
+      ACADEMY_CONFIG.testTimePerQuestion,
+      setTimeLeft,
+      () => answerHandlerRef.current(-1)
+    );
   };
 
   const handleAnswer = (selectedIndex: number) => {
-    if (timerRef.current) clearInterval(timerRef.current);
+    // A click and the countdown can land in the same event-loop turn.
+    // Process exactly one answer (including a timeout) for each question.
+    if (answerHandledRef.current || !currentQuestion) return;
+    answerHandledRef.current = true;
+    timerRef.current?.();
+    timerRef.current = null;
     setSelectedOptionIndex(selectedIndex);
 
     const isCorrect = (selectedIndex === currentQuestion.answer);
-    
-    setTimeout(() => {
+
+    nextQuestionTimerRef.current = setTimeout(() => {
+      nextQuestionTimerRef.current = null;
       loadNextQuestion(
         currentLevel,
         isCorrect ? correctInStage + 1 : correctInStage,
@@ -325,6 +333,10 @@ export default function LevelTest() {
       );
     }, 400);
   };
+
+  useEffect(() => {
+    answerHandlerRef.current = handleAnswer;
+  });
 
   const finishTest = async (finalLvl: number, finalTotalCorrect: number) => {
     setIsLoading(true);

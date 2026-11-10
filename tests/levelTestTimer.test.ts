@@ -5,11 +5,11 @@ import { startQuestionCountdown, type QuestionCountdownClock } from '../src/lib/
 function fakeClock() {
   let now = 0;
   let nextId = 1;
-  const callbacks = new Map<number, () => void>();
+  const callbacks = new Map<ReturnType<typeof setInterval>, () => void>();
   const clock: QuestionCountdownClock = {
     now: () => now,
     setInterval: (callback) => {
-      const id = nextId++;
+      const id = { sequence: nextId++ } as unknown as ReturnType<typeof setInterval>;
       callbacks.set(id, callback);
       return id;
     },
@@ -29,7 +29,7 @@ test('45-second timeout invokes the latest handler once, never a stale initial h
   const timer = fakeClock();
   const ticks: number[] = [];
   let timedOut = 0;
-  let currentHandler = () => { throw new Error('stale handler accessed null question'); };
+  let currentHandler: () => void = () => { throw new Error('stale handler accessed null question'); };
 
   startQuestionCountdown(45, (remaining) => ticks.push(remaining), () => currentHandler(), timer.clock);
 

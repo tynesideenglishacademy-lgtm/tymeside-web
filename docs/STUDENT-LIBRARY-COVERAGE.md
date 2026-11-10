@@ -147,6 +147,52 @@ Points for the teacher review of batch 2:
 - Reading texts and writing models are original. The C2 reading is a reflective essay, so check that the implied-meaning answers are defensible.
 - Typed answers list the forms I expect. Add any valid variant a student might type to `accepted`.
 
+## Batch 3 (added 10 November 2026)
+
+30 new draft units, five per level, in `src/data/library/*-batch3.ts`: a third vocabulary unit, a third reading unit, a third writing unit, a second everyday-English role play and mixed revision 3. All are `status: "draft"`. Nothing is marked reviewed.
+
+| Level | Unit key | Title |
+| --- | --- | --- |
+| A2 | `a2-vocabulary-clothes-shopping` | Clothes and shopping |
+| A2 | `a2-reading-sports-centre-leaflet` | Reading: a leaflet for a new sports centre |
+| A2 | `a2-writing-describe-a-person` | Writing: describing a friend or family member |
+| A2 | `a2-everyday-directions-help` | Everyday English: asking for and giving directions |
+| A2 | `a2-revision-mixed-3` | A2 mixed revision 3 |
+| Pre-B1 | `preb1-vocabulary-technology-internet` | Technology and the internet |
+| Pre-B1 | `preb1-reading-blog-exchange-student` | Reading: a blog about studying abroad |
+| Pre-B1 | `preb1-writing-film-book-review` | Writing: a review of a film or book |
+| Pre-B1 | `preb1-everyday-returning-faulty-item` | Everyday English: returning something to a shop |
+| Pre-B1 | `preb1-revision-mixed-3` | Pre-B1 mixed revision 3 |
+| B1 | `b1-vocabulary-work-careers` | Work and careers |
+| B1 | `b1-reading-job-interview-tips` | Reading: how to do well in a job interview |
+| B1 | `b1-writing-story` | Writing: a story |
+| B1 | `b1-everyday-doctor-pharmacy` | Everyday English: at the doctor's and the pharmacy |
+| B1 | `b1-revision-mixed-3` | B1 mixed revision 3 |
+| B2 | `b2-vocabulary-environment-climate` | The environment and climate change |
+| B2 | `b2-reading-four-day-week` | Reading: should we work a four-day week? |
+| B2 | `b2-writing-application-letter` | Writing: a letter of application |
+| B2 | `b2-everyday-course-enquiry` | Everyday English: enquiring about a course by phone |
+| B2 | `b2-revision-mixed-3` | B2 mixed revision 3 |
+| C1 | `c1-vocabulary-economy-business` | The economy and business |
+| C1 | `c1-reading-ai-creativity` | Reading: can machines be creative? |
+| C1 | `c1-writing-essay-for-against` | Writing: an essay considering two views |
+| C1 | `c1-everyday-negotiating-agreement` | Everyday English: negotiating and reaching agreement |
+| C1 | `c1-revision-mixed-3` | C1 mixed revision 3 |
+| C2 | `c2-vocabulary-connotation-euphemism` | Connotation, euphemism and shades of meaning |
+| C2 | `c2-reading-narrative-extract` | Reading: a narrative extract and its implications |
+| C2 | `c2-writing-report` | Writing: an evaluative report with recommendations |
+| C2 | `c2-everyday-formal-speech-toast` | Everyday English: giving a short formal speech |
+| C2 | `c2-revision-mixed-3` | C2 mixed revision 3 |
+
+Totals after batch 3: 117 study units, 843 questions checked. The level mix is A2 19, Pre-B1 19, B1 20, B2 20, C1 20, C2 19.
+
+Points for the teacher review of batch 3:
+
+- Topic choices (clothes and shopping, technology, work, environment, economy, connotation and euphemism) are my proposal, not taken from the coursebooks. [VERIFY — academy fact] against what each class has covered.
+- The Pre-B1 and B1 stories and the C2 narrative extract are original. Check that the C2 interpretation answers are defensible.
+- Role plays use invented details (prices, dates, places). They are practice material, not academy facts.
+- Typed answers list the forms I expect. Add any valid variant to `accepted`.
+
 ## Review notes for the teacher
 
 - **Repeated target:** *uncomfortable* is the answer in three batch-1 questions (A2 word formation Q5, B1 word formation Q2, B2 word formation Q1). The review flagged repetition. Replace one if you want more variety.
@@ -176,11 +222,11 @@ Points for the teacher review of batch 2:
 | --- | --- | --- |
 | **Listening in the library** | The study-unit library has no listening unit. Real recorded audio does exist, but only inside the Evaluation Suite exam papers (A2, B1, B2, C1 listening, one recording each). Reading texts are never labelled as listening. | Either link students to those listening papers, or host short recordings with transcripts and add a `listening` block. |
 | Infants and Primary (YLE) | Out of scope for now. Current focus is A2 and above (A2 is a single year). Infants and Primary start once the A2+ resources are finished, and are tied to the Tyneside Explorers programme, which is not yet developed. These pupils need picture-based tasks. | Plan a young-learner design with images alongside Tyneside Explorers. |
-| Third reading, writing and speaking unit at each level | Batch 2 added a second of each per level (A2 message and postcard; Pre-B1 email reply; B1 article; B2 report; C1 review; C2 letter to the editor). | Matching headings or gapped sentences; further writing types (story, proposal, essay variations). |
+| Fourth reading, writing and speaking unit at each level (third reading and writing added in batch 3) | Batch 2 added a second of each per level (A2 message and postcard; Pre-B1 email reply; B1 article; B2 report; C1 review; C2 letter to the editor). | Matching headings or gapped sentences; further writing types (story, proposal, essay variations). |
 | B1 and Pre-B1 depth | Batch 2 added used to / for / since (Pre-B1) and relative clauses and gerunds/infinitives (B1). | Still to add: present perfect continuous, would for past habits. |
 | Pronunciation | Not covered. | Word stress, sentence stress and intonation with audio. |
 | Reported speech beyond statements and questions | Batch 2 added B2 reporting verbs. | Orders and requests at B1 remain. |
-| Mixed revision | Two quizzes per level after batch 2. | Add quiz 3 for each level. |
+| Mixed revision | Three quizzes per level after batch 3. | Consider a cumulative end-of-year quiz. |
 | Exam task types | Key word transformation, multiple-choice cloze and open cloze are not yet in the format. | Add a gap-fill block type with multiple blanks in one text. |
 | Teacher review | All 54 batch 1 units, the 33 batch 2 units and 20 worksheets are still drafts. Ben is part-way through his review (15 Oct 2026): A2, B1 and C2 looked correct so far, B2, C1 and Pre-B1 not yet checked, and one student is testing. Nothing is marked reviewed. | Finish review, then mark reviewed level by level, only on Ben's say-so. |
 | CRM display | `unit_opened` and `unit_practice_completed` are new event types in `student_resource_activity`. | Check the CRM `/student-activity` page for how it shows unknown event types. |

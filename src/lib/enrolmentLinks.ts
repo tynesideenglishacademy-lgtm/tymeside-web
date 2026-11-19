@@ -103,3 +103,6 @@ export const PRACTICE_EXAM_URL = `${EXAM_BASE}/exam-demo`;
 
 /** Student-facing entrance to the exam engine, reached from authenticated access. */
 export const STUDENT_EXAM_BANK_URL = `${EXAM_BASE}/student`;
+
+/** The learning portal (LMS): where students study their courses. */
+export const LEARNING_PORTAL_URL = 'https://portal.tynesideacademy.com/learn';

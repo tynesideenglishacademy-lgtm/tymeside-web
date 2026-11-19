@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from './Navigation';
 import Footer from './Footer';
-import { STUDENT_EXAM_BANK_URL } from '../lib/enrolmentLinks';
+import { LEARNING_PORTAL_URL, STUDENT_EXAM_BANK_URL } from '../lib/enrolmentLinks';
 import { supabase } from '../lib/supabaseClient';
 import { useStudentSession } from '../hooks/useStudentSession';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -144,6 +144,14 @@ const StudentArea = () => {
               <div className="container">
                 <h2 id="student-modules-title">{t('student_area.choose')}</h2>
                 <div className="student-module-layout">
+                  <article className="student-module student-module-lms" data-testid="student-lms-door">
+                    <div>
+                      <span>{t('student_area.lms_label')}</span>
+                      <h3>{t('student_area.lms_title')}</h3>
+                      <p>{t('student_area.lms_desc')}</p>
+                    </div>
+                    <a href={LEARNING_PORTAL_URL} className="btn-editorial-primary" onClick={() => void trackActivity({ eventType: 'learning_portal_opened' })}>{t('student_area.lms_open')}</a>
+                  </article>
                   <article className="student-module student-module-exams">
                     <div>
                       <span>{t('student_area.exam_label')}</span>

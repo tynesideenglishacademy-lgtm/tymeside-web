@@ -7,9 +7,6 @@ import {
   type StudentResource,
   type StudentWorksheet,
 } from '../data/studentResources';
-import { studyUnits } from '../data/library';
-import { isVisible } from '../data/library/publication';
-import StudyUnits from './StudyUnits';
 
 type ActivityEvent = {
   eventType: string;
@@ -24,9 +21,9 @@ type Props = {
   previewDownloads?: boolean;
 };
 
-// True when at least one study unit is visible to students (drafts are hidden
-// in production until a teacher marks them reviewed).
-const libraryHasUnits = studyUnits.some(isVisible);
+// Study units and the newer worksheets moved to Editorial on 19 November 2026; students
+// study in the learning portal. Unreviewed items are never shown here.
+const isVisible = (item: { status?: 'draft' | 'reviewed' }) => item.status !== 'draft';
 
 const levels = ['All', 'A2', 'Pre-B1', 'B1', 'B2', 'C1', 'C2'] as const;
 type LevelFilter = (typeof levels)[number];
@@ -150,13 +147,8 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
     () => studentWorksheets.filter(isVisible).filter((worksheet) => level === 'All' || worksheet.level === level),
     [level],
   );
-  const filteredUnits = useMemo(
-    () => studyUnits.filter(isVisible).filter((unit) => level === 'All' || unit.level === level),
-    [level],
-  );
   const hasGuides = filteredResources.length > 0;
-  const unitsChapter = String(hasGuides ? 2 : 1).padStart(2, '0');
-  const worksheetsChapter = String((hasGuides ? 1 : 0) + (libraryHasUnits ? 1 : 0) + 1).padStart(2, '0');
+  const worksheetsChapter = String((hasGuides ? 1 : 0) + 1).padStart(2, '0');
 
   const toggleResource = (resource: StudentResource) => {
     const willOpen = openResource !== resource.key;
@@ -243,13 +235,6 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
               );
             })}
           </div>
-        </div>
-        )}
-
-        {libraryHasUnits && (
-        <div className="student-library-chapter student-units-chapter">
-          <div className="student-chapter-title"><span>{unitsChapter}</span><div><p>{english ? 'Study units' : 'Unidades de estudio'}</p><h3>{english ? 'Learn it, try it, use it' : 'Aprende, prueba y utiliza'}</h3></div></div>
-          <StudyUnits key={level} units={filteredUnits} trackActivity={trackActivity} english={english} />
         </div>
         )}
 

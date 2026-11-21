@@ -8,7 +8,6 @@
     "images": "node scripts/optimize-images.mjs",
     "og-image": "node scripts/generate-og-image.mjs",
     "upload:student-resources": "node scripts/upload-student-resources.mjs",
-    "validate:library": "node scripts/validate-student-library.mjs",
     "verify:connections": "node scripts/verify-live-connections.mjs",
     "build": "npm run check:prerender && npm run test:level-test && tsc -b && vite build",
     "check:prerender": "node scripts/check-prerender.mjs",
@@ -16,7 +15,6 @@
     "prerender": "vite build && node scripts/prerender.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
-    "export:review": "node scripts/export-review-sheet.mjs",
     "test:level-test": "node --test tests/levelTestTimer.test.ts"
   },
   "dependencies": {

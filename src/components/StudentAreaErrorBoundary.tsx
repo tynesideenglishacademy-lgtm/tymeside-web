@@ -2,6 +2,7 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
+import { LEARNING_PORTAL_URL } from '../lib/enrolmentLinks';
 
 type Props = { children: ReactNode };
 type State = { hasError: boolean };
@@ -30,6 +31,7 @@ class StudentAreaErrorBoundary extends Component<Props, State> {
             <p>Tu cuenta y tus datos siguen seguros. Vuelve a intentarlo o contacta con secretaría si el problema continúa.</p>
             <div>
               <button type="button" className="btn-editorial-primary" onClick={() => window.location.reload()}>Volver a intentar</button>
+              <a href={LEARNING_PORTAL_URL} className="text-link">Abrir el portal de aprendizaje</a>
               <Link to="/recursos" className="text-link">Ver recursos públicos</Link>
             </div>
           </div>

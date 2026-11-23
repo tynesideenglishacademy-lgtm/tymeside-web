@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 import Stars from './Stars';
@@ -42,15 +42,31 @@ const Testimonials = () => {
   const locale = i18n.resolvedLanguage?.startsWith('en') ? 'en-GB' : 'es-ES';
   const [activeReview, setActiveReview] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // Optimization: Pause the interval completely when the section is out of the viewport
+    if (!isVisible || paused || testimonials.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const interval = window.setInterval(
       () => setActiveReview((current) => (current + 1) % testimonials.length),
       6500,
     );
     return () => window.clearInterval(interval);
-  }, [paused]);
+  }, [paused, isVisible]);
 
   const moveReview = (direction: number) => {
     setActiveReview((current) => (current + direction + testimonials.length) % testimonials.length);
@@ -59,7 +75,7 @@ const Testimonials = () => {
   if (!hasSocialProof) return null;
 
   return (
-    <section id="testimonials" className="section-light" style={{ padding: 'var(--section-y) 0' }}>
+    <section id="testimonials" ref={sectionRef} className="section-light" style={{ padding: 'var(--section-y) 0' }}>
       <div className="container">
         <SectionHeader
           section="testimonials"

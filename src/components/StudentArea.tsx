@@ -109,6 +109,7 @@ const StudentArea = () => {
                 <p className="student-login-eyebrow">{t('student_area.private_access')}</p>
                 <h2 id="student-login-title">{t('student_area.login_title')}</h2>
                 <p>{t('student_area.login_desc')}</p>
+                <p><a className="text-link" href={LEARNING_PORTAL_URL}>{t('student_area.lms_open')}</a></p>
                 <form onSubmit={handleLogin} className="student-login-form">
                   <label>
                     <span>{t('student_area.email')}</span>

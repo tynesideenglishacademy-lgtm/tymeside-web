@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getStudentResourceDownload } from '../lib/studentResourceDownloads';
 import {
@@ -7,6 +7,9 @@ import {
   type StudentResource,
   type StudentWorksheet,
 } from '../data/studentResources';
+import { studyUnits } from '../data/library';
+import { useLocation } from 'react-router-dom';
+import StudyUnits from './StudyUnits';
 
 type ActivityEvent = {
   eventType: string;
@@ -20,10 +23,6 @@ type Props = {
   trackActivity: (event: ActivityEvent) => void | Promise<void>;
   previewDownloads?: boolean;
 };
-
-// Study units and the newer worksheets moved to Editorial on 19 November 2026; students
-// study in the learning portal. Unreviewed items are never shown here.
-const isVisible = (item: { status?: 'draft' | 'reviewed' }) => item.status !== 'draft';
 
 const levels = ['All', 'A2', 'Pre-B1', 'B1', 'B2', 'C1', 'C2'] as const;
 type LevelFilter = (typeof levels)[number];
@@ -70,7 +69,7 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
         <div className="student-resource-meta">
           <span>{worksheet.level}</span>
           <span>{worksheet.topic ?? (english ? 'Online practice' : 'Práctica online')}</span>
-          {worksheet.status === 'draft' && <span className="student-draft-tag">{english ? 'Draft' : 'Borrador'}</span>}
+          {worksheet.status === 'draft' && <span className="student-draft-tag">{english ? 'Pending review' : 'Pendiente de revisión'}</span>}
         </div>
         <h3>{worksheet.title}</h3>
         <p>{worksheet.focus}</p>
@@ -135,7 +134,12 @@ function Worksheet({ worksheet, trackActivity, english }: { worksheet: StudentWo
 export default function StudentLibrary({ trackActivity, previewDownloads = false }: Props) {
   const { i18n } = useTranslation();
   const english = i18n.resolvedLanguage?.startsWith('en') ?? false;
-  const [level, setLevel] = useState<LevelFilter>('All');
+  const { search, hash } = useLocation();
+  const requestedLevel = new URLSearchParams(search).get('level');
+  const [level, setLevel] = useState<LevelFilter>(() => levels.find(item => item === requestedLevel) ?? 'All');
+  useEffect(() => {
+    if (hash === '#student-library') document.getElementById('student-library')?.scrollIntoView();
+  }, [hash]);
   const [openResource, setOpenResource] = useState<string | null>(null);
   const [downloadState, setDownloadState] = useState<Record<string, 'loading' | 'error'>>({});
 
@@ -144,11 +148,16 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
     [level],
   );
   const filteredWorksheets = useMemo(
-    () => studentWorksheets.filter(isVisible).filter((worksheet) => level === 'All' || worksheet.level === level),
+    () => studentWorksheets.filter((worksheet) => level === 'All' || worksheet.level === level),
+    [level],
+  );
+  const filteredUnits = useMemo(
+    () => studyUnits.filter((unit) => level === 'All' || unit.level === level),
     [level],
   );
   const hasGuides = filteredResources.length > 0;
-  const worksheetsChapter = String((hasGuides ? 1 : 0) + 1).padStart(2, '0');
+  const unitsChapter = String(hasGuides ? 2 : 1).padStart(2, '0');
+  const worksheetsChapter = String((hasGuides ? 1 : 0) + (filteredUnits.length > 0 ? 1 : 0) + 1).padStart(2, '0');
 
   const toggleResource = (resource: StudentResource) => {
     const willOpen = openResource !== resource.key;
@@ -235,6 +244,14 @@ export default function StudentLibrary({ trackActivity, previewDownloads = false
               );
             })}
           </div>
+        </div>
+        )}
+
+        {filteredUnits.length > 0 && (
+        <div className="student-library-chapter student-units-chapter">
+          <div className="student-chapter-title"><span>{unitsChapter}</span><div><p>{english ? 'Study units' : 'Unidades de estudio'}</p><h3>{english ? 'Learn it, try it, use it' : 'Aprende, prueba y utiliza'}</h3></div></div>
+          <p className="student-draft-note" role="note">{english ? 'Materials marked Pending review are available for revision while teachers check them.' : 'Puedes usar los materiales pendientes de revisión para repasar mientras el equipo docente los revisa.'}</p>
+          <StudyUnits key={level} units={filteredUnits} trackActivity={trackActivity} english={english} />
         </div>
         )}
 

@@ -1,0 +1,168 @@
+import type { StudentWorksheet } from '../studentResources';
+
+export const b2Worksheets: StudentWorksheet[] = [
+  {
+    key: 'b2-phrasal-verbs-1',
+    level: 'B2',
+    topic: 'Phrasal verbs',
+    status: 'draft',
+    title: 'B2 Phrasal verbs 1',
+    focus: 'Phrasal verbs for work, news and opinions',
+    duration: '6-8 min',
+    questions: [
+      {
+        prompt: 'The company has ___ a new policy on working from home.',
+        options: ['brought in', 'brought up', 'brought out', 'brought on'],
+        answer: 0,
+        explanation: 'Bring in means introduce a new law or rule. Bring up means raise a topic; bring out means release a product; bring on means cause (an illness, for example).',
+      },
+      {
+        prompt: 'I can\'t ___ with all this noise any longer.',
+        options: ['keep up', 'give up', 'put up', 'take up'],
+        answer: 2,
+        explanation: 'Put up with means tolerate. Keep up with means stay at the same pace.',
+      },
+      {
+        prompt: 'Something urgent has ___, so I won\'t be able to come tonight.',
+        options: ['come out', 'come up', 'come off', 'come in'],
+        answer: 1,
+        explanation: 'Come up means happen unexpectedly. Come out means be published or become known.',
+      },
+      {
+        prompt: 'The project fell ___ because we didn\'t have enough funding.',
+        options: ['off', 'away', 'back', 'through'],
+        answer: 3,
+        explanation: 'Fall through means a plan fails to happen. Fall back on means use something as a reserve.',
+      },
+      {
+        prompt: 'She ___ the job offer because the salary was too low.',
+        options: ['turned down', 'turned up', 'turned over', 'turned out'],
+        answer: 0,
+        explanation: 'Turn down means refuse an offer. Turn up means arrive or appear; turn out means end up in a particular way.',
+      },
+    ],
+  },
+  {
+    key: 'b2-collocations-1',
+    level: 'B2',
+    topic: 'Collocations',
+    status: 'draft',
+    title: 'B2 Collocations 1',
+    focus: 'Common collocations and fixed phrases',
+    duration: '6-8 min',
+    questions: [
+      {
+        prompt: 'After hours of discussion, they finally ___ an agreement.',
+        options: ['arrived', 'held', 'reached', 'took'],
+        answer: 2,
+        explanation: 'We reach an agreement, a decision or a compromise. Arrive needs a preposition: arrive at.',
+      },
+      {
+        prompt: 'The company is ___ a lot of pressure to cut costs.',
+        options: ['under', 'on', 'in', 'at'],
+        answer: 0,
+        explanation: 'Under pressure is a fixed expression. Compare: under stress, under control.',
+      },
+      {
+        prompt: 'I was ___ disappointed with the results.',
+        options: ['fully', 'widely', 'firmly', 'deeply'],
+        answer: 3,
+        explanation: 'Deeply disappointed is a common combination meaning very disappointed. The other options do not form natural combinations with disappointed here.',
+      },
+      {
+        prompt: 'After studying the data, the team ___ the conclusion that the drug was safe.',
+        options: ['made', 'took', 'drew', 'held'],
+        answer: 2,
+        explanation: 'Draw a conclusion is a common combination meaning decide something after considering evidence. Other expressions include reach a conclusion and come to a conclusion.',
+      },
+      {
+        prompt: 'We\'re sorry, but we\'re ___ understaffed this week.',
+        options: ['severely', 'closely', 'strictly', 'widely'],
+        answer: 0,
+        explanation: 'Severely understaffed means having far fewer staff than are needed. The other adverbs do not naturally express this meaning here.',
+      },
+    ],
+  },
+  {
+    key: 'b2-word-formation-1',
+    level: 'B2',
+    topic: 'Word formation',
+    status: 'draft',
+    title: 'B2 Word formation 1',
+    focus: 'Choosing the correct word class',
+    duration: '6-8 min',
+    questions: [
+      {
+        prompt: 'Many people feel ___ about speaking in public. (COMFORT)',
+        options: ['comfort', 'discomfort', 'uncomfortably', 'uncomfortable'],
+        answer: 3,
+        explanation: 'Feel is a linking verb here and takes an adjective describing a person\'s state. Uncomfortable means uneasy in this context.',
+      },
+      {
+        prompt: 'The government\'s decision caused a lot of ___. (AGREE)',
+        options: ['disagreeing', 'disagreeable', 'disagreement', 'unagreement'],
+        answer: 2,
+        explanation: 'Caused a lot of needs a noun naming the result of the decision. Disagreement is the noun formed from disagree (dis- + agree + -ment); disagreeable is an adjective meaning unpleasant.',
+      },
+      {
+        prompt: 'Scientists are ___ that the new treatment will work. (OPTIMISM)',
+        options: ['optimism', 'optimistic', 'optimist', 'optimistically'],
+        answer: 1,
+        explanation: 'Are optimistic that… describes how scientists feel, so we need an adjective. Optimism is the noun and optimist names the person.',
+      },
+      {
+        prompt: 'Her ___ to the team was highly valued. (CONTRIBUTE)',
+        options: ['contribution', 'contributing', 'contributor', 'contributory'],
+        answer: 0,
+        explanation: 'Contribution names what she gave or added to the team. Contributor names the person, so it does not express the intended meaning here.',
+      },
+      {
+        prompt: 'The system is simple, cheap and very ___. (RELY)',
+        options: ['reliance', 'reliant', 'reliable', 'reliably'],
+        answer: 2,
+        explanation: 'Very reliable joins simple and cheap as a quality of the system, so an adjective fits. Reliable means you can depend on it; reliant means dependent on something else.',
+      },
+    ],
+  },
+  {
+    key: 'b2-grammar-1',
+    level: 'B2',
+    topic: 'Grammar',
+    status: 'draft',
+    title: 'B2 Grammar 1',
+    focus: 'Wishes, past perfect, inverted conditionals, gerunds and relative clauses',
+    duration: '6-8 min',
+    questions: [
+      {
+        prompt: 'I wish I ___ to the party last night.',
+        options: ['went', 'had gone', 'would go', 'have gone'],
+        answer: 1,
+        explanation: 'To express regret about the past, use wish + past perfect.',
+      },
+      {
+        prompt: 'By the time we arrived, the film ___; we had missed the opening scene.',
+        options: ['already starts', 'is already starting', 'had already started', 'has already started'],
+        answer: 2,
+        explanation: 'Had already started places the start of the film before our arrival, both in the past.',
+      },
+      {
+        prompt: 'Had I known about the traffic, I ___ earlier.',
+        options: ['would have left', 'would leave', 'left', 'had left'],
+        answer: 0,
+        explanation: 'This is an inverted third conditional (Had I known = If I had known). The result clause uses would have + past participle.',
+      },
+      {
+        prompt: 'She suggested ___ a taxi because it was raining.',
+        options: ['to take', 'take', 'took', 'taking'],
+        answer: 3,
+        explanation: 'Suggest is followed by the -ing form (or a that-clause), not by to + infinitive.',
+      },
+      {
+        prompt: 'The report, ___ was published yesterday, has caused controversy.',
+        options: ['that', 'which', 'what', 'who'],
+        answer: 1,
+        explanation: 'This is a non-defining relative clause between commas. Use which for things; that cannot be used here.',
+      },
+    ],
+  },
+];

@@ -1,3 +1,8 @@
+import { a2Worksheets } from './worksheets/a2';
+import { b1Worksheets } from './worksheets/b1';
+import { b2Worksheets } from './worksheets/b2';
+import { c1Worksheets } from './worksheets/c1';
+import { c2Worksheets } from './worksheets/c2';
 
 /**
  * Levels follow the academy's class pathway (A2 Key, Pre-B1, B1 Preliminary,
@@ -224,4 +229,9 @@ export const levelOrder: StudentLevel[] = ['A2', 'Pre-B1', 'B1', 'B2', 'C1', 'C2
 // Sort is stable, so within a level the earlier worksheets stay first.
 export const studentWorksheets: StudentWorksheet[] = [
   ...legacyWorksheets,
+  ...a2Worksheets,
+  ...b1Worksheets,
+  ...b2Worksheets,
+  ...c1Worksheets,
+  ...c2Worksheets,
 ].sort((a, b) => levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level));

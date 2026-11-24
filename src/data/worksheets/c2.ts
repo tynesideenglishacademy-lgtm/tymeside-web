@@ -1,0 +1,168 @@
+import type { StudentWorksheet } from '../studentResources';
+
+export const c2Worksheets: StudentWorksheet[] = [
+  {
+    key: 'c2-phrasal-verbs-1',
+    level: 'C2',
+    topic: 'Phrasal verbs',
+    status: 'draft',
+    title: 'C2 Phrasal verbs 1',
+    focus: 'Multi-word verbs in formal and academic English',
+    duration: '7-9 min',
+    questions: [
+      {
+        prompt: 'The committee ___ the minister for making offensive remarks.',
+        options: ['took aback', 'took in', 'took to task', 'took up'],
+        answer: 2,
+        explanation: 'Take someone to task means criticise them for something they have done. The committee took the minister to task for her remarks.',
+      },
+      {
+        prompt: 'The government is ___ the opposition\'s criticisms as scaremongering.',
+        options: ['writing up', 'writing off', 'writing down', 'writing out'],
+        answer: 1,
+        explanation: 'Write off means dismiss as unimportant or not worth considering.',
+      },
+      {
+        prompt: 'Weaker candidates were ___ at the first stage of the process.',
+        options: ['weeded in', 'weeded off', 'weeded through', 'weeded out'],
+        answer: 3,
+        explanation: 'Weed out means remove people or things that are unsuitable.',
+      },
+      {
+        prompt: 'His sudden resignation ___ a storm of speculation.',
+        options: ['touched off', 'touched up', 'touched on', 'touched down'],
+        answer: 0,
+        explanation: 'Touch off means cause something, especially a violent or intense reaction. Touch on means mention briefly.',
+      },
+      {
+        prompt: 'The athlete\'s career was ___ by a series of injuries.',
+        options: ['cut down', 'cut short', 'cut back', 'cut off'],
+        answer: 1,
+        explanation: 'Cut short means end something earlier than planned. Cut back means reduce.',
+      },
+    ],
+  },
+  {
+    key: 'c2-collocations-1',
+    level: 'C2',
+    topic: 'Collocations',
+    status: 'draft',
+    title: 'C2 Collocations 1',
+    focus: 'Precise collocations for writing and speaking',
+    duration: '7-9 min',
+    questions: [
+      {
+        prompt: 'The expedition was an ___ disaster from start to finish.',
+        options: ['unabated', 'unmitigated', 'unrivalled', 'unflagging'],
+        answer: 1,
+        explanation: 'Unmitigated is used with negative nouns to mean complete or absolute: an unmitigated disaster.',
+      },
+      {
+        prompt: 'The new findings lend ___ to the theory that the disease is hereditary.',
+        options: ['credit', 'creed', 'credence', 'credulity'],
+        answer: 2,
+        explanation: 'Lend credence to means make something more believable. Credulity means a willingness to believe too easily.',
+      },
+      {
+        prompt: 'The result of the election was a ___ conclusion; no one doubted it.',
+        options: ['foregone', 'forgone', 'foreseen', 'forgotten'],
+        answer: 0,
+        explanation: 'A foregone conclusion is a result that is certain before it happens. Take care with the spelling: foregone, not forgone.',
+      },
+      {
+        prompt: 'The findings stand in ___ contrast to the team\'s earlier predictions.',
+        options: ['densely', 'roughly', 'sharply', 'stark'],
+        answer: 3,
+        explanation: 'Stark contrast is a fixed combination meaning a very clear difference. Stark is an adjective modifying contrast; the other options are adverbs.',
+      },
+      {
+        prompt: 'The two companies have been locked in a ___ dispute for years.',
+        options: ['sour', 'bitter', 'acid', 'tart'],
+        answer: 1,
+        explanation: 'Bitter dispute is a common combination describing a hostile disagreement. The other choices do not form the usual combination here. Sour, acid and tart also have figurative uses, so they are not restricted to taste.',
+      },
+    ],
+  },
+  {
+    key: 'c2-word-formation-1',
+    level: 'C2',
+    topic: 'Word formation',
+    status: 'draft',
+    title: 'C2 Word formation 1',
+    focus: 'Advanced derivation and negative prefixes',
+    duration: '7-9 min',
+    questions: [
+      {
+        prompt: 'Her ___ remarks offended several members of the audience. (DISPARAGE)',
+        options: ['disparage', 'disparaging', 'disparagement', 'disparagingly'],
+        answer: 1,
+        explanation: 'Remarks is a noun, so it is described by an adjective. The present participle disparaging works as an adjective meaning critical in a way that shows little respect.',
+      },
+      {
+        prompt: 'The ___ of the document was never in doubt. (AUTHENTIC)',
+        options: ['authentically', 'authenticate', 'authenticity', 'authentic'],
+        answer: 2,
+        explanation: 'Authenticity is the noun meaning the quality of being genuine. Authentic is an adjective, authentically is an adverb, and authenticate is a verb.',
+      },
+      {
+        prompt: 'The proposal met with ___ opposition from local residents. (VEHEMENCE)',
+        options: ['vehemence', 'vehemently', 'vehemental', 'vehement'],
+        answer: 3,
+        explanation: 'Opposition is described by an adjective here. Vehement means strong and forceful, and it is the adjective related to the noun vehemence.',
+      },
+      {
+        prompt: 'His ___ approach broke with established practice and surprised his colleagues. (CONVENTION)',
+        options: ['unconventional', 'conventionally', 'unconventionally', 'conventionality'],
+        answer: 0,
+        explanation: 'Unconventional is an adjective meaning different from established practice. Conventionally and unconventionally are adverbs; conventionality is a noun.',
+      },
+      {
+        prompt: 'The trial ended in the ___ of all the defendants. (ACQUIT)',
+        options: ['acquit', 'acquitting', 'acquittal', 'acquitted'],
+        answer: 2,
+        explanation: 'Acquittal is the noun naming a court\'s finding that a defendant is not guilty. Acquit is a verb; acquitted is its past form or participle.',
+      },
+    ],
+  },
+  {
+    key: 'c2-grammar-1',
+    level: 'C2',
+    topic: 'Grammar',
+    status: 'draft',
+    title: 'C2 Grammar 1',
+    focus: 'Advanced inversion, preference structures and fixed expressions',
+    duration: '7-9 min',
+    questions: [
+      {
+        prompt: 'Hardly ___ the building when the alarm went off.',
+        options: ['he had entered', 'had he entered', 'had he enter', 'he entered'],
+        answer: 1,
+        explanation: 'The standard pattern practised here is hardly + had + subject + past participle, followed by when: Hardly had he entered the building when the alarm went off.',
+      },
+      {
+        prompt: 'I\'d sooner ___ than apologise to him.',
+        options: ['resign', 'to resign', 'resigning', 'I resigned'],
+        answer: 0,
+        explanation: 'Would sooner, like would rather, is followed by the bare infinitive when the subject stays the same.',
+      },
+      {
+        prompt: 'It\'s high time the government ___ something about unemployment.',
+        options: ['does', 'will do', 'did', 'has done'],
+        answer: 2,
+        explanation: 'After It\'s (high) time + subject, use the past simple to talk about the present. It suggests the action is overdue.',
+      },
+      {
+        prompt: '___ the circumstances, I think you acted wisely.',
+        options: ['Giving', 'Having given', 'To give', 'Given'],
+        answer: 3,
+        explanation: 'Given the circumstances is a fixed expression meaning considering the circumstances. Here given works like a preposition, so the other forms do not fit.',
+      },
+      {
+        prompt: 'No sooner ___ the news than she burst into tears.',
+        options: ['she heard', 'had she hear', 'had she heard', 'she had heard'],
+        answer: 2,
+        explanation: 'The standard pattern practised here is no sooner + had + subject + past participle, followed by than: No sooner had she heard the news than she burst into tears.',
+      },
+    ],
+  },
+];

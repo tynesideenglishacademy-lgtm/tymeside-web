@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { submitLead } from '../lib/submitLead';
 import { Honeypot } from './Honeypot';
 import { PRE_ENROLMENT_URL } from '../lib/enrolmentLinks';
@@ -161,6 +161,8 @@ const QUESTIONS_PER_STAGE = 5;
 
 export default function LevelTest() {
   const { t } = useTranslation();
+  const { search } = useLocation();
+  const practiceOnly = new URLSearchParams(search).get('nocrm') === '1';
   const [view, setView] = useState<'registration' | 'test' | 'results'>('registration');
   const [isLoading, setIsLoading] = useState(false);
   const [student, setStudent] = useState<any>({});
@@ -228,20 +230,21 @@ export default function LevelTest() {
     return () => script.remove();
   }, []);
 
-  const handleRegistration = (e: React.FormEvent) => {
+  const handleRegistration = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    const form = new FormData(e.currentTarget);
+    const value = (name: string) => String(form.get(name) ?? '').trim();
     setStudent({
-      name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
-      email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
-      postal: (form.elements.namedItem('postal') as HTMLInputElement).value.trim(),
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim(),
-      address: (form.elements.namedItem('address') as HTMLInputElement).value.trim(),
-      website: (form.elements.namedItem('website') as HTMLInputElement)?.value ?? '',
+      name: value('name'),
+      email: value('email'),
+      postal: value('postal'),
+      phone: value('phone'),
+      address: value('address'),
+      website: value('website'),
       date: new Date().toLocaleDateString()
     });
     setView('test');
-    trackEvent('test_started');
+    if (!practiceOnly) trackEvent('test_started');
     loadNextQuestion(2, 0, 0, { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[] }, 1);
   };
 
@@ -355,26 +358,23 @@ export default function LevelTest() {
     const results = { cefr: finalCEFR, desc: finalDesc, score: finalScore };
     setFinalResults(results);
 
-    // CEFR band only — no name/email/phone. See src/lib/analytics.ts.
-    trackEvent('test_completed', { cefr: finalCEFR });
-
-    // The Edge Function is the single source of truth for this lead. Do not add
-    // a browser-side email relay here: it duplicates personal data to another
-    // processor and cannot prove delivery.
     let savedToCrm = false;
-
-    try {
-      await submitLead({
-        source: 'level-test',
-        name: student.name,
-        email: student.email,
-        phone: student.phone,
-        notes: `CEFR Level: ${finalCEFR} (Score: ${finalScore}). Correct: ${finalTotalCorrect}/50. Address: ${student.address}, ${student.postal}`,
-        website: student.website
-      });
-      savedToCrm = true;
-    } catch (err) {
-      console.error('Could not save lead to CRM:', err);
+    if (!practiceOnly) {
+      // Assessment analytics carry only the CEFR band.
+      trackEvent('test_completed', { cefr: finalCEFR });
+      try {
+        await submitLead({
+          source: 'level-test',
+          name: student.name,
+          email: student.email,
+          phone: student.phone,
+          notes: `CEFR Level: ${finalCEFR} (Score: ${finalScore}). Correct: ${finalTotalCorrect}/50. Address: ${student.address}, ${student.postal}`,
+          website: student.website
+        });
+        savedToCrm = true;
+      } catch (err) {
+        console.error('Could not save lead to CRM:', err);
+      }
     }
 
     setEmailStatus(savedToCrm ? t('levelTest.email_saved') : t('levelTest.email_completed'));
@@ -492,32 +492,34 @@ export default function LevelTest() {
             <div className="animate-fade-in">
               <div className="lt-text-center">
                 <h1 style={{ fontSize: '2rem', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-heading)', marginBottom: '1rem' }}>{t('levelTest.header_title')}</h1>
-                <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t('levelTest.header_subtitle')}</p>
+                <p style={{ fontSize: '1rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>{t(practiceOnly ? 'levelTest.practice_subtitle' : 'levelTest.header_subtitle')}</p>
               </div>
               <form onSubmit={handleRegistration}>
-                <Honeypot />
+                {!practiceOnly && <Honeypot />}
                 <p className="lt-required-note">{t('levelTest.form_required_note')}</p>
                 <div className="lt-grid-2">
                   <div>
                     <label className="lt-label" htmlFor="lt-name">{t('levelTest.form_name')}<RequiredMark /></label>
                     <input id="lt-name" type="text" name="name" autoComplete="name" required placeholder={t('levelTest.placeholder_name')} className="lt-input" />
                   </div>
-                  <div>
-                    <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}<RequiredMark /></label>
-                    <input id="lt-email" type="email" name="email" autoComplete="email" spellCheck={false} required placeholder={t('levelTest.placeholder_email')} className="lt-input" />
-                  </div>
-                  <div>
-                    <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}<RequiredMark /></label>
-                    <input id="lt-postal" type="text" name="postal" autoComplete="postal-code" inputMode="numeric" required placeholder="30006" className="lt-input" />
-                  </div>
-                  <div>
-                    <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
-                    <input id="lt-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder="+34 600 000 000" className="lt-input" />
-                  </div>
-                  <div className="lt-col-span-2">
-                    <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
-                    <input id="lt-address" type="text" name="address" autoComplete="street-address" placeholder={t('levelTest.placeholder_address')} className="lt-input" />
-                  </div>
+                  {!practiceOnly && <>
+                    <div>
+                      <label className="lt-label" htmlFor="lt-email">{t('levelTest.form_email')}<RequiredMark /></label>
+                      <input id="lt-email" type="email" name="email" autoComplete="email" spellCheck={false} required placeholder={t('levelTest.placeholder_email')} className="lt-input" />
+                    </div>
+                    <div>
+                      <label className="lt-label" htmlFor="lt-postal">{t('levelTest.form_postal')}<RequiredMark /></label>
+                      <input id="lt-postal" type="text" name="postal" autoComplete="postal-code" inputMode="numeric" required placeholder="30006" className="lt-input" />
+                    </div>
+                    <div>
+                      <label className="lt-label" htmlFor="lt-phone">{t('levelTest.form_phone')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
+                      <input id="lt-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder="+34 600 000 000" className="lt-input" />
+                    </div>
+                    <div className="lt-col-span-2">
+                      <label className="lt-label" htmlFor="lt-address">{t('levelTest.form_address')}<OptionalMark>{t('levelTest.form_optional')}</OptionalMark></label>
+                      <input id="lt-address" type="text" name="address" autoComplete="street-address" placeholder={t('levelTest.placeholder_address')} className="lt-input" />
+                    </div>
+                  </>}
                 </div>
                 <button type="submit" className="lt-btn">
                   {t('levelTest.start_btn')}
